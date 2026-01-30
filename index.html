@@ -86,11 +86,12 @@
             align-items: center;
         }
         
-        .asset-name-container {
+        .asset-name-with-earnings {
             display: flex;
             align-items: center;
             gap: 15px;
             flex: 2.5;
+            flex-wrap: wrap;
         }
         
         .asset-name {
@@ -99,7 +100,7 @@
         }
         
         .earnings-badge {
-            padding: 4px 12px;
+            padding: 5px 14px;
             border-radius: 20px;
             font-weight: 600;
             font-size: 15px;
@@ -107,7 +108,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 80px;
         }
         
         /* Стили для бейджа заработка */
@@ -138,26 +138,18 @@
         .risk-income-container {
             flex: 1.5;
             display: flex;
-            flex-direction: column;
-            gap: 8px;
-            align-items: flex-end;
-        }
-        
-        .risk-income-row {
-            display: flex;
-            gap: 10px;
+            gap: 15px;
             justify-content: flex-end;
-            width: 100%;
+            align-items: center;
         }
         
         .risk-badge, .income-badge {
-            padding: 5px 12px;
+            padding: 5px 14px;
             border-radius: 20px;
             font-weight: 600;
-            font-size: 13px;
+            font-size: 14px;
             white-space: nowrap;
             text-align: center;
-            min-width: 120px;
         }
         
         .risk-low {
@@ -280,23 +272,24 @@
         }
         
         @media (max-width: 992px) {
-            .asset-name-container {
+            .asset-name-with-earnings {
                 flex: 2;
+                gap: 12px;
             }
             
             .risk-income-container {
                 flex: 1.8;
+                gap: 12px;
             }
             
             .risk-badge, .income-badge {
-                min-width: 110px;
-                font-size: 12.5px;
-                padding: 4px 10px;
+                font-size: 13px;
+                padding: 4px 12px;
             }
             
             .earnings-badge {
-                min-width: 70px;
                 font-size: 14px;
+                padding: 4px 12px;
             }
         }
         
@@ -304,41 +297,41 @@
             .asset-info {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 12px;
+                gap: 15px;
             }
             
-            .asset-name-container {
+            .asset-name-with-earnings {
                 width: 100%;
                 justify-content: space-between;
-                flex-wrap: wrap;
+                gap: 10px;
+                flex-wrap: nowrap;
             }
             
             .asset-name {
                 font-size: 16px;
+                flex: 1;
+                min-width: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            
+            .earnings-badge {
+                font-size: 13px;
+                padding: 3px 10px;
+                flex-shrink: 0;
             }
             
             .risk-income-container {
                 width: 100%;
-                align-items: flex-start;
-            }
-            
-            .risk-income-row {
                 justify-content: flex-start;
-                width: 100%;
+                gap: 10px;
                 flex-wrap: wrap;
-                gap: 8px;
             }
             
             .risk-badge, .income-badge {
-                min-width: 100px;
                 font-size: 12px;
                 padding: 4px 10px;
-            }
-            
-            .earnings-badge {
-                min-width: 65px;
-                font-size: 13px;
-                padding: 3px 10px;
             }
             
             .content-inner {
@@ -357,25 +350,25 @@
         }
         
         @media (max-width: 480px) {
-            .asset-name-container {
-                flex-direction: column;
-                align-items: flex-start;
+            .asset-name-with-earnings {
+                flex-wrap: wrap;
                 gap: 8px;
             }
             
             .asset-name {
                 font-size: 15px;
+                white-space: normal;
+                overflow: visible;
+                text-overflow: clip;
             }
             
-            .risk-income-row {
-                flex-direction: column;
-                gap: 6px;
+            .risk-income-container {
+                gap: 8px;
             }
             
             .risk-badge, .income-badge {
-                width: 100%;
-                max-width: 140px;
-                min-width: auto;
+                font-size: 11px;
+                padding: 3px 8px;
             }
         }
     </style>
@@ -390,17 +383,15 @@
             <div class="accordion-item">
                 <div class="accordion-header">
                     <div class="asset-info">
-                        <div class="asset-name-container">
+                        <div class="asset-name-with-earnings">
                             <div class="asset-name">Голубые фишки (Сбербанк, Газпром, Лукойл)</div>
                             <span class="earnings-badge earnings-positive">
                                 <i class="fas fa-arrow-up"></i> +12.5%
                             </span>
                         </div>
                         <div class="risk-income-container">
-                            <div class="risk-income-row">
-                                <span class="risk-badge risk-low">Низкий риск</span>
-                                <span class="income-badge income-medium">Средний доход</span>
-                            </div>
+                            <span class="risk-badge risk-low">Низкий риск</span>
+                            <span class="income-badge income-medium">Средний доход</span>
                         </div>
                     </div>
                     <i class="fas fa-chevron-down accordion-icon"></i>
@@ -426,17 +417,15 @@
             <div class="accordion-item">
                 <div class="accordion-header">
                     <div class="asset-info">
-                        <div class="asset-name-container">
+                        <div class="asset-name-with-earnings">
                             <div class="asset-name">Стартапы в области AI</div>
                             <span class="earnings-badge earnings-positive">
                                 <i class="fas fa-arrow-up"></i> +25.8%
                             </span>
                         </div>
                         <div class="risk-income-container">
-                            <div class="risk-income-row">
-                                <span class="risk-badge risk-high">Высокий риск</span>
-                                <span class="income-badge income-high">Высокий доход</span>
-                            </div>
+                            <span class="risk-badge risk-high">Высокий риск</span>
+                            <span class="income-badge income-high">Высокий доход</span>
                         </div>
                     </div>
                     <i class="fas fa-chevron-down accordion-icon"></i>
@@ -462,17 +451,15 @@
             <div class="accordion-item">
                 <div class="accordion-header">
                     <div class="asset-info">
-                        <div class="asset-name-container">
+                        <div class="asset-name-with-earnings">
                             <div class="asset-name">Облигации федерального займа (ОФЗ)</div>
                             <span class="earnings-badge earnings-positive">
                                 <i class="fas fa-arrow-up"></i> +5.2%
                             </span>
                         </div>
                         <div class="risk-income-container">
-                            <div class="risk-income-row">
-                                <span class="risk-badge risk-low">Низкий риск</span>
-                                <span class="income-badge income-low">Низкий доход</span>
-                            </div>
+                            <span class="risk-badge risk-low">Низкий риск</span>
+                            <span class="income-badge income-low">Низкий доход</span>
                         </div>
                     </div>
                     <i class="fas fa-chevron-down accordion-icon"></i>
@@ -498,17 +485,15 @@
             <div class="accordion-item">
                 <div class="accordion-header">
                     <div class="asset-info">
-                        <div class="asset-name-container">
+                        <div class="asset-name-with-earnings">
                             <div class="asset-name">Криптовалюты (Bitcoin, Ethereum)</div>
                             <span class="earnings-badge earnings-negative">
                                 <i class="fas fa-arrow-down"></i> -8.3%
                             </span>
                         </div>
                         <div class="risk-income-container">
-                            <div class="risk-income-row">
-                                <span class="risk-badge risk-high">Высокий риск</span>
-                                <span class="income-badge income-high">Высокий доход</span>
-                            </div>
+                            <span class="risk-badge risk-high">Высокий риск</span>
+                            <span class="income-badge income-high">Высокий доход</span>
                         </div>
                     </div>
                     <i class="fas fa-chevron-down accordion-icon"></i>
@@ -534,17 +519,15 @@
             <div class="accordion-item">
                 <div class="accordion-header">
                     <div class="asset-info">
-                        <div class="asset-name-container">
+                        <div class="asset-name-with-earnings">
                             <div class="asset-name">Дивидендные акции США (Apple, Microsoft)</div>
                             <span class="earnings-badge earnings-positive">
                                 <i class="fas fa-arrow-up"></i> +18.7%
                             </span>
                         </div>
                         <div class="risk-income-container">
-                            <div class="risk-income-row">
-                                <span class="risk-badge risk-medium">Средний риск</span>
-                                <span class="income-badge income-medium">Средний доход</span>
-                            </div>
+                            <span class="risk-badge risk-medium">Средний риск</span>
+                            <span class="income-badge income-medium">Средний доход</span>
                         </div>
                     </div>
                     <i class="fas fa-chevron-down accordion-icon"></i>
