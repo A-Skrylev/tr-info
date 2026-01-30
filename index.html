@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Точка Равновесия | Три измерения гармонии</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Хедер */
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #FFD700, #7baa5c, #8a2be2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        /* Навигационные карточки */
+        .navigation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .nav-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: left;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .nav-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .nav-card:hover::before {
+            left: 100%;
+        }
+
+        .nav-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .nav-card.invest:hover {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        .nav-card.healthy:hover {
+            background: rgba(123, 170, 92, 0.1);
+            border-color: rgba(123, 170, 92, 0.3);
+        }
+
+        .nav-card.mystic:hover {
+            background: rgba(138, 43, 226, 0.1);
+            border-color: rgba(138, 43, 226, 0.3);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            font-size: 2.8rem;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+        }
+
+        .nav-card.invest .card-icon {
+            background: rgba(255, 215, 0, 0.15);
+        }
+
+        .nav-card.healthy .card-icon {
+            background: rgba(123, 170, 92, 0.15);
+        }
+
+        .nav-card.mystic .card-icon {
+            background: rgba(138, 43, 226, 0.15);
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .card-subtitle {
+            font-size: 0.95rem;
+            color: #aaa;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .card-features {
+            list-style: none;
+            margin: 20px 0 30px;
+            padding-left: 0;
+            flex-grow: 1;
+        }
+
+        .card-features li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ccc;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .card-features li::before {
+            content: '✓';
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .nav-card.invest .card-features li::before {
+            color: #FFD700;
+        }
+
+        .nav-card.healthy .card-features li::before {
+            color: #7baa5c;
+        }
+
+        .nav-card.mystic .card-features li::before {
+            color: #8a2be2;
+        }
+
+        .card-cta {
+            display: block; /* Изменено с inline-block на block */
+            padding: 14px 28px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            margin-top: auto;
+            width: 100%; /* Растягиваем на всю ширину */
+        }
+
+        .nav-card.invest .card-cta {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: rgba(255, 215, 0, 0.4);
+        }
+
+        .nav-card.healthy .card-cta {
+            background: rgba(123, 170, 92, 0.2);
+            border-color: rgba(123, 170, 92, 0.4);
+        }
+
+        .nav-card.mystic .card-cta {
+            background: rgba(138, 43, 226, 0.2);
+            border-color: rgba(138, 43, 226, 0.4);
+        }
+
+        .card-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Цвета карточек */
+        .invest { color: #FFD700; }
+        .healthy { color: #7baa5c; }
+        .mystic { color: #8a2be2; }
+
+        /* Подвал */
+        .footer {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #777;
+        }
+
+        .contacts {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .contact-link:hover {
+            color: #fff;
+        }
+
+        .footer-info {
+            font-size: 0.9rem;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .logo { font-size: 2.5rem; }
+            .navigation-grid { grid-template-columns: 1fr; }
+            .nav-card { padding: 30px 25px; }
+            .card-icon { font-size: 2.2rem; width: 60px; height: 60px; }
+            .card-title { font-size: 1.6rem; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 10px; }
+            .logo { font-size: 2rem; }
+            .card-icon { font-size: 2rem; width: 50px; height: 50px; }
+            .card-features li { font-size: 0.9rem; }
+            .contacts { gap: 20px; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="logo">Точка Равновесия</h1>
+            <p class="subtitle">
+                Три измерения гармоничной жизни: финансы для свободы, здоровье для энергии, 
+                самопознание для внутреннего баланса. Выберите свой путь к равновесию.
+            </p>
+        </header>
+
+        <div class="navigation-grid">
+            <a href="invest/index.html" class="nav-card invest">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div>
+                        <h2 class="card-title">Инвестиции и доходы</h2>
+                        <p class="card-subtitle">Финансовая независимость и управление капиталом</p>
+                    </div>
+                </div>
+                
+                <ul class="card-features">
+                    <li>Калькуляторы доходности и сложных процентов</li>
+                    <li>Реферальные программы и бонусы</li>
+                    <li>Шаблоны для учёта инвестиций и расходов</li>
+                    <li>Сравнение торговых платформ и стратегий</li>
+                    <li>Анализ налогов и оптимизация портфеля</li>
+                </ul>
+                
+                <div class="card-cta">
+                    Начать инвестировать →
+                </div>
+            </a>
+
+            <a href="healthy/index.html" class="nav-card healthy">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <div>
+                        <h2 class="card-title">Здоровый образ жизни</h2>
+                        <p class="card-subtitle">Баланс тела, разума и правильного питания</p>
+                    </div>
+                </div>
+                
+                <ul class="card-features">
+                    <li>Калькулятор КБЖУ с учётом активности</li>
+                    <li>Генератор рационов на неделю</li>
+                    <li>Программы тренировок без инвентаря</li>
+                    <li>Дневник питания и водного баланса</li>
+                    <li>Советы по переходу на ПП без стресса</li>
+                </ul>
+                
+                <div class="card-cta">
+                    К здоровому образу →
+                </div>
+            </a>
+
+            <a href="mystic/index.html" class="nav-card mystic">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-crystal-ball"></i>
+                    </div>
+                    <div>
+                        <h2 class="card-title">Мистика и психология</h2>
+                        <p class="card-subtitle">Самопознание через символы и архетипы</p>
+                    </div>
+                </div>
+                
+                <ul class="card-features">
+                    <li>Онлайн-расклады Таро с интерпретацией</li>
+                    <li>Матрица Судьбы и нумерология Пифагора</li>
+                    <li>Архетипы Таро по Шхановской</li>
+                    <li>Расчёт кармического долга и предназначения</li>
+                    <li>Тест "Демоны-Гормоны" и энергетическая гигиена</li>
+                </ul>
+                
+                <div class="card-cta">
+                    Исследовать мистику →
+                </div>
+            </a>
+        </div>
+
+        <footer class="footer">
+            <p>© 2024 Точка Равновесия | tr-info.ru</p>
+            <div class="contacts">
+                <a href="mailto:contact@tr-info.ru" class="contact-link">
+                    <i class="fas fa-envelope"></i> contact@tr-info.ru
+                </a>
+                <a href="#" class="contact-link">
+                    <i class="fab fa-telegram"></i> Telegram-канал
+                </a>
+                <a href="#" class="contact-link">
+                    <i class="fas fa-share-alt"></i> Поделиться сайтом
+                </a>
+            </div>
+            <p class="footer-info">
+                Сайт создан для обмена знаниями и опытом. Все материалы предоставляются в ознакомительных целях.
+                Авторские права на контент принадлежат их правообладателям.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.nav-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 200 * index);
+            });
+            
+            const ctaButtons = document.querySelectorAll('.card-cta');
+            ctaButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const card = this.closest('.nav-card');
+                    card.click();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
