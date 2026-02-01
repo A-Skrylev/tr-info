@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЗОЖ | Точка Равновесия</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ГИБРИДНЫЕ СТИЛИ: Объединяем лучшее из двух дизайнов */
+        
+        /* Переменные из обоих дизайнов */
+        :root {
+            /* Из h2.html (темная тема) */
+            --color-bg: #0a0e17;
+            --color-card-bg: rgba(255, 255, 255, 0.05);
+            --color-text: rgba(255, 255, 255, 0.85);
+            --color-text-light: rgba(255, 255, 255, 0.6);
+            --color-accent-green: #4a7c59;
+            --color-accent-green-glow: rgba(74, 124, 89, 0.4);
+            --border-radius: 24px;
+            
+            /* Из h1.html (светлая тема - для карточек) */
+            --primary: #4a7c59;
+            --primary-light: rgba(74, 124, 89, 0.15);
+            --primary-dark: #2d6a4f;
+            --secondary: #95d5b2;
+            --background-light: #f9fbf8;
+            --card-bg-light: #ffffff;
+            --text-dark: #2d3748;
+            --text-light: #718096;
+            --border: #e2e8f0;
+            --shadow: rgba(0, 0, 0, 0.05);
+            --shadow-hover: rgba(74, 124, 89, 0.15);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+        
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+            position: relative;
+        }
+        
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        /* 1. КОНТЕЙНЕР С АНИМИРОВАННЫМИ ЧАСТИЦАМИ (фон из h2.html) */
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--color-accent-green-glow) 0%, transparent 70%);
+            opacity: 0;
+        }
+        
+        /* 2. ГЛАВНЫЙ КОНТЕЙНЕР */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* 3. ШАПКА (комбинированный стиль) */
+        .site-header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-top: 20px;
+        }
+        
+        .site-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #fff, var(--color-accent-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 0.5px;
+        }
+        
+        .site-subtitle {
+            font-size: 1.2rem;
+            color: var(--color-text-light);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* 4. ТРИ КАРТОЧКИ-ПУТИ (из h2.html с улучшениями) - ОСТАВЛЯЕМ КАК ДЕКОРАТИВНЫЕ */
+        .paths-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+        
+        @media (max-width: 900px) {
+            .paths-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+        
+        .path-card {
+            background: var(--color-card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px 30px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            cursor: default;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 320px;
+        }
+        
+        .path-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-accent-green);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 0 1px var(--color-accent-green);
+        }
+        
+        .path-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            color: var(--color-accent-green);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(74, 124, 89, 0.3);
+            transition: inherit;
+        }
+        
+        .path-card:hover .path-icon {
+            background: rgba(74, 124, 89, 0.1);
+            border-color: var(--color-accent-green);
+            transform: scale(1.05);
+        }
+        
+        .path-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .path-card p {
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+            flex-grow: 1;
+        }
+        
+        /* 5. ОСНОВНАЯ СЕТКА КАРТОЧЕК (из h1.html с адаптацией к темной теме) */
+        .main-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        @media (max-width: 1100px) {
+            .main-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Карточки инструментов (гибридный стиль) */
+        .feature-card {
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(5px);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--color-accent-green);
+        }
+        
+        .card-top {
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(74, 124, 89, 0.3), rgba(45, 106, 79, 0.4));
+            color: white;
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .card-title-wrapper {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+        
+        .card-rating {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .card-description-top {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .card-body {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.03);
+        }
+        
+        .card-description {
+            color: var(--color-text-light);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        /* Мини-калькуляторы */
+        .mini-calc {
+            margin-top: auto;
+        }
+        
+        .calc-input-group {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .calc-input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s;
+            color: var(--color-text);
+        }
+        
+        .calc-input:focus {
+            outline: none;
+            border-color: var(--color-accent-green);
+            box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.2);
+        }
+        
+        .calc-button {
+            width: 100%;
+            padding: 14px;
+            background: var(--color-accent-green);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .calc-button:hover {
+            background: var(--primary-dark);
+        }
+        
+        .calc-result {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(74, 124, 89, 0.15);
+            border-radius: 10px;
+            display: none;
+            border: 1px solid rgba(74, 124, 89, 0.3);
+        }
+        
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        @media (max-width: 480px) {
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .result-item {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .result-value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--color-accent-green);
+            margin: 5px 0;
+        }
+        
+        /* 6. СТАТИСТИКА (из h1.html с адаптацией) */
+        .stats-section {
+            margin: 50px 0;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+        
+        .stats-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--color-accent-green);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(74, 124, 89, 0.1);
+            border-radius: 12px;
+            transition: transform 0.3s;
+            border: 1px solid rgba(74, 124, 89, 0.2);
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-accent-green);
+            font-size: 1.3rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-info h4 {
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+            margin-bottom: 5px;
+            text-align: left;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text);
+            text-align: left;
+        }
+        
+        /* 7. ПОДВАЛ */
+        .site-footer {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--color-text-light);
+            font-size: 0.9rem;
+        }
+        
+        select.calc-input option {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+        }
+    </style>
+</head>
+<body>
+    <!-- 1. Анимированный фон с частицами -->
+    <div class="particles-container" id="particlesContainer"></div>
+
+    <!-- 2. Основной контент -->
+    <div class="main-container">
+        <!-- 3. Шапка -->
+        <header class="site-header">
+            <h1 class="site-title">Точка Равновесия</h1>
+            <p class="site-subtitle">Здоровье для энергии. Инструменты, знания и практики для гармоничного развития тела и сознания.</p>
+        </header>
+
+        <!-- 4. Три карточки-пути (оставляем как декоративные) -->
+        <div class="paths-grid">
+            <div class="path-card">
+                <div class="path-icon"><i class="fas fa-apple-alt"></i></div>
+                <h2>Питание & Баланс</h2>
+                <p>Калькуляторы КБЖУ, генераторы рациона, трекеры воды. Научный подход к основам вашего здоровья.</p>
+            </div>
+            <div class="path-card">
+                <div class="path-icon"><i class="fas fa-running"></i></div>
+                <h2>Активность & Ритм</h2>
+                <p>Конструкторы тренировок, трекеры сна, программы для дома и зала. Двигайтесь в своем темпе.</p>
+            </div>
+            <div class="path-card">
+                <div class="path-icon"><i class="fas fa-brain"></i></div>
+                <h2>Осознанность & Отдых</h2>
+                <p>Медитации, дыхательные практики, управление стрессом. Забота о ментальном благополучии.</p>
+            </div>
+        </div>
+
+        <!-- 5. Основная сетка карточек-инструментов -->
+        <div class="main-grid">
+            <!-- Карточка 1: Калькулятор КБЖУ -->
+            <div class="feature-card">
+                <div class="card-top">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <div class="card-title-wrapper">
+                            <div class="card-title">Калькулятор КБЖУ</div>
+                            <div class="card-rating">10/10</div>
+                        </div>
+                    </div>
+                    <p class="card-description-top">Рассчитайте суточную норму калорий, белков, жиров и углеводов</p>
+                </div>
+                
+                <div class="card-body">
+                    <div class="mini-calc">
+                        <div class="calc-input-group">
+                            <input type="number" class="calc-input" id="hybrid-age" placeholder="Возраст" min="10" max="100">
+                            <input type="number" class="calc-input" id="hybrid-weight" placeholder="Вес (кг)" min="30" max="200">
+                            <select class="calc-input" id="hybrid-goal">
+                                <option value="">Выберите цель</option>
+                                <option value="0.8">Похудение</option>
+                                <option value="1">Поддержание веса</option>
+                                <option value="1.2">Набор массы</option>
+                            </select>
+                        </div>
+                        
+                        <button class="calc-button" onclick="calculateHybridKBJU()">
+                            <i class="fas fa-bolt"></i>
+                            Рассчитать мою норму
+                        </button>
+                        
+                        <div class="calc-result" id="hybrid-result">
+                            <strong>Ваши суточные показатели:</strong>
+                            <div class="result-grid">
+                                <div class="result-item">
+                                    <div>Калории</div>
+                                    <div class="result-value" id="hybrid-calories">0</div>
+                                    <div>ккал</div>
+                                </div>
+                                <div class="result-item">
+                                    <div>Белки</div>
+                                    <div class="result-value" id="hybrid-proteins">0</div>
+                                    <div>грамм</div>
+                                </div>
+                                <div class="result-item">
+                                    <div>Жиры</div>
+                                    <div class="result-value" id="hybrid-fats">0</div>
+                                    <div>грамм</div>
+                                </div>
+                                <div class="result-item">
+                                    <div>Углеводы</div>
+                                    <div class="result-value" id="hybrid-carbs">0</div>
+                                    <div>грамм</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Карточка 2: Водный баланс -->
+            <div class="feature-card">
+                <div class="card-top">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div class="card-title-wrapper">
+                            <div class="card-title">Водный баланс</div>
+                            <div class="card-rating">8/10</div>
+                        </div>
+                    </div>
+                    <p class="card-description-top">Рассчитайте индивидуальную норму потребления воды</p>
+                </div>
+                
+                <div class="card-body">
+                    <div class="calc-input-group">
+                        <input type="number" class="calc-input" id="water-weight" placeholder="Ваш вес (кг)" min="30" max="200">
+                        <select class="calc-input" id="water-activity">
+                            <option value="30">Низкая активность</option>
+                            <option value="35" selected>Средняя активность</option>
+                            <option value="40">Высокая активность</option>
+                        </select>
+                    </div>
+                    
+                    <button class="calc-button" onclick="calculateWater()">
+                        <i class="fas fa-calculator"></i>
+                        Рассчитать норму воды
+                    </button>
+                    
+                    <div class="calc-result" id="water-result">
+                        <strong>Рекомендуемая норма:</strong>
+                        <div style="margin-top: 15px; text-align: center;">
+                            <div style="font-size: 2rem; font-weight: 700; color: var(--color-accent-green);" id="water-amount">0</div>
+                            <div>литров в день</div>
+                            <div style="margin-top: 10px; font-size: 0.9rem; color: var(--color-text-light);">
+                                Примерно <span id="water-glasses">0</span> стаканов по 250 мл
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Карточка 3: Трекер сна -->
+            <div class="feature-card">
+                <div class="card-top">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-bed"></i>
+                        </div>
+                        <div class="card-title-wrapper">
+                            <div class="card-title">Трекер сна</div>
+                            <div class="card-rating">7/10</div>
+                        </div>
+                    </div>
+                    <p class="card-description-top">Анализ качества сна и рекомендации по улучшению режима</p>
+                </div>
+                
+                <div class="card-body">
+                    <div style="margin-top: 10px; text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: 700; color: var(--color-accent-green); margin-bottom: 10px;">
+                            7.5 <span style="font-size: 1rem; color: var(--color-text-light);">часов</span>
+                        </div>
+                        <div style="color: var(--color-text-light); margin-bottom: 20px;">
+                            Рекомендуемая продолжительность сна
+                        </div>
+                        
+                        <div style="background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div style="font-weight: 600; margin-bottom: 10px;">Советы для улучшения сна:</div>
+                            <ul style="text-align: left; padding-left: 20px; font-size: 0.9rem; color: var(--color-text-light);">
+                                <li>За 1 час до сна отложите гаджеты</li>
+                                <li>Поддерживайте температуру 18-20°C</li>
+                                <li>Соблюдайте регулярный график</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. Статистика -->
+        <div class="stats-section">
+            <div class="stats-title">
+                <i class="fas fa-chart-line"></i>
+                Ваши показатели здоровья
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4>Среднее потребление</h4>
+                        <div class="stat-value">1,850 ккал</div>
+                    </div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4>Водный баланс</h4>
+                        <div class="stat-value">2.1 л/день</div>
+                    </div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-walking"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4>Активность</h4>
+                        <div class="stat-value">8,540 шагов</div>
+                    </div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-bed"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4>Качество сна</h4>
+                        <div class="stat-value">87%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Вторая строка карточек -->
+        <div class="main-grid">
+            <!-- Карточка 4: Генератор меню -->
+            <div class="feature-card">
+                <div class="card-top">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="card-title-wrapper">
+                            <div class="card-title">Генератор меню</div>
+                            <div class="card-rating">9/10</div>
+                        </div>
+                    </div>
+                    <p class="card-description-top">Автоматическое составление сбалансированного рациона на неделю</p>
+                </div>
+                
+                <div class="card-body">
+                    <div class="calc-input-group">
+                        <select class="calc-input" id="menu-type">
+                            <option value="">Тип питания</option>
+                            <option value="omnivore">Всеядное</option>
+                            <option value="vegetarian">Вегетарианское</option>
+                            <option value="vegan">Веганское</option>
+                        </select>
+                        <select class="calc-input" id="menu-budget">
+                            <option value="">Бюджет на неделю</option>
+                            <option value="low">Экономный (до 2000 руб)</option>
+                            <option value="medium">Средний (2000-4000 руб)</option>
+                            <option value="high">Высокий (от 4000 руб)</option>
+                        </select>
+                    </div>
+                    
+                    <button class="calc-button" onclick="showNotification('Генератор меню')">
+                        <i class="fas fa-magic"></i>
+                        Сгенерировать меню
+                    </button>
+                    
+                    <div style="margin-top: 20px; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <p style="font-size: 0.9rem; color: var(--color-text-light); margin: 0;">
+                            <i class="fas fa-info-circle"></i> Учитывает 15+ диетических ограничений
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Карточка 5: Конструктор тренировок -->
+            <div class="feature-card">
+                <div class="card-top">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                        <div class="card-title-wrapper">
+                            <div class="card-title">Конструктор тренировок</div>
+                            <div class="card-rating">9/10</div>
+                        </div>
+                    </div>
+                    <p class="card-description-top">Персональная программа упражнений для дома, зала или улицы</p>
+                </div>
+                
+                <div class="card-body">
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+                            <span style="background: rgba(74, 124, 89, 0.2); padding: 8px 15px; border-radius: 20px; font-size: 0.9rem; color: var(--color-accent-green);">
+                                <i class="fas fa-home"></i> Для дома
+                            </span>
+                            <span style="background: rgba(74, 124, 89, 0.2); padding: 8px 15px; border-radius: 20px; font-size: 0.9rem; color: var(--color-accent-green);">
+                                <i class="fas fa-dumbbell"></i> Для зала
+                            </span>
+                            <span style="background: rgba(74, 124, 89, 0.2); padding: 8px 15px; border-radius: 20px; font-size: 0.9rem; color: var(--color-accent-green);">
+                                <i class="fas fa-tree"></i> На улице
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <button class="calc-button" onclick="showNotification('Конструктор тренировок')">
+                        <i class="fas fa-plus-circle"></i>
+                        Создать программу
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Карточка 6: Ментальное здоровье -->
+            <div class="feature-card">
+                <div class="card-top">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="card-title-wrapper">
+                            <div class="card-title">Ментальное здоровье</div>
+                            <div class="card-rating">8/10</div>
+                        </div>
+                    </div>
+                    <p class="card-description-top">Медитации и дыхательные практики для снятия стресса</p>
+                </div>
+                
+                <div class="card-body">
+                    <div style="margin-top: 10px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px; margin-bottom: 10px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div>
+                                <div style="font-weight: 600;">5-минутная медитация</div>
+                                <div style="font-size: 0.9rem; color: var(--color-text-light);">Для снятия стресса</div>
+                            </div>
+                            <button style="background: var(--color-accent-green); color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer;" onclick="showNotification('5-минутная медитация')">
+                                <i class="fas fa-play"></i> Начать
+                            </button>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div>
+                                <div style="font-weight: 600;">Дыхательная практика</div>
+                                <div style="font-size: 0.9rem; color: var(--color-text-light);">4-7-8 техника</div>
+                            </div>
+                            <button style="background: var(--color-accent-green); color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer;" onclick="showNotification('Дыхательная практика 4-7-8')">
+                                <i class="fas fa-play"></i> Начать
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. Подвал -->
+        <footer class="site-footer">
+            <p>© 2025 Точка Равновесия. Раздел "Здоровый образ жизни". tr-info.ru</p>
+            <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.7;">Гармония в каждом измерении жизни.</p>
+        </footer>
+    </div>
+
+    <script>
+        // ИНИЦИАЛИЗАЦИЯ АНИМИРОВАННЫХ ЧАСТИЦ НА ФОНЕ
+        function initParticles() {
+            const container = document.getElementById('particlesContainer');
+            const particleCount = 30;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+
+                const size = Math.random() * 100 + 20;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 5;
+
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animationDelay = `${delay}s`;
+
+                container.appendChild(particle);
+            }
+
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes particleFloat {
+                    0%, 100% { opacity: 0; transform: translateY(0) scale(1); }
+                    50% { opacity: 0.7; transform: translateY(-20px) scale(1.05); }
+                }
+                .particle {
+                    animation: particleFloat 8s ease-in-out infinite;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // КАЛЬКУЛЯТОР КБЖУ
+        function calculateHybridKBJU() {
+            const age = document.getElementById('hybrid-age').value;
+            const weight = document.getElementById('hybrid-weight').value;
+            const goal = parseFloat(document.getElementById('hybrid-goal').value);
+            
+            if (!age || !weight || !goal) {
+                showNotification('Пожалуйста, заполните все поля', 'info');
+                return;
+            }
+            
+            const baseCalories = weight * 30;
+            const calories = Math.round(baseCalories * goal);
+            const proteins = Math.round(weight * 1.8);
+            const fats = Math.round((calories * 0.25) / 9);
+            const carbs = Math.round((calories - (proteins * 4 + fats * 9)) / 4);
+            
+            document.getElementById('hybrid-calories').textContent = calories;
+            document.getElementById('hybrid-proteins').textContent = proteins;
+            document.getElementById('hybrid-fats').textContent = fats;
+            document.getElementById('hybrid-carbs').textContent = carbs;
+            
+            document.getElementById('hybrid-result').style.display = 'block';
+            document.getElementById('hybrid-result').scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest'
+            });
+        }
+        
+        // КАЛЬКУЛЯТОР ВОДЫ
+        function calculateWater() {
+            const weight = document.getElementById('water-weight').value;
+            const activity = parseFloat(document.getElementById('water-activity').value);
+            
+            if (!weight) {
+                showNotification('Введите ваш вес', 'info');
+                return;
+            }
+            
+            const water = Math.round((weight * activity) / 1000 * 10) / 10;
+            const glasses = Math.round(water / 0.25);
+            
+            document.getElementById('water-amount').textContent = water;
+            document.getElementById('water-glasses').textContent = glasses;
+            document.getElementById('water-result').style.display = 'block';
+        }
+        
+        // УНИВЕРСАЛЬНАЯ ФУНКЦИЯ УВЕДОМЛЕНИЙ
+        function showNotification(message, type = 'success') {
+            const colors = {
+                success: '#4a7c59',
+                info: '#3b82f6',
+                warning: '#f59e0b',
+                error: '#ef4444'
+            };
+            
+            const color = colors[type] || colors.success;
+            
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${color};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+                z-index: 10000;
+                animation: slideIn 0.3s ease-out;
+                max-width: 350px;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(10px);
+            `;
+            
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'info' ? 'info-circle' : type === 'warning' ? 'exclamation-triangle' : 'exclamation-circle'}"></i>
+                    <div>
+                        <strong>${message}</strong>
+                        ${type === 'info' ? '<br><small>Функция скоро будет доступна!</small>' : ''}
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-in';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+        
+        // Добавляем стили для анимации уведомлений
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // ОБРАБОТЧИКИ ДЛЯ КНОПОК БЕЗ ФУНКЦИОНАЛА
+        document.querySelectorAll('.calc-button').forEach(button => {
+            if (!button.getAttribute('onclick')) {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const cardTitle = this.closest('.feature-card').querySelector('.card-title').textContent;
+                    showNotification(cardTitle, 'info');
+                });
+            }
+        });
+        
+        // ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ
+        window.addEventListener('load', () => {
+            initParticles();
+            console.log('Гибридная страница ЗОЖ загружена');
+        });
+    </script>
+</body>
+</html>
