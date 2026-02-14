@@ -350,14 +350,17 @@
             left: 50%;
             transform: translateX(-50%);
             margin-bottom: 8px;
-            padding: 4px 8px;
+            padding: 8px 12px;
             background: #1e293b;
             color: #e2e8f0;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             white-space: nowrap;
-            border-radius: 4px;
+            border-radius: 6px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            font-weight: normal;
+            letter-spacing: 0.3px;
         }
 
         .system-content {
@@ -757,13 +760,13 @@
             'T': 'Т'
         };
         
-        // Уровни доказуемости для отображения
+        // Уровни доказуемости для отображения (полностью соответствуют легенде)
         const epistemicLevels = {
-            1: { name: 'Эмпирический', description: 'Научно доказуемо' },
-            2: { name: 'Клинический', description: 'Психологические наблюдения' },
-            3: { name: 'Культурный', description: 'Мифы, традиции, символы' },
-            4: { name: 'Эзотерический', description: 'Требует веры' },
-            5: { name: 'Авторский', description: 'Внутри данной системы' }
+            1: { name: 'Уровень 1 — Эмпирический', description: 'наука' },
+            2: { name: 'Уровень 2 — Клинический', description: 'психология' },
+            3: { name: 'Уровень 3 — Культурный', description: 'мифы, традиции' },
+            4: { name: 'Уровень 4 — Эзотерический', description: 'вера' },
+            5: { name: 'Уровень 5 — Авторский', description: 'система' }
         };
         
         // Счётчик
@@ -877,9 +880,11 @@
             return colors[level] || '#94a3b8';
         }
 
-        // Функция для получения названия уровня доказуемости
-        function getEpistemicName(level) {
-            return epistemicLevels[level]?.name || 'Неизвестный';
+        // Функция для получения текста подсказки (полностью как в легенде)
+        function getEpistemicTooltip(level) {
+            const levelData = epistemicLevels[level];
+            if (!levelData) return 'Неизвестный уровень';
+            return `${levelData.name} (${levelData.description})`;
         }
 
         // Функция для рендеринга системы с эпистемическим уровнем
@@ -889,8 +894,7 @@
             const level = data.epistemic_level || 2;
             const note = data.epistemic_note || '';
             const content = renderFunc(data);
-            const levelName = getEpistemicName(level);
-            const tooltip = `${levelName} (уровень ${level})`;
+            const tooltip = getEpistemicTooltip(level);
             
             return `
                 <div class="system-card">
