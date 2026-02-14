@@ -72,6 +72,12 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            font-weight: bold;
+            color: rgba(0, 0, 0, 0.7);
         }
 
         .epistemic-1 { background: #4ade80; }
@@ -352,6 +358,12 @@
             cursor: help;
             position: relative;
             flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: rgba(0, 0, 0, 0.7);
         }
 
         .epistemic-badge:hover::after {
@@ -697,11 +709,11 @@
                 </div>
 
                 <div class="epistemic-legend">
-                    <div class="epistemic-item"><span class="epistemic-dot epistemic-1"></span> Уровень 1 — Эмпирический (наука)</div>
-                    <div class="epistemic-item"><span class="epistemic-dot epistemic-2"></span> Уровень 2 — Клинический (психология)</div>
-                    <div class="epistemic-item"><span class="epistemic-dot epistemic-3"></span> Уровень 3 — Культурный (мифы, традиции)</div>
-                    <div class="epistemic-item"><span class="epistemic-dot epistemic-4"></span> Уровень 4 — Эзотерический (вера)</div>
-                    <div class="epistemic-item"><span class="epistemic-dot epistemic-5"></span> Уровень 5 — Авторский (система)</div>
+                    <div class="epistemic-item"><span class="epistemic-dot epistemic-1">?</span> Уровень 1 — Эмпирический (наука)</div>
+                    <div class="epistemic-item"><span class="epistemic-dot epistemic-2">?</span> Уровень 2 — Клинический (психология)</div>
+                    <div class="epistemic-item"><span class="epistemic-dot epistemic-3">?</span> Уровень 3 — Культурный (мифы, традиции)</div>
+                    <div class="epistemic-item"><span class="epistemic-dot epistemic-4">?</span> Уровень 4 — Эзотерический (вера)</div>
+                    <div class="epistemic-item"><span class="epistemic-dot epistemic-5">?</span> Уровень 5 — Авторский (система)</div>
                 </div>
 
                 <div class="legend">
@@ -787,13 +799,10 @@
             'angel': '/knowledge-base/angels.html',
             'chakra': '/knowledge-base/chakras.html',
             'mythology': '/knowledge-base/mythology.html',
-            'astrology_planet': '/knowledge-base/astrology.html',
-            'astrology_zodiac': '/knowledge-base/astrology.html',
-            'astrology_element': '/knowledge-base/astrology.html',
+            'astrology': '/knowledge-base/astrology.html',
             'natural_crystal': '/knowledge-base/nature.html',
             'natural_plant': '/knowledge-base/nature.html',
             'natural_animal': '/knowledge-base/nature.html',
-            'natural_color': '/knowledge-base/nature.html',
             'harmony': '/knowledge-base/archetypes.html'
         };
         
@@ -943,7 +952,7 @@
                 <div class="system-card">
                     <div class="system-name">
                         <a href="${link}" target="_blank">${displayName}</a>
-                        <div class="epistemic-badge" style="background: ${getEpistemicColor(level)}" data-tooltip="${tooltip}"></div>
+                        <div class="epistemic-badge" style="background: ${getEpistemicColor(level)}" data-tooltip="${tooltip}">?</div>
                     </div>
                     <div class="system-content">${content}</div>
                     ${note ? `<div class="epistemic-note">${note}</div>` : ''}
@@ -1022,14 +1031,11 @@
                     return Object.entries(d).filter(([k]) => !k.includes('epistemic')).slice(0, 4).map(([k,v]) => `${k}: ${v}`).join(' • ');
                 }},
                 { key: 'enneagram', name: "⭐ Эннеаграмма", data: archetype.systems.enneagram, render: (d) => d ? `Тип ${d.type || ''} (${d.name || ''}) — ${d.passion || ''} / ${d.virtue || ''}` : '' },
-                { key: 'astrology_planet', name: "🪐 Планета", data: archetype.systems.astrology, render: (d) => d ? `${d.planet || ''}` : '' },
-                { key: 'astrology_element', name: "🌪️ Элемент", data: archetype.systems.astrology, render: (d) => d ? `${d.element || ''}` : '' },
-                { key: 'astrology_zodiac', name: "⛎ Знаки зодиака", data: archetype.systems.astrology, render: (d) => d && d.zodiac ? d.zodiac.join(', ') : '' },
+                { key: 'astrology', name: "🪐 Астрология", data: archetype.systems.astrology, render: (d) => d ? `${d.planet || ''}, ${d.element || ''}, ${d.zodiac ? d.zodiac.join(', ') : ''}` : '' },
                 { key: 'chakra', name: "🕉️ Чакра", data: archetype.systems.astrology, render: (d) => d ? `${d.chakra_name || d.chakra || ''}` : '' },
                 { key: 'natural_crystal', name: "💎 Камни", data: archetype.systems.natural, render: (d) => d && d.crystal ? d.crystal.join(', ') : '' },
                 { key: 'natural_plant', name: "🌿 Растения", data: archetype.systems.natural, render: (d) => d && d.plant ? d.plant.join(', ') : '' },
-                { key: 'natural_animal', name: "🦊 Животные", data: archetype.systems.natural, render: (d) => d && d.animal ? d.animal.join(', ') : '' },
-                { key: 'natural_color', name: "🎨 Цвет", data: archetype.systems.natural, render: (d) => d && d.color ? `<span style="display:inline-block; width:16px; height:16px; background:${d.color}; border-radius:3px; margin-right:5px;"></span> ${d.color}` : '' }
+                { key: 'natural_animal', name: "🦊 Животные", data: archetype.systems.natural, render: (d) => d && d.animal ? d.animal.join(', ') : '' }
             ];
             
             systems.forEach(sys => {
