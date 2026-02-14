@@ -728,6 +728,22 @@
             'Т': 'Тень'
         };
         
+        // Словарь для преобразования кириллицы в латиницу (для поиска по ID)
+        const cyrToLat = {
+            'П': 'P',
+            'Х': 'H',
+            'С': 'S',
+            'Т': 'T'
+        };
+        
+        // Словарь для преобразования латиницы в кириллицу (для отображения)
+        const latToCyr = {
+            'P': 'П',
+            'H': 'Х',
+            'S': 'С',
+            'T': 'Т'
+        };
+        
         // Уровни доказуемости для отображения
         const epistemicLevels = {
             1: { name: 'Эмпирический', color: '#4ade80' },
@@ -743,6 +759,20 @@
         
         // Текущая комбинация
         let currentCombination = '';
+
+        // ====================================================
+        // ФУНКЦИИ ПРЕОБРАЗОВАНИЯ
+        // ====================================================
+        
+        // Преобразование кириллической комбинации в латиницу (для поиска по ID)
+        function cyrillicToLatin(cyrillic) {
+            return cyrillic.split('').map(c => cyrToLat[c] || c).join('');
+        }
+        
+        // Преобразование латинской комбинации в кириллицу (для отображения)
+        function latinToCyrillic(latin) {
+            return latin.split('').map(c => latToCyr[c] || c).join('');
+        }
 
         // ====================================================
         // АВТОМАТИЧЕСКАЯ ЗАГРУЗКА JSON ПРИ СТАРТЕ
@@ -773,6 +803,7 @@
                     });
                     
                     console.log(`✅ База данных загружена: ${jsonData.archetypes.length} архетипов`);
+                    console.log('Пример ID:', Object.keys(archetypesMap).slice(0, 5));
                     
                     // Обновляем предпросмотр
                     updateCombinationDisplay(null);
@@ -796,7 +827,7 @@
         // ФУНКЦИИ ГЕНЕРАЦИИ
         // ====================================================
         
-        // Генерация случайной комбинации
+        // Генерация случайной комбинации (на кириллице)
         function generateRandomCombination() {
             let combination = '';
             for (let i = 0; i < 3; i++) {
@@ -807,14 +838,18 @@
             return combination;
         }
 
-        // Получение полного архетипа по комбинации
+        // Получение полного архетипа по комбинации (комбинация на кириллице)
         function getArchetypeByCombination(combination) {
             if (!combination || combination.length !== 3 || !ARCHETYPES_DB) return null;
             
-            if (archetypesMap[combination]) {
-                return archetypesMap[combination];
+            // Преобразуем кириллицу в латиницу для поиска по ID
+            const latinId = cyrillicToLatin(combination);
+            
+            if (archetypesMap[latinId]) {
+                return archetypesMap[latinId];
             }
             
+            console.log(`Архетип не найден: ${combination} -> ${latinId}`);
             return null;
         }
 
@@ -953,9 +988,9 @@
             const archetype = getArchetypeByCombination(combination);
             
             if (!archetype) {
-                // Если архетип не найден (не должно случаться при полной базе)
+                // Если архетип не найден
                 emptyState.innerHTML = `
-                    <p>❌ Архетип с комбинацией ${combination} не найден в базе данных.</p>
+                    <p>❌ Архетип с комбинацией ${combination} (${cyrillicToLatin(combination)}) не найден в базе данных.</p>
                     <p style="margin-top: 10px;">Проверьте файл arhtype_db64.json</p>
                 `;
                 emptyState.style.display = 'block';
@@ -969,7 +1004,10 @@
             
             document.getElementById('archetypeIcon').textContent = archetype.icon || '🧙';
             document.getElementById('archetypeTitle').textContent = archetype.name;
-            document.getElementById('archetypeFormula').textContent = `Формула: ${combination.split('').join('+')} (${archetype.formula_full || archetype.formula || ''})`;
+            
+            // Показываем формулу в кириллице
+            const formulaCyr = latinToCyrillic(archetype.id);
+            document.getElementById('archetypeFormula').textContent = `Формула: ${formulaCyr.split('').join('+')} (${archetype.formula_full || archetype.formula || ''})`;
             
             const keywordsContainer = document.getElementById('keywordsContainer');
             keywordsContainer.innerHTML = (archetype.keywords || []).map(k => `<span class="keyword">#${k}</span>`).join('');
