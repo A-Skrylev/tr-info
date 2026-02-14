@@ -783,6 +783,28 @@
             'T': 'Т'
         };
         
+        // Словарь для перевода названий мифологий на русский
+        const mythologyRussian = {
+            'greek': 'Греческая',
+            'roman': 'Римская',
+            'egyptian': 'Египетская',
+            'norse': 'Скандинавская',
+            'hindu': 'Индуистская',
+            'chinese': 'Китайская',
+            'japanese': 'Японская',
+            'slavic': 'Славянская',
+            'celtic': 'Кельтская',
+            'sufi': 'Суфийская',
+            'zoroastrian': 'Зороастрийская',
+            'buddhist': 'Буддийская',
+            'shamanic': 'Шаманская',
+            'aztec': 'Ацтекская',
+            'sumerian': 'Шумерская',
+            'alchemical': 'Алхимическая',
+            'christian': 'Христианская',
+            'taoist': 'Даосская'
+        };
+        
         // Карта ссылок для каждой системы
         const systemLinks = {
             'jungian': '/knowledge-base/psychologarh.html',
@@ -801,8 +823,7 @@
             'mythology': '/knowledge-base/mythology.html',
             'astrology': '/knowledge-base/astrology.html',
             'natural_crystal': '/knowledge-base/nature.html',
-            'natural_plant': '/knowledge-base/nature.html',
-            'natural_animal': '/knowledge-base/nature.html',
+            'natural_plants_animals': '/knowledge-base/nature.html',
             'harmony': '/knowledge-base/archetypes.html'
         };
         
@@ -834,6 +855,11 @@
         // Преобразование латинской комбинации в кириллицу (для отображения)
         function latinToCyrillic(latin) {
             return latin.split('').map(c => latToCyr[c] || c).join('');
+        }
+
+        // Функция для перевода названий мифологий на русский
+        function translateMythologyKey(key) {
+            return mythologyRussian[key] || key;
         }
 
         // ====================================================
@@ -1028,14 +1054,18 @@
                 { key: 'harmony', name: "🎵 Гармония", data: archetype.systems.harmony, render: (d) => `${d.name || ''} (${d.number || ''}) — ${d.meaning || ''}` },
                 { key: 'mythology', name: "🌍 Мифология", data: archetype.systems.mythology, render: (d) => {
                     if (!d) return '';
-                    return Object.entries(d).filter(([k]) => !k.includes('epistemic')).slice(0, 4).map(([k,v]) => `${k}: ${v}`).join(' • ');
+                    return Object.entries(d).filter(([k]) => !k.includes('epistemic')).map(([k, v]) => `${translateMythologyKey(k)}: ${v}`).join(' • ');
                 }},
                 { key: 'enneagram', name: "⭐ Эннеаграмма", data: archetype.systems.enneagram, render: (d) => d ? `Тип ${d.type || ''} (${d.name || ''}) — ${d.passion || ''} / ${d.virtue || ''}` : '' },
                 { key: 'astrology', name: "🪐 Астрология", data: archetype.systems.astrology, render: (d) => d ? `${d.planet || ''}, ${d.element || ''}, ${d.zodiac ? d.zodiac.join(', ') : ''}` : '' },
                 { key: 'chakra', name: "🕉️ Чакра", data: archetype.systems.astrology, render: (d) => d ? `${d.chakra_name || d.chakra || ''}` : '' },
                 { key: 'natural_crystal', name: "💎 Камни", data: archetype.systems.natural, render: (d) => d && d.crystal ? d.crystal.join(', ') : '' },
-                { key: 'natural_plant', name: "🌿 Растения", data: archetype.systems.natural, render: (d) => d && d.plant ? d.plant.join(', ') : '' },
-                { key: 'natural_animal', name: "🦊 Животные", data: archetype.systems.natural, render: (d) => d && d.animal ? d.animal.join(', ') : '' }
+                { key: 'natural_plants_animals', name: "🌿 Флора и фауна", data: archetype.systems.natural, render: (d) => {
+                    const parts = [];
+                    if (d && d.plant) parts.push(`Растения: ${d.plant.join(', ')}`);
+                    if (d && d.animal) parts.push(`Животные: ${d.animal.join(', ')}`);
+                    return parts.join(' • ');
+                }}
             ];
             
             systems.forEach(sys => {
