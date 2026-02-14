@@ -55,7 +55,7 @@
             flex-wrap: wrap;
             gap: 15px;
             justify-content: center;
-            margin: 20px 0;
+            margin: 20px 0 30px 0;
             padding: 15px;
             background: rgba(0, 0, 0, 0.2);
             border-radius: 10px;
@@ -316,6 +316,7 @@
             padding: 15px;
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.3s ease;
+            position: relative;
         }
 
         .system-card:hover {
@@ -335,11 +336,28 @@
         }
 
         .epistemic-badge {
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #94a3b8;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            cursor: help;
+            position: relative;
+        }
+
+        .epistemic-badge:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 8px;
+            padding: 4px 8px;
+            background: #1e293b;
+            color: #e2e8f0;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 10;
         }
 
         .system-content {
@@ -581,11 +599,6 @@
             .systems-grid {
                 grid-template-columns: 1fr;
             }
-
-            .epistemic-legend {
-                flex-direction: column;
-                align-items: flex-start;
-            }
         }
     </style>
 </head>
@@ -595,14 +608,6 @@
             <h1>🔮 АРХЕТИП ДНЯ</h1>
             <p class="subtitle">Генератор подробных советов с полными соответствиями</p>
         </header>
-
-        <div class="epistemic-legend">
-            <div class="epistemic-item"><span class="epistemic-dot epistemic-1"></span> Уровень 1 — Эмпирический (наука)</div>
-            <div class="epistemic-item"><span class="epistemic-dot epistemic-2"></span> Уровень 2 — Клинический (психология)</div>
-            <div class="epistemic-item"><span class="epistemic-dot epistemic-3"></span> Уровень 3 — Культурный (мифы, традиции)</div>
-            <div class="epistemic-item"><span class="epistemic-dot epistemic-4"></span> Уровень 4 — Эзотерический (вера)</div>
-            <div class="epistemic-item"><span class="epistemic-dot epistemic-5"></span> Уровень 5 — Авторский (система)</div>
-        </div>
 
         <div class="generator-section">
             <h2 class="section-title">🎲 Ваша комбинация сил</h2>
@@ -677,6 +682,14 @@
                     <strong>⚠️ ТЕНЕВОЙ АСПЕКТ:</strong> <span id="shadowText"></span>
                 </div>
 
+                <div class="epistemic-legend">
+                    <div class="epistemic-item"><span class="epistemic-dot epistemic-1"></span> Уровень 1 — Эмпирический (наука)</div>
+                    <div class="epistemic-item"><span class="epistemic-dot epistemic-2"></span> Уровень 2 — Клинический (психология)</div>
+                    <div class="epistemic-item"><span class="epistemic-dot epistemic-3"></span> Уровень 3 — Культурный (мифы, традиции)</div>
+                    <div class="epistemic-item"><span class="epistemic-dot epistemic-4"></span> Уровень 4 — Эзотерический (вера)</div>
+                    <div class="epistemic-item"><span class="epistemic-dot epistemic-5"></span> Уровень 5 — Авторский (система)</div>
+                </div>
+
                 <div class="legend">
                     <div class="legend-item">
                         <div class="legend-color" style="background: #4A6FA5;"></div>
@@ -746,11 +759,11 @@
         
         // Уровни доказуемости для отображения
         const epistemicLevels = {
-            1: { name: 'Эмпирический', color: '#4ade80' },
-            2: { name: 'Клинический', color: '#60a5fa' },
-            3: { name: 'Культурный', color: '#c084fc' },
-            4: { name: 'Эзотерический', color: '#f87171' },
-            5: { name: 'Авторский', color: '#fbbf24' }
+            1: { name: 'Эмпирический', description: 'Научно доказуемо' },
+            2: { name: 'Клинический', description: 'Психологические наблюдения' },
+            3: { name: 'Культурный', description: 'Мифы, традиции, символы' },
+            4: { name: 'Эзотерический', description: 'Требует веры' },
+            5: { name: 'Авторский', description: 'Внутри данной системы' }
         };
         
         // Счётчик
@@ -803,7 +816,6 @@
                     });
                     
                     console.log(`✅ База данных загружена: ${jsonData.archetypes.length} архетипов`);
-                    console.log('Пример ID:', Object.keys(archetypesMap).slice(0, 5));
                     
                     // Обновляем предпросмотр
                     updateCombinationDisplay(null);
@@ -865,6 +877,11 @@
             return colors[level] || '#94a3b8';
         }
 
+        // Функция для получения названия уровня доказуемости
+        function getEpistemicName(level) {
+            return epistemicLevels[level]?.name || 'Неизвестный';
+        }
+
         // Функция для рендеринга системы с эпистемическим уровнем
         function renderSystemWithEpistemic(name, data, renderFunc) {
             if (!data) return '';
@@ -872,12 +889,14 @@
             const level = data.epistemic_level || 2;
             const note = data.epistemic_note || '';
             const content = renderFunc(data);
+            const levelName = getEpistemicName(level);
+            const tooltip = `${levelName} (уровень ${level})`;
             
             return `
                 <div class="system-card">
                     <div class="system-name">
                         <span>${name}</span>
-                        <span class="epistemic-badge" style="background: ${getEpistemicColor(level)}20; color: ${getEpistemicColor(level)}">L${level}</span>
+                        <div class="epistemic-badge" style="background: ${getEpistemicColor(level)}" data-tooltip="${tooltip}"></div>
                     </div>
                     <div class="system-content">${content}</div>
                     ${note ? `<div class="epistemic-note">${note}</div>` : ''}
