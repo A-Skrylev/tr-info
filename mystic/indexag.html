@@ -325,7 +325,6 @@
         }
 
         .system-name {
-            color: #c084fc;
             font-size: 1rem;
             font-weight: bold;
             margin-bottom: 10px;
@@ -335,12 +334,24 @@
             gap: 5px;
         }
 
+        .system-name a {
+            color: #c084fc;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .system-name a:hover {
+            color: #fbbf24;
+            text-decoration: underline;
+        }
+
         .epistemic-badge {
             width: 20px;
             height: 20px;
             border-radius: 50%;
             cursor: help;
             position: relative;
+            flex-shrink: 0;
         }
 
         .epistemic-badge:hover::after {
@@ -760,6 +771,32 @@
             'T': 'Т'
         };
         
+        // Карта ссылок для каждой системы
+        const systemLinks = {
+            'jungian': '/knowledge-base/psychologarh.html',
+            'pearson': '/knowledge-base/psychologarh.html',
+            'moore': '/knowledge-base/psychologarh.html',
+            'bolen': '/knowledge-base/psychologarh.html',
+            'enneagram': '/knowledge-base/psychologarh.html',
+            'psychological_complex': '/knowledge-base/psychologarh.html',
+            'psychological_social_roles': '/knowledge-base/psychologarh.html',
+            'psychological_psychotype': '/knowledge-base/psychologarh.html',
+            'tarot': '/knowledge-base/tarot.html',
+            'iching': '/knowledge-base/iching.html',
+            'demon': '/knowledge-base/demons.html',
+            'angel': '/knowledge-base/angels.html',
+            'chakra': '/knowledge-base/chakras.html',
+            'mythology': '/knowledge-base/mythology.html',
+            'astrology_planet': '/knowledge-base/astrology.html',
+            'astrology_zodiac': '/knowledge-base/astrology.html',
+            'astrology_element': '/knowledge-base/astrology.html',
+            'natural_crystal': '/knowledge-base/nature.html',
+            'natural_plant': '/knowledge-base/nature.html',
+            'natural_animal': '/knowledge-base/nature.html',
+            'natural_color': '/knowledge-base/nature.html',
+            'harmony': '/knowledge-base/archetypes.html'
+        };
+        
         // Уровни доказуемости для отображения (полностью соответствуют легенде)
         const epistemicLevels = {
             1: { name: 'Уровень 1 — Эмпирический', description: 'наука' },
@@ -887,19 +924,25 @@
             return `${levelData.name} (${levelData.description})`;
         }
 
-        // Функция для рендеринга системы с эпистемическим уровнем
-        function renderSystemWithEpistemic(name, data, renderFunc) {
+        // Функция для получения ссылки для системы
+        function getSystemLink(systemKey) {
+            return systemLinks[systemKey] || '#';
+        }
+
+        // Функция для рендеринга системы с эпистемическим уровнем и ссылкой
+        function renderSystemWithEpistemic(systemKey, displayName, data, renderFunc) {
             if (!data) return '';
             
             const level = data.epistemic_level || 2;
             const note = data.epistemic_note || '';
             const content = renderFunc(data);
             const tooltip = getEpistemicTooltip(level);
+            const link = getSystemLink(systemKey);
             
             return `
                 <div class="system-card">
                     <div class="system-name">
-                        <span>${name}</span>
+                        <a href="${link}" target="_blank">${displayName}</a>
                         <div class="epistemic-badge" style="background: ${getEpistemicColor(level)}" data-tooltip="${tooltip}"></div>
                     </div>
                     <div class="system-content">${content}</div>
@@ -965,31 +1008,35 @@
             if (!archetype.systems) return;
             
             const systems = [
-                { name: "🧠 Юнг", data: archetype.systems.jungian, render: (d) => `${d.primary || ''}${d.secondary ? ' + ' + d.secondary : ''}` },
-                { name: "📚 Пирсон", data: archetype.systems.pearson, render: (d) => `${d.primary || ''}${d.keywords ? ' (' + d.keywords.join(', ') + ')' : ''}` },
-                { name: "👤 Мур (мужские)", data: archetype.systems.moore, render: (d) => `${d.primary || ''}${d.shadow ? ' → ' + d.shadow : ''}` },
-                { name: "👩 Болен (женские)", data: archetype.systems.bolen, render: (d) => `${d.primary || ''}${d.aspect ? ' — ' + d.aspect : ''}` },
-                { name: "🔮 Таро", data: archetype.systems.tarot, render: (d) => `${d.card || ''} (${d.number || ''}) — ${d.element || ''}, ${d.hebrew || ''}` },
-                { name: "📜 И-Цзин", data: archetype.systems.iching, render: (d) => d ? `${d.number}. ${d.name} (${d.chinese}) — ${d.description}` : '' },
-                { name: "😈 Демон", data: archetype.systems.demon, render: (d) => `${d.name || ''} (${d.rank || ''}) — ${d.powers ? d.powers.join(', ') : ''}` },
-                { name: "👼 Ангел", data: archetype.systems.angel, render: (d) => `${d.name || ''} — ${d.meaning || ''}` },
-                { name: "🎵 Гармония", data: archetype.systems.harmony, render: (d) => `${d.name || ''} (${d.number || ''}) — ${d.meaning || ''}` },
-                { name: "🌍 Мифология", data: archetype.systems.mythology, render: (d) => {
+                { key: 'jungian', name: "🧠 Юнг", data: archetype.systems.jungian, render: (d) => `${d.primary || ''}${d.secondary ? ' + ' + d.secondary : ''}` },
+                { key: 'pearson', name: "📚 Пирсон", data: archetype.systems.pearson, render: (d) => `${d.primary || ''}${d.keywords ? ' (' + d.keywords.join(', ') + ')' : ''}` },
+                { key: 'moore', name: "👤 Мур (мужские)", data: archetype.systems.moore, render: (d) => `${d.primary || ''}${d.shadow ? ' → ' + d.shadow : ''}` },
+                { key: 'bolen', name: "👩 Болен (женские)", data: archetype.systems.bolen, render: (d) => `${d.primary || ''}${d.aspect ? ' — ' + d.aspect : ''}` },
+                { key: 'tarot', name: "🔮 Таро", data: archetype.systems.tarot, render: (d) => `${d.card || ''} (${d.number || ''}) — ${d.element || ''}, ${d.hebrew || ''}` },
+                { key: 'iching', name: "📜 И-Цзин", data: archetype.systems.iching, render: (d) => d ? `${d.number}. ${d.name} (${d.chinese}) — ${d.description}` : '' },
+                { key: 'demon', name: "😈 Демон", data: archetype.systems.demon, render: (d) => `${d.name || ''} (${d.rank || ''}) — ${d.powers ? d.powers.join(', ') : ''}` },
+                { key: 'angel', name: "👼 Ангел", data: archetype.systems.angel, render: (d) => `${d.name || ''} — ${d.meaning || ''}` },
+                { key: 'harmony', name: "🎵 Гармония", data: archetype.systems.harmony, render: (d) => `${d.name || ''} (${d.number || ''}) — ${d.meaning || ''}` },
+                { key: 'mythology', name: "🌍 Мифология", data: archetype.systems.mythology, render: (d) => {
                     if (!d) return '';
                     return Object.entries(d).filter(([k]) => !k.includes('epistemic')).slice(0, 4).map(([k,v]) => `${k}: ${v}`).join(' • ');
                 }},
-                { name: "⭐ Эннеаграмма", data: archetype.systems.enneagram, render: (d) => d ? `Тип ${d.type || ''} (${d.name || ''}) — ${d.passion || ''} / ${d.virtue || ''}` : '' },
-                { name: "🪐 Астрология", data: archetype.systems.astrology, render: (d) => d ? `${d.planet || ''}, ${d.element || ''}, ${d.zodiac ? d.zodiac.join(', ') : ''}, чакра: ${d.chakra || ''}` : '' },
-                { name: "💎 Камни", data: archetype.systems.natural, render: (d) => d && d.crystal ? d.crystal.join(', ') : '' },
-                { name: "🌿 Растения", data: archetype.systems.natural, render: (d) => d && d.plant ? d.plant.join(', ') : '' },
-                { name: "🦊 Животные", data: archetype.systems.natural, render: (d) => d && d.animal ? d.animal.join(', ') : '' }
+                { key: 'enneagram', name: "⭐ Эннеаграмма", data: archetype.systems.enneagram, render: (d) => d ? `Тип ${d.type || ''} (${d.name || ''}) — ${d.passion || ''} / ${d.virtue || ''}` : '' },
+                { key: 'astrology_planet', name: "🪐 Планета", data: archetype.systems.astrology, render: (d) => d ? `${d.planet || ''}` : '' },
+                { key: 'astrology_element', name: "🌪️ Элемент", data: archetype.systems.astrology, render: (d) => d ? `${d.element || ''}` : '' },
+                { key: 'astrology_zodiac', name: "⛎ Знаки зодиака", data: archetype.systems.astrology, render: (d) => d && d.zodiac ? d.zodiac.join(', ') : '' },
+                { key: 'chakra', name: "🕉️ Чакра", data: archetype.systems.astrology, render: (d) => d ? `${d.chakra_name || d.chakra || ''}` : '' },
+                { key: 'natural_crystal', name: "💎 Камни", data: archetype.systems.natural, render: (d) => d && d.crystal ? d.crystal.join(', ') : '' },
+                { key: 'natural_plant', name: "🌿 Растения", data: archetype.systems.natural, render: (d) => d && d.plant ? d.plant.join(', ') : '' },
+                { key: 'natural_animal', name: "🦊 Животные", data: archetype.systems.natural, render: (d) => d && d.animal ? d.animal.join(', ') : '' },
+                { key: 'natural_color', name: "🎨 Цвет", data: archetype.systems.natural, render: (d) => d && d.color ? `<span style="display:inline-block; width:16px; height:16px; background:${d.color}; border-radius:3px; margin-right:5px;"></span> ${d.color}` : '' }
             ];
             
             systems.forEach(sys => {
                 if (sys.data) {
                     const rendered = sys.render(sys.data);
                     if (rendered) {
-                        grid.innerHTML += renderSystemWithEpistemic(sys.name, sys.data, sys.render);
+                        grid.innerHTML += renderSystemWithEpistemic(sys.key, sys.name, sys.data, sys.render);
                     }
                 }
             });
