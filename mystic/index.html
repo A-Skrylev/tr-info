@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мистика и психология | Точка Равновесия</title>
+    <title>Мистика | Точка Равновесия</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -72,7 +72,6 @@
             padding: 60px 20px 40px;
             position: relative;
         }
-        /* ОБНОВЛЕННЫЙ ЗАГОЛОВОК - меньше и с градиентом как на главной */
         .hero-title {
             font-size: 3rem;
             font-weight: 700;
@@ -92,6 +91,31 @@
             margin: 0 auto 50px;
             line-height: 1.6;
             font-weight: 300;
+        }
+        /* Философский текст */
+        .philosophy-text {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+            text-align: left;
+        }
+        .philosophy-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-lavender);
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+        .philosophy-text .pull-quote {
+            font-size: 1.3rem;
+            color: #fff;
+            background: rgba(138, 43, 226, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            border-left: 4px solid var(--primary-purple);
+            text-align: center;
         }
         .section-title {
             font-size: 2.2rem;
@@ -113,6 +137,35 @@
             height: 2px;
             background: linear-gradient(90deg, transparent, var(--primary-purple), transparent);
             border-radius: 2px;
+        }
+        /* Стили для кнопки архетипа */
+        .archetype-button-container {
+            text-align: center;
+            margin: 40px 0 30px;
+        }
+        .archetype-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 18px 45px;
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-deep-purple));
+            color: white;
+            text-decoration: none;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.3);
+        }
+        .archetype-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(138, 43, 226, 0.5);
+        }
+        .archetype-button i {
+            font-size: 1.5rem;
         }
         .card-grid {
             display: grid;
@@ -184,46 +237,6 @@
             background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.5), transparent);
             margin: 70px 0;
             width: 100%;
-        }
-        .tarot-spread {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 50px 0;
-            flex-wrap: wrap;
-        }
-        .tarot-card {
-            width: 140px;
-            height: 220px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3.5rem;
-            border: 1px solid rgba(138, 43, 226, 0.2);
-            transition: all 0.4s;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-        .tarot-card:hover {
-            transform: translateY(-15px) rotate(5deg);
-            background: rgba(255, 255, 255, 0.1);
-            border-color: var(--primary-purple);
-            box-shadow: 0 15px 30px rgba(138, 43, 226, 0.2);
-        }
-        .tarot-card.placeholder::before {
-            content: '?';
-            position: absolute;
-            font-size: 5rem;
-            color: rgba(255, 255, 255, 0.05);
-        }
-        .tarot-label {
-            text-align: center;
-            margin-top: 15px;
-            color: var(--text-lavender);
-            font-weight: 500;
         }
         .calculator-input {
             width: 100%;
@@ -312,9 +325,13 @@
             }
             .hero-subtitle { font-size: 1.1rem; }
             .card-grid { grid-template-columns: 1fr; }
-            .tarot-spread { gap: 15px; }
-            .tarot-card { width: 100px; height: 160px; font-size: 2.5rem; }
             .section-title { font-size: 1.8rem; }
+            .philosophy-text { text-align: left; }
+            .archetype-button {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+                width: 90%;
+            }
         }
         @media (max-width: 480px) {
             .hero-title { 
@@ -333,51 +350,35 @@
     <div class="container">
         <!-- Герой-секция -->
         <section class="hero-section">
-            <h1 class="hero-title">МИСТИКА & ПСИХОЛОГИЯ</h1>
+            <h1 class="hero-title">МИСТИКА</h1>
             <p class="hero-subtitle">
-                Таро, нумерология, Матрица Судьбы, архетипы. Познание себя через символы и архетипы. 
-                Исследуйте внутреннюю вселенную, чтобы обрести гармонию с внешним миром.
+                Познание себя через символы и архетипы. Исследуйте внутреннюю вселенную, чтобы обрести гармонию с внешним миром.
             </p>
-            <a href="#reading" class="card-btn pulse" style="font-size: 1.1rem; padding: 15px 40px;">
-                <i class="fas fa-crystal-ball"></i> Начать путешествие
-            </a>
+            
+            <!-- Философский текст -->
+            <div class="philosophy-text">
+                <p>Равновесие начинается изнутри. Можно годами копить капитал, выстроить идеальный режим, закрыть все чекапы — и всё равно чувствовать, что чего‑то не хватает.</p>
+                <p>Потому что внешнее равновесие без внутреннего — просто конструкция. Она держится, пока дует ветер.</p>
+                <p>Этот раздел — про внутреннее. Про то, что нельзя потрогать, но можно почувствовать. Про языки, на которых говорит твоё бессознательное: мифы, архетипы, символы, сны.</p>
+                
+                <div class="pull-quote">
+                    Здесь нет магии. Есть система.<br>
+                    И она работает, даже если ты в неё не веришь.
+                </div>
+                
+                <p style="font-size: 1.2rem; font-weight: 400; color: #fff;"><strong>Ты выбрал тайный путь.</strong></p>
+                <p>Здесь не гадают и не обещают будущего.<br>Здесь собирают ключи, которые люди оставляли друг другу тысячи лет: мифы, архетипы, символы, сны.</p>
+                <p>Юнг называл это коллективным бессознательным.<br>Мы называем это зеркалом.</p>
+                <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #fff;">Загляни — и увидишь не судьбу, а себя.</p>
+            </div>
+
+            <!-- Кнопка Случайный архетип -->
+            <div class="archetype-button-container">
+                <a href="/calcs/arhday.html" class="archetype-button">
+                    <i class="fas fa-dice"></i> Случайный архетип
+                </a>
+            </div>
         </section>
-
-        <!-- Секция расклада Таро -->
-        <h2 class="section-title" id="reading">Быстрый расклад Таро</h2>
-        <p style="text-align: center; color: var(--text-lavender); max-width: 700px; margin: 0 auto 30px;">
-            Три карты: Прошлое, Настоящее, Будущее. Сосредоточьтесь на вопросе и откройте карты.
-        </p>
-        
-        <div class="tarot-spread">
-            <div>
-                <div class="tarot-card placeholder" id="tarot-card-1" onclick="revealCard(1)"></div>
-                <div class="tarot-label">Прошлое</div>
-            </div>
-            <div>
-                <div class="tarot-card placeholder" id="tarot-card-2" onclick="revealCard(2)"></div>
-                <div class="tarot-label">Настоящее</div>
-            </div>
-            <div>
-                <div class="tarot-card placeholder" id="tarot-card-3" onclick="revealCard(3)"></div>
-                <div class="tarot-label">Будущее</div>
-            </div>
-        </div>
-        
-        <div style="text-align: center; margin: 30px 0;">
-            <button class="card-btn" onclick="doTarotReading()" style="padding: 15px 50px;">
-                <i class="fas fa-magic"></i> Получить расклад
-            </button>
-        </div>
-        
-        <div class="results-box" id="tarot-result">
-            <h3 style="color: var(--accent-lavender); margin-bottom: 20px;">Интерпретация вашего расклада:</h3>
-            <div id="interpretation-text">
-                <!-- Текст будет сгенерирован здесь -->
-            </div>
-        </div>
-
-        <div class="divider"></div>
 
         <!-- Секция калькуляторов -->
         <h2 class="section-title">Онлайн-расчёты</h2>
@@ -479,101 +480,6 @@
     </div>
 
     <script>
-        // Данные для Таро
-        const tarotDeck = [
-            { symbol: '🜁', name: 'Маг', meaning: 'Воля, мастерство, инициатива. Вы в состоянии контролировать обстоятельства.' },
-            { symbol: '🜂', name: 'Верховная Жрица', meaning: 'Интуиция, тайны, подсознание. Прислушайтесь к внутреннему голосу.' },
-            { symbol: '🜃', name: 'Императрица', meaning: 'Изобилие, творчество, природа. Плодородный период для идей и начинаний.' },
-            { symbol: '🜄', name: 'Император', meaning: 'Власть, структура, контроль. Время навести порядок и установить правила.' },
-            { symbol: '🌙', name: 'Луна', meaning: 'Иллюзии, подсознание, интуиция. Не всё является тем, чем кажется на первый взгляд.' },
-            { symbol: '☀️', name: 'Солнце', meaning: 'Успех, радость, жизненная сила. Ясность, оптимизм и достижение целей.' },
-            { symbol: '⭐', name: 'Звезда', meaning: 'Надежда, вдохновение, духовность. Впереди светлый период и обновление.' },
-            { symbol: '⚖️', name: 'Справедливость', meaning: 'Баланс, карма, справедливость. Ваши действия имеют последствия.' },
-            { symbol: '🜅', name: 'Отшельник', meaning: 'Самопознание, одиночество, мудрость. Время для размышлений и поиска внутренних ответов.' },
-            { symbol: '♾️', name: 'Колесо Фортуны', meaning: 'Судьба, перемены, циклы. Жизнь движется, и ситуация скоро изменится.' }
-        ];
-
-        let currentReading = [];
-
-        // Функция для генерации расклада
-        function doTarotReading() {
-            currentReading = [];
-            const resultBox = document.getElementById('tarot-result');
-            const interpretationText = document.getElementById('interpretation-text');
-            
-            // Сброс карт
-            for (let i = 1; i <= 3; i++) {
-                const card = document.getElementById(`tarot-card-${i}`);
-                card.classList.add('placeholder');
-                card.textContent = '';
-            }
-            
-            // Выбор случайных карт
-            const shuffledDeck = [...tarotDeck].sort(() => Math.random() - 0.5);
-            currentReading = shuffledDeck.slice(0, 3);
-            
-            // Формирование текста интерпретации
-            interpretationText.innerHTML = `
-                <div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                        <span style="font-size: 2rem; margin-right: 15px;">${currentReading[0].symbol}</span>
-                        <div>
-                            <strong style="color: #fff; font-size: 1.2rem;">${currentReading[0].name}</strong>
-                            <div style="color: var(--text-lavender); font-size: 0.9rem;">Прошлое</div>
-                        </div>
-                    </div>
-                    <p>${currentReading[0].meaning}</p>
-                </div>
-                
-                <div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                        <span style="font-size: 2rem; margin-right: 15px;">${currentReading[1].symbol}</span>
-                        <div>
-                            <strong style="color: #fff; font-size: 1.2rem;">${currentReading[1].name}</strong>
-                            <div style="color: var(--text-lavender); font-size: 0.9rem;">Настоящее</div>
-                        </div>
-                    </div>
-                    <p>${currentReading[1].meaning}</p>
-                </div>
-                
-                <div>
-                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                        <span style="font-size: 2rem; margin-right: 15px;">${currentReading[2].symbol}</span>
-                        <div>
-                            <strong style="color: #fff; font-size: 1.2rem;">${currentReading[2].name}</strong>
-                            <div style="color: var(--text-lavender); font-size: 0.9rem;">Будущее</div>
-                        </div>
-                    </div>
-                    <p>${currentReading[2].meaning}</p>
-                </div>
-                
-                <div style="margin-top: 30px; padding: 20px; background: rgba(138, 43, 226, 0.1); border-radius: 10px;">
-                    <i class="fas fa-lightbulb" style="color: var(--accent-lavender); margin-right: 10px;"></i>
-                    <strong>Совет:</strong> Используйте этот расклад как зеркало для размышлений, а не как предсказание. Карты показывают текущие энергии и потенциал развития ситуации.
-                </div>
-            `;
-            
-            resultBox.classList.add('active');
-            
-            // Плавная прокрутка к результатам
-            resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-
-        // Функция для открытия карты по клику
-        function revealCard(cardNumber) {
-            if (currentReading.length === 0) {
-                alert('Сначала получите расклад, нажав кнопку "Получить расклад"');
-                return;
-            }
-            
-            const card = document.getElementById(`tarot-card-${cardNumber}`);
-            if (card.classList.contains('placeholder')) {
-                card.classList.remove('placeholder');
-                card.textContent = currentReading[cardNumber-1].symbol;
-                card.style.background = 'linear-gradient(135deg, rgba(138, 43, 226, 0.3), rgba(75, 0, 130, 0.3))';
-            }
-        }
-
         // Функции для калькуляторов
         function calculateMatrix() {
             const date = document.getElementById('matrix-date').value;
@@ -738,7 +644,7 @@
             }, observerOptions);
             
             // Наблюдаем за всеми секциями
-            document.querySelectorAll('.card, .tarot-spread, .results-box').forEach(el => {
+            document.querySelectorAll('.card, .results-box').forEach(el => {
                 el.style.opacity = '0';
                 el.style.transform = 'translateY(20px)';
                 el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
