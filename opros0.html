@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль развития · ваши ведущие системы</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(165deg, #f0f4fa 0%, #e6ecf7 100%);
+            min-height: 100vh;
+            color: #1a2639;
+            padding: 1.5rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 2.5rem;
+            padding: 2rem 2rem 2.5rem;
+            box-shadow: 0 25px 45px -20px #2a4058, 0 0 0 1px rgba(70, 130, 200, 0.15);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #1e3b5c, #2b4c7c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.25rem;
+        }
+
+        .subtitle {
+            color: #4f658d;
+            font-size: 1rem;
+            border-left: 3px solid #5a7bbf;
+            padding-left: 1.2rem;
+            margin: 0.5rem 0 1.5rem;
+        }
+
+        .age-block {
+            background: #ffffffd0;
+            border-radius: 3rem;
+            padding: 1.2rem 2rem;
+            margin: 1.2rem 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            box-shadow: 0 6px 14px #cdd9eb;
+        }
+
+        .age-block label {
+            font-weight: 600;
+            color: #1f3b5c;
+        }
+
+        .age-block select {
+            background: white;
+            border: 1px solid #b0c6e0;
+            padding: 0.6rem 2rem 0.6rem 1.5rem;
+            border-radius: 3rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #102a41;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .progress {
+            background: #d0ddeb;
+            height: 10px;
+            border-radius: 60px;
+            margin: 25px 0;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #3e6ab2, #6187d0);
+            border-radius: 60px;
+            transition: width 0.2s;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 2rem;
+            padding: 2rem 2rem 1.5rem;
+            box-shadow: 0 20px 30px -10px #a0b5cf;
+            margin: 1.8rem 0;
+        }
+
+        .scale-tag {
+            display: inline-block;
+            background: #ebf2fc;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #2f509e;
+            letter-spacing: 0.3px;
+            margin-bottom: 1rem;
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            font-weight: 500;
+            line-height: 1.4;
+            margin-bottom: 2rem;
+            color: #0b1f33;
+        }
+
+        .likert {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: space-between;
+            margin: 2rem 0 0.8rem;
+        }
+
+        .likert-option {
+            flex: 1;
+            text-align: center;
+        }
+
+        .likert-option input[type="radio"] {
+            display: none;
+        }
+
+        .likert-option label {
+            display: block;
+            background: #f1f6ff;
+            border: 1px solid #b6c9ec;
+            border-radius: 60px;
+            padding: 0.8rem 0.2rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #24416b;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+
+        .likert-option input[type="radio"]:checked + label {
+            background: #2e5aaf;
+            border-color: #1f3f79;
+            color: white;
+            box-shadow: 0 4px 10px #7799df;
+        }
+
+        .likert-labels {
+            display: flex;
+            justify-content: space-between;
+            color: #546e96;
+            font-size: 0.85rem;
+            padding: 0 0.5rem;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0 1rem;
+        }
+
+        button {
+            background: white;
+            border: 1px solid #b0c8ec;
+            padding: 0.8rem 2.2rem;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1d3a65;
+            cursor: pointer;
+            transition: 0.1s;
+            box-shadow: 0 4px 8px #d3e1f5;
+        }
+
+        button:hover {
+            background: #e3edff;
+            border-color: #7f9fd5;
+            transform: scale(1.01);
+        }
+
+        button:disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .counter {
+            background: #e3edfc;
+            padding: 0.4rem 1.8rem;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #1e3f6b;
+        }
+
+        /* РЕЗУЛЬТАТ – УПРОЩЁННЫЙ И ПРАКТИЧНЫЙ */
+        .result-container {
+            background: white;
+            border-radius: 2.5rem;
+            padding: 2.2rem;
+            box-shadow: 0 25px 35px -15px #8ba0c0;
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .age-result-badge {
+            background: #e5efff;
+            padding: 0.4rem 1.4rem;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #1d3f75;
+        }
+
+        .top-systems {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin: 1.5rem 0 2rem;
+        }
+
+        .system-pill {
+            background: #eef4ff;
+            border: 1px solid #b6cef0;
+            padding: 0.5rem 1.5rem;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #1e3f6e;
+        }
+
+        .system-pill strong {
+            font-weight: 700;
+            color: #102b4a;
+        }
+
+        .practical-card {
+            background: #f6faff;
+            border-radius: 1.8rem;
+            padding: 1.8rem;
+            margin: 2rem 0 1.5rem;
+            border: 1px solid #cddefa;
+        }
+
+        .practical-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #12315c;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .practical-text {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            color: #1e3657;
+            margin-bottom: 1rem;
+        }
+
+        .pill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin: 1.2rem 0;
+        }
+
+        .pill-list span {
+            background: white;
+            border: 1px solid #acc3e7;
+            padding: 0.4rem 1.2rem;
+            border-radius: 60px;
+            font-size: 0.95rem;
+        }
+
+        .growth-tip {
+            background: #dce8ff;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .growth-tip h4 {
+            color: #0e2f5a;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-small {
+            color: #687ea0;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        hr {
+            border: 1px solid #cddef5;
+            margin: 1.5rem 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+    <h1>🧭 ПРОФИЛЬ РАЗВИТИЯ</h1>
+    <div class="subtitle">12 базовых систем · иерархия · простые рекомендации</div>
+
+    <!-- выбор возраста -->
+    <div class="age-block">
+        <label>🎂 Ваш возраст:</label>
+        <select id="ageSelect">
+            <option value="1">0–2 года</option>
+            <option value="2">3–5 лет</option>
+            <option value="3">6–11 лет</option>
+            <option value="4">12–17 лет</option>
+            <option value="5">18–25 лет</option>
+            <option value="6" selected>26–40 лет</option>
+            <option value="7">41–60 лет</option>
+            <option value="8">60+ лет</option>
+        </select>
+    </div>
+
+    <!-- прогресс -->
+    <div class="progress"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+
+    <!-- блок опроса -->
+    <div id="quizBlock">
+        <div class="question-card">
+            <span class="scale-tag" id="currentScaleLabel">...</span>
+            <div class="question-text" id="currentQuestion">...</div>
+            <div class="likert" id="likertContainer"></div>
+            <div class="likert-labels">
+                <span>🙅‍♂️ совсем не я</span>
+                <span>⚖️ средне</span>
+                <span>✅ точно я</span>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <button id="prevBtn" disabled>← Назад</button>
+            <span class="counter" id="questionCounter">1 / 60</span>
+            <button id="nextBtn">Далее →</button>
+        </div>
+    </div>
+
+    <!-- блок результата (упрощённый, практичный) -->
+    <div id="resultBlock" style="display: none;"></div>
+
+    <div class="footer-small">индивидуальный профиль · возрастные нормы · 12 систем</div>
+</div>
+
+<script>
+(function() {
+    // 12 систем
+    const scaleNames = [
+        "Территория", "Иерархия", "Ритуал",
+        "Поиск", "Страх", "Гнев", "Привязанность", "Забота", "Игра",
+        "Контроль", "Социальность", "Смысл"
+    ];
+
+    // 60 вопросов (сокращённая версия, но по-прежнему 5 на шкалу)
+    const questionsDB = [
+        "Я ценю личное пространство", "Меня раздражает вторжение на мою территорию", "Я чётко обозначаю свои границы", "Мне важно знать, где моё место", "Я защищаю свои владения",
+        "Я замечаю, кто главный", "Мой статус для важен", "Я стремлюсь быть выше в иерархии", "Я подчиняюсь старшим и жду подчинения от младших", "Без иерархии мне дискомфортно",
+        "Я люблю ритуалы", "Повторение успокаивает", "Нарушение привычек меня тревожит", "У меня есть ежедневные ритуалы", "Порядок действий важен",
+        "Мне нужно новое", "Исследовать — моё", "Скука невыносима", "Я готов рисковать ради впечатлений", "Люблю открывать неизведанное",
+        "Я часто тревожусь", "Новое напрягает", "Я избегаю риска", "Будущее беспокоит", "Я ищу опасности, чтобы избежать",
+        "Меня легко разозлить", "Несправедливость бесит", "В конфликте я нападаю", "Гнев трудно сдержать", "Препятствия вызывают злость",
+        "Мне нужна эмоциональная связь", "Разлука тяжела", "Одиночество мучительно", "Я сильно привязываюсь", "Нужно знать, что меня любят",
+        "Я люблю заботиться", "Помощь другим — радость", "Готов жертвовать временем", "Опекать — естественно", "Забота приносит счастье",
+        "Я люблю играть", "Юмор спасает", "Легко отношусь к жизни", "В работе нужна игра", "Обожаю праздники",
+        "Я планирую", "Легко сдерживаю порывы", "Люблю порядок", "Цели важнее сиюминутного", "Я дисциплинирован",
+        "Понимаю чувства других", "Справедливость важна", "Ставлю себя на место другого", "Мнение окружающих важно", "Чувствую ответственность",
+        "Ищу смысл", "Ценности направляют", "Духовность важна", "Есть что‑то большее", "Убеждения ведут меня"
+    ];
+
+    let answers = new Array(60).fill(3);
+    let currentIndex = 0;
+
+    const ageSelect = document.getElementById('ageSelect');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const counterSpan = document.getElementById('questionCounter');
+    const questionDiv = document.getElementById('currentQuestion');
+    const scaleSpan = document.getElementById('currentScaleLabel');
+    const likertDiv = document.getElementById('likertContainer');
+    const progressFill = document.getElementById('progressFill');
+    const quizBlock = document.getElementById('quizBlock');
+    const resultBlock = document.getElementById('resultBlock');
+
+    function renderQuestion() {
+        const qText = questionsDB[currentIndex];
+        const scaleIdx = Math.floor(currentIndex / 5);
+        scaleSpan.innerText = scaleNames[scaleIdx];
+
+        questionDiv.innerText = qText;
+        let html = '';
+        for (let i=1; i<=5; i++) {
+            const checked = answers[currentIndex] === i ? 'checked' : '';
+            html += `<div class="likert-option">
+                <input type="radio" name="likert" id="opt${i}" value="${i}" ${checked}>
+                <label for="opt${i}">${i}</label>
+            </div>`;
+        }
+        likertDiv.innerHTML = html;
+
+        document.querySelectorAll('input[name="likert"]').forEach(r => {
+            r.addEventListener('change', (e) => {
+                answers[currentIndex] = parseInt(e.target.value);
+                updateNav();
+            });
+        });
+
+        counterSpan.innerText = `${currentIndex+1} / 60`;
+        progressFill.style.width = ((currentIndex+1)/60*100)+'%';
+        updateNav();
+    }
+
+    function updateNav() {
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.innerText = currentIndex === 59 ? 'Завершить' : 'Далее →';
+    }
+
+    prevBtn.addEventListener('click', ()=>{
+        if (currentIndex > 0) { currentIndex--; renderQuestion(); }
+    });
+
+    nextBtn.addEventListener('click', ()=>{
+        if (currentIndex < 59) {
+            currentIndex++;
+            renderQuestion();
+        } else {
+            computeResult();
+        }
+    });
+
+    // ---------- РАСЧЁТ И ПРАКТИЧНЫЙ ВЫВОД ----------
+    function computeResult() {
+        let sums = new Array(12).fill(0);
+        for (let i=0; i<60; i++) sums[Math.floor(i/5)] += answers[i];
+
+        let rawScores = sums.map(s => (s-5)/20); // 0..1
+        const ageGroup = parseInt(ageSelect.value);
+
+        // возрастная корректировка (не показываем пользователю, но используем для оценки зрелости)
+        let maturity = [1,1,1, 1,1,1,1,1,1, 0,0,0];
+        if (ageGroup >= 3) maturity[9] = 0.5;
+        if (ageGroup >= 4) { maturity[10] = 0.6; maturity[9] = 0.8; }
+        if (ageGroup >= 5) { maturity[9] = 1.0; maturity[10] = 0.9; maturity[11] = 0.5; }
+        if (ageGroup >= 6) { maturity[10] = 1.0; maturity[11] = 0.8; }
+        if (ageGroup >= 7) maturity[11] = 1.0;
+        if (ageGroup >= 8) maturity[11] = 1.0;
+
+        // финальные скоры (с учётом возрастных ограничений, но для показа используем rawScores)
+        let displayScores = rawScores.map((v,i) => Math.min(v, maturity[i]*1.2));
+
+        // топ-3 системы
+        let indexed = displayScores.map((v,i)=>({v,i})).sort((a,b)=>b.v - a.v);
+        let topIdx = indexed.slice(0,3).map(x => x.i);
+        let topNames = topIdx.map(i => scaleNames[i]);
+
+        // ведущая «роль» на основе комбинации
+        let role = "Исследователь";
+        let roleDesc = "";
+        let recommendations = [];
+        let practicalAdvice = "";
+
+        // очень простая эвристика
+        if (topIdx.includes(3) && topIdx.includes(8)) role = "Творец‑игрок";
+        else if (topIdx.includes(4) && topIdx.includes(5)) role = "Защитник";
+        else if (topIdx.includes(1) && topIdx.includes(9)) role = "Стратег";
+        else if (topIdx.includes(6) && topIdx.includes(7)) role = "Хранитель";
+        else if (topIdx.includes(10) && topIdx.includes(11)) role = "Мудрец";
+        else if (topIdx.includes(0) && topIdx.includes(1)) role = "Лидер";
+        else role = "Первооткрыватель";
+
+        // понятные описания
+        const roleMap = {
+            "Исследователь": "Вы ищете новое, движимы любопытством. Вам важно не стоять на месте.",
+            "Творец‑игрок": "Вы соединяете творчество и лёгкость. Умеете находить радость в процессе.",
+            "Защитник": "Вы остро чувствуете опасность и готовы защищать себя и близких.",
+            "Стратег": "Вы планируете, контролируете, выстраиваете иерархии. Порядок — ваша сила.",
+            "Хранитель": "Ваши ведущие — привязанность и забота. Вы строите тёплые отношения.",
+            "Мудрец": "Вы ищете смысл, ценности, справедливость. Вам важна глубина.",
+            "Лидер": "Территория и иерархия — ваше всё. Вы рождены управлять.",
+            "Первооткрыватель": "Поиск нового + контроль = вы открываете и систематизируете."
+        };
+        roleDesc = roleMap[role] || "Уникальное сочетание систем создаёт ваш неповторимый стиль.";
+
+        // практичные советы
+        if (topIdx.includes(3)) recommendations.push("🔍 направляйте поиск: ставьте конкретные исследовательские цели");
+        if (topIdx.includes(4)) recommendations.push("🛡️ работайте со страхом: техники заземления, безопасная среда");
+        if (topIdx.includes(5)) recommendations.push("🔥 гнев — топливо: направляйте в спорт, отстаивание границ");
+        if (topIdx.includes(6)) recommendations.push("❤️ привязанность — ресурс: стройте близкие отношения, но помните о себе");
+        if (topIdx.includes(7)) recommendations.push("🤲 забота: отличный дар, но избегайте жертвенности");
+        if (topIdx.includes(8)) recommendations.push("🎉 игра: добавляйте радость в дела, не бойтесь лёгкости");
+        if (topIdx.includes(9)) recommendations.push("📋 контроль: полезен, но оставляйте место спонтанности");
+        if (topIdx.includes(10)) recommendations.push("👥 социальность: развивайте эмпатию, но сохраняйте свои границы");
+        if (topIdx.includes(11)) recommendations.push("✨ смысл: ищите ценности, задавайте «зачем»");
+
+        if (recommendations.length === 0) recommendations.push("🌈 у вас гармоничный профиль, развивайте все системы в балансе");
+
+        // возрастная фраза
+        const agePhrase = [
+            "раннее детство", "дошкольный", "школьный", "подростковый",
+            "юность", "зрелость", "опытный возраст", "мудрость"
+        ][ageGroup-1];
+
+        // собираем вывод
+        let html = `
+            <div class="result-container">
+                <div class="result-header">
+                    <span style="font-size:2rem;">🧩</span>
+                    <span class="age-result-badge">${agePhrase} · ${ageSelect.options[ageSelect.selectedIndex].text}</span>
+                </div>
+                <div style="font-size:2rem; font-weight:600; color:#132e4f;">${role}</div>
+                <div style="font-size:1.2rem; color:#2d4c7a; margin:0.2rem 0 1rem;">${roleDesc}</div>
+
+                <div class="top-systems">
+                    ${topNames.map(n => `<span class="system-pill"><strong>${n}</strong></span>`).join('')}
+                </div>
+
+                <div class="practical-card">
+                    <div class="practical-title">🎯 как это проявляется в жизни</div>
+                    <div class="practical-text">
+                        ${topNames.includes("Поиск") ? "• вам нужно разнообразие, иначе наступает скука<br>" : ""}
+                        ${topNames.includes("Страх") ? "• вы предусмотрительны, замечаете риски<br>" : ""}
+                        ${topNames.includes("Гнев") ? "• вы энергично отстаиваете свои интересы<br>" : ""}
+                        ${topNames.includes("Привязанность") ? "• вы глубоко переживаете отношения<br>" : ""}
+                        ${topNames.includes("Забота") ? "• вы тот, к кому идут за поддержкой<br>" : ""}
+                        ${topNames.includes("Игра") ? "• вы легко находите радость в повседневности<br>" : ""}
+                        ${topNames.includes("Контроль") ? "• вы любите порядок и планы<br>" : ""}
+                        ${topNames.includes("Социальность") ? "• вы хорошо чувствуете других людей<br>" : ""}
+                        ${topNames.includes("Смысл") ? "• вы ищете в жизни глубину и ценности<br>" : ""}
+                        ${topNames.includes("Территория") ? "• вы чётко держите личные границы<br>" : ""}
+                        ${topNames.includes("Иерархия") ? "• вы понимаете структуру власти и своё место<br>" : ""}
+                        ${topNames.includes("Ритуал") ? "• вам важны ритуалы и стабильность<br>" : ""}
+                    </div>
+                </div>
+
+                <div class="growth-tip">
+                    <h4>🌱 твои точки роста</h4>
+                    <ul style="margin-left:1.5rem; color:#1c3a60;">
+                        ${recommendations.map(r => `<li>${r}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <hr>
+                <div style="display:flex; flex-wrap:wrap; gap:2rem; justify-content:space-between;">
+                    <div><b>ваши ведущие системы</b><br>${topNames.join(' · ')}</div>
+                    <div><b>возрастной этап</b><br>${agePhrase}</div>
+                </div>
+                <div style="text-align:center; margin-top:2rem;">
+                    <button id="restartBtn" style="background:#eef4ff;">⟲ пройти заново</button>
+                </div>
+            </div>
+        `;
+
+        resultBlock.innerHTML = html;
+        quizBlock.style.display = 'none';
+        resultBlock.style.display = 'block';
+
+        document.getElementById('restartBtn')?.addEventListener('click', ()=>{
+            answers.fill(3);
+            currentIndex = 0;
+            quizBlock.style.display = 'block';
+            resultBlock.style.display = 'none';
+            renderQuestion();
+        });
+    }
+
+    renderQuestion();
+})();
+</script>
+</body>
+</html>
