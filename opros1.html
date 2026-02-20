@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Архетипический опросник · иерархическая модель · 12 систем</title>
+    <title>Нейроархетипический опросник · 12 систем</title>
     <style>
         * {
             margin: 0;
@@ -20,11 +20,10 @@
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             background: rgba(18, 26, 40, 0.85);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(90, 120, 200, 0.15);
             border-radius: 2rem;
             padding: 2rem 2rem 2.5rem;
@@ -47,34 +46,6 @@
             border-left: 3px solid #5272c4;
             padding-left: 1.2rem;
             margin: 0.8rem 0 1.8rem 0.2rem;
-        }
-
-        .age-selector {
-            background: #1e2a3a;
-            padding: 1.5rem 2rem;
-            border-radius: 3rem;
-            margin: 1.2rem 0 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            border: 1px solid #3f5077;
-        }
-
-        .age-selector label {
-            font-size: 1.3rem;
-            color: #baceff;
-        }
-
-        .age-selector select {
-            background: #0c1422;
-            color: white;
-            font-size: 1.2rem;
-            padding: 0.7rem 2rem;
-            border-radius: 3rem;
-            border: 1px solid #5a72a5;
-            outline: none;
         }
 
         .progress {
@@ -202,88 +173,202 @@
             color: #b4c5fd;
         }
 
-        /* возрастной блок */
-        .level-badge {
-            font-size: 0.9rem;
-            background: #262f47;
-            padding: 0.2rem 1.2rem;
-            border-radius: 30px;
-            border: 1px solid #596e9e;
-            display: inline-block;
-            margin: 0.5rem 0;
+        .result-section {
+            margin-top: 30px;
         }
 
-        .result-card {
-            background: #111b2ee0;
-            border-radius: 2rem;
-            padding: 2rem;
-            margin: 2rem 0;
-            border-left: 6px solid;
-        }
-
-        .white-card { border-color: #6fe68b; }
-        .gray-card { border-color: #a5b3ce; }
-        .black-card { border-color: #f48181; }
-
-        .archetype-title {
-            font-size: 2.2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .archetype-badge {
-            font-size: 0.9rem;
-            padding: 0.3rem 1.2rem;
-            border-radius: 60px;
-            background: #232f4b;
-            border: 1px solid #5e74b0;
-            display: inline-block;
-            margin: 0.3rem 0 1rem;
-        }
-
-        .system-row {
+        .result-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            margin: 0.8rem 0;
-            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
         }
+
+        .result-title {
+            font-size: 2rem;
+            color: #f0f4ff;
+            border-left: 6px solid #5f7edb;
+            padding-left: 20px;
+        }
+
+        .score-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+            padding: 20px;
+            background: #1b2540;
+            border-radius: 24px;
+        }
+
+        .score-item {
+            text-align: center;
+        }
+
+        .score-label {
+            font-size: 0.85rem;
+            color: #9aaeec;
+            text-transform: uppercase;
+        }
+
+        .score-value {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .systems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .system-card {
+            background: #1b253f;
+            border-radius: 24px;
+            padding: 20px;
+            border: 1px solid #3d5182;
+        }
+
+        .system-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
         .system-name {
-            width: 120px;
-            font-weight: 500;
+            font-size: 1.3rem;
+            font-weight: 600;
         }
-        .level-bar-container {
-            flex: 1;
-            height: 24px;
-            background: #1a2338;
+
+        .system-category {
+            font-size: 0.7rem;
+            padding: 4px 12px;
             border-radius: 30px;
+            background: #253458;
+            border: 1px solid #6077bb;
+        }
+
+        .system-category.reptile { background: #2a3650; color: #b0c4ff; }
+        .system-category.limbic { background: #2a3855; color: #b0c4ff; }
+        .system-category.cortex { background: #332e55; color: #d4b0ff; }
+        .system-category.meta { background: #4a3e2e; color: #ffd966; }
+
+        .level-bar {
+            height: 24px;
+            background: #0b1324;
+            border-radius: 40px;
+            margin: 8px 0;
             overflow: hidden;
             display: flex;
         }
+
         .level-segment {
             height: 100%;
             transition: width 0.3s;
         }
-        .segment-1 { background: #3b4a6b; } /* рептильный */
-        .segment-2 { background: #5f7edb; } /* лимбический */
-        .segment-3 { background: #a886e5; } /* корковый */
-        .segment-4 { background: #d4af37; } /* мета */
-        .age-note {
-            font-size: 0.9rem;
-            color: #b3c3ee;
-            margin-left: 10px;
+
+        .level-1 { background: #3b4a6b; }
+        .level-2 { background: #5f7edb; }
+        .level-3 { background: #a886e5; }
+        .level-4 { background: #d4af37; }
+
+        .level-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #b0c4ff;
+            margin: 5px 0;
         }
 
-        .mystic-tags {
+        .archetypes-section {
+            background: #1b2946;
+            border-radius: 32px;
+            padding: 30px;
+            margin: 40px 0;
+            border: 2px solid #6b82c0;
+        }
+
+        .archetypes-title {
+            font-size: 1.8rem;
+            color: #e9c46a;
+            margin-bottom: 25px;
+        }
+
+        .archetypes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .archetype-result-card {
+            background: #253558;
+            border-radius: 24px;
+            padding: 20px;
+            border-left: 6px solid;
+        }
+
+        .archetype-white { border-color: #4ade80; }
+        .archetype-gray { border-color: #94a3b8; }
+        .archetype-black { border-color: #f87171; }
+
+        .archetype-result-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .archetype-match {
+            font-size: 0.9rem;
+            color: #b0c6ff;
+            margin: 8px 0;
+        }
+
+        .confidence-bar {
+            height: 8px;
+            background: #1e2a45;
+            border-radius: 10px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #5f7edb, #b07cf0);
+            border-radius: 10px;
+        }
+
+        .systems-badge {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin: 1.5rem 0;
+            gap: 5px;
+            margin: 10px 0;
         }
-        .mystic-tag {
-            background: #1b253f;
-            padding: 0.3rem 1.2rem;
-            border-radius: 30px;
-            border: 1px solid #4f6498;
+
+        .system-badge {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .correlation-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin: 10px 0;
+        }
+
+        .correlation-tag {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.05);
         }
 
         .legend {
@@ -294,16 +379,52 @@
             font-size: 0.85rem;
             flex-wrap: wrap;
         }
+
         .legend span::before {
             content: "●";
             margin-right: 6px;
             font-size: 1.2rem;
             vertical-align: middle;
         }
-        .leg-reptile { color: #7b8ab3; } .leg-reptile::before { color: #3b4a6b; }
-        .leg-limbic { color: #7b8ab3; } .leg-limbic::before { color: #5f7edb; }
-        .leg-cortex { color: #7b8ab3; } .leg-cortex::before { color: #a886e5; }
-        .leg-meta { color: #7b8ab3; } .leg-meta::before { color: #d4af37; }
+        .leg-reptile::before { color: #3b4a6b; }
+        .leg-limbic::before { color: #5f7edb; }
+        .leg-cortex::before { color: #a886e5; }
+        .leg-meta::before { color: #d4af37; }
+        .leg-white::before { color: #4ade80; }
+        .leg-gray::before { color: #94a3b8; }
+        .leg-black::before { color: #f87171; }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            font-size: 1.2rem;
+            color: #95a9d9;
+        }
+
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+            border: 2px solid #5f7edb;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            text-align: center;
+            padding: 40px;
+            background: #2a1f2f;
+            border-radius: 24px;
+            color: #fca5a5;
+            margin: 30px 0;
+        }
 
         footer {
             text-align: center;
@@ -311,340 +432,479 @@
             color: #5d71a0;
             font-size: 0.85rem;
         }
+
+        .restart-btn {
+            margin: 30px auto 0;
+            display: block;
+            max-width: 300px;
+        }
     </style>
 </head>
 <body>
-<div class="container" id="app">
-    <h1>🧬 ИЕРАРХИЧЕСКАЯ МОДЕЛЬ АРХЕТИПОВ</h1>
-    <div class="subtitle">12 систем · 4 уровня развития (рептильный / лимбический / корковый / мета)</div>
+    <div class="container">
+        <h1>🧬 НЕЙРОАРХЕТИПИЧЕСКИЙ ОПРОСНИК</h1>
+        <div class="subtitle">12 систем · 4 уровня развития · 64 архетипа</div>
 
-    <!-- выбор возраста -->
-    <div class="age-selector">
-        <label>🎂 Ваш возраст:</label>
-        <select id="ageSelect">
-            <option value="1">0–2 года</option>
-            <option value="2">3–5 лет</option>
-            <option value="3">6–11 лет</option>
-            <option value="4">12–17 лет</option>
-            <option value="5">18–25 лет</option>
-            <option value="6" selected>26–40 лет</option>
-            <option value="7">41–60 лет</option>
-            <option value="8">60+ лет</option>
-        </select>
-    </div>
+        <!-- Блок загрузки не отображаем, только лоадер при необходимости -->
+        <div id="loadingIndicator" class="loading">Загрузка базы данных</div>
+        
+        <!-- Основной блок (скрыт до загрузки) -->
+        <div id="mainContent" style="display: none;">
+            <div class="progress"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+            
+            <div id="quizBlock">
+                <div class="question-container">
+                    <span class="scale-label" id="currentScaleLabel">...</span>
+                    <div class="question-text" id="currentQuestion">...</div>
+                    <div class="likert" id="likertContainer"></div>
+                    <div class="likert-labels">
+                        <span>совсем не про меня</span>
+                        <span>нейтрально</span>
+                        <span>точно про меня</span>
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    <button id="prevBtn" disabled>← Назад</button>
+                    <span class="counter" id="questionCounter">1 / 60</span>
+                    <button id="nextBtn">Далее →</button>
+                </div>
+            </div>
 
-    <!-- прогрес бар -->
-    <div class="progress"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
-
-    <!-- блок опроса -->
-    <div id="quizBlock">
-        <div class="question-container">
-            <span class="scale-label" id="currentScaleLabel">...</span>
-            <div class="question-text" id="currentQuestion">...</div>
-            <div class="likert" id="likertContainer"></div>
-            <div class="likert-labels"><span>совсем не про меня</span><span>абсолютно точно про меня</span></div>
+            <div id="resultBlock" style="display: none;"></div>
         </div>
-        <div class="nav-buttons">
-            <button id="prevBtn" disabled>← Назад</button>
-            <span class="counter" id="questionCounter">1 / 60</span>
-            <button id="nextBtn">Далее →</button>
+
+        <div class="legend">
+            <span class="leg-reptile"> рептильные</span>
+            <span class="leg-limbic"> лимбические</span>
+            <span class="leg-cortex"> корковые</span>
+            <span class="leg-meta"> мета</span>
+            <span class="leg-white"> белый список</span>
+            <span class="leg-gray"> серый список</span>
+            <span class="leg-black"> чёрный список</span>
         </div>
+        <footer>основано на 12 нейробиологических системах · версия 3.0</footer>
     </div>
 
-    <!-- блок результата (скрыт) -->
-    <div id="resultBlock" style="display: none;"></div>
+    <script>
+        // Глобальные переменные
+        let archetypesDB = null;
+        let questions = [];
+        let answers = new Array(60).fill(3);
+        let currentIndex = 0;
 
-    <div class="legend">
-        <span class="leg-reptile"> рептильный (база, стабилен)</span>
-        <span class="leg-limbic"> лимбический (эмоции, критич. периоды)</span>
-        <span class="leg-cortex"> корковый (контроль, планирование)</span>
-        <span class="leg-meta"> мета-системы (смысл, ценности)</span>
-    </div>
-    <footer>возрастные нормы · индивидуальный профиль развития · связь с 64 архетипами</footer>
-</div>
+        // DOM элементы
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const mainContent = document.getElementById('mainContent');
+        const quizBlock = document.getElementById('quizBlock');
+        const resultBlock = document.getElementById('resultBlock');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const counterSpan = document.getElementById('questionCounter');
+        const questionDiv = document.getElementById('currentQuestion');
+        const scaleSpan = document.getElementById('currentScaleLabel');
+        const likertDiv = document.getElementById('likertContainer');
+        const progressFill = document.getElementById('progressFill');
 
-<script>
-(function() {
-    // ---------- НОВАЯ БАЗА: 12 СИСТЕМ, КАЖДАЯ 5 ВОПРОСОВ = 60 вопросов ----------
-    const scaleNames = [
-        "ТЕРРИТОРИЯ", "ИЕРАРХИЯ", "РИТУАЛ",        // рептильные  (1-3)
-        "ПОИСК", "СТРАХ", "ГНЕВ", "ПРИВЯЗАННОСТЬ", "ЗАБОТА", "ИГРА",   // лимбические (4-9)
-        "КОНТРОЛЬ", "СОЦИАЛЬНОСТЬ", "СМЫСЛ"        // корковые + мета (10-12)
-    ];
-
-    // 60 вопросов (по 5 на каждую из 12 шкал)
-    const questionsDB = [
-        // ТЕРРИТОРИЯ (5)
-        "Я остро чувствую необходимость в личном пространстве",
-        "Меня раздражает, когда кто-то вторгается на мою территорию",
-        "Я чётко маркирую свои вещи и пространство",
-        "Мне важно знать, где мои границы",
-        "Я защищаю своё место от посягательств",
-        // ИЕРАРХИЯ (5)
-        "Я всегда замечаю, кто в группе главный",
-        "Мне важно моё положение в обществе",
-        "Я стремлюсь к более высокому статусу",
-        "Я подчиняюсь тем, кто выше, и жду подчинения от тех, кто ниже",
-        "Я чувствую дискомфорт, если иерархия неясна",
-        // РИТУАЛ (5)
-        "Я люблю повторяющиеся ритуалы и привычки",
-        "Мне важно соблюдать определённый порядок действий",
-        "Отклонение от привычного распорядка меня тревожит",
-        "У меня есть ежедневные ритуалы, которые я соблюдаю",
-        "Я чувствую безопасность в повторении знакомых действий",
-        // ПОИСК (5)
-        "Меня тянет исследовать новое",
-        "Я легко загораюсь неизведанным",
-        "Скука для меня мучительна",
-        "Я готов рисковать ради нового опыта",
-        "Мне нравится открывать неизвестные места",
-        // СТРАХ (5)
-        "Я часто тревожусь о возможных опасностях",
-        "Новые ситуации вызывают у меня напряжение",
-        "Я предпочитаю избегать риска",
-        "Будущее часто вызывает беспокойство",
-        "Я тщательно оцениваю угрозы",
-        // ГНЕВ (5)
-        "Меня легко разозлить",
-        "Я быстро реагирую на несправедливость",
-        "В конфликте я скорее нападаю",
-        "Мне трудно сдержать гнев, когда меня провоцируют",
-        "Когда что-то мешает, я раздражаюсь",
-        // ПРИВЯЗАННОСТЬ (5)
-        "Мне жизненно необходима эмоциональная связь с близкими",
-        "Я тяжело переживаю разлуку",
-        "Одиночество для меня мучительно",
-        "Я сильно привязываюсь к людям",
-        "Мне нужно знать, что меня любят",
-        // ЗАБОТА (5)
-        "Я люблю заботиться о других",
-        "Мне важно помогать близким",
-        "Я готов жертвовать своим временем ради других",
-        "Меня тянет опекать и оберегать",
-        "Забота приносит мне радость",
-        // ИГРА (5)
-        "Я люблю играть и дурачиться",
-        "Юмор помогает мне справляться с трудностями",
-        "Я легко отношусь к жизни",
-        "Мне важно, чтобы в деле был элемент игры",
-        "Я обожаю праздники и развлечения",
-        // КОНТРОЛЬ (5)
-        "Я всегда планирую свои дела",
-        "Мне легко сдерживать импульсивные желания",
-        "Я предпочитаю порядок и структуру",
-        "Долгосрочные цели важнее сиюминутных",
-        "Я дисциплинированный человек",
-        // СОЦИАЛЬНОСТЬ (5) — теория сознания, эмпатия, мораль
-        "Я легко понимаю, что чувствуют другие",
-        "Меня волнует справедливость",
-        "Я часто ставлю себя на место другого",
-        "Мне важно, что обо мне думают окружающие",
-        "Я чувствую ответственность перед обществом",
-        // СМЫСЛ (5) — ценности, трансценденция
-        "Для меня важны поиски смысла жизни",
-        "У меня есть система ценностей, которой я следую",
-        "Меня волнуют вопросы духовности",
-        "Я стремлюсь к чему-то большему, чем я сам",
-        "Мои убеждения направляют мою жизнь"
-    ];
-
-    // индексы начала каждой шкалы (для удобства)
-    const scaleStart = [0,5,10,15,20,25,30,35,40,45,50,55]; // 12 шкал
-
-    let answers = new Array(60).fill(3); // нейтральные ответы (1-5)
-    let currentIndex = 0;
-
-    // DOM элементы
-    const ageSelect = document.getElementById('ageSelect');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const counterSpan = document.getElementById('questionCounter');
-    const questionDiv = document.getElementById('currentQuestion');
-    const scaleSpan = document.getElementById('currentScaleLabel');
-    const likertDiv = document.getElementById('likertContainer');
-    const progressFill = document.getElementById('progressFill');
-    const quizBlock = document.getElementById('quizBlock');
-    const resultBlock = document.getElementById('resultBlock');
-
-    // отрисовка вопроса
-    function renderQuestion() {
-        const qText = questionsDB[currentIndex];
-        const scaleIdx = Math.floor(currentIndex / 5);
-        scaleSpan.innerText = scaleNames[scaleIdx];
-
-        questionDiv.innerText = qText;
-        let html = '';
-        for (let i=1; i<=5; i++) {
-            const checked = answers[currentIndex] === i ? 'checked' : '';
-            html += `<div class="likert-option">
-                <input type="radio" name="likert" id="opt${i}" value="${i}" ${checked}>
-                <label for="opt${i}">${i}</label>
-            </div>`;
+        // Загрузка базы данных
+        async function loadDatabase() {
+            try {
+                const response = await fetch('neyroarh64.json');
+                if (!response.ok) throw new Error('Ошибка загрузки базы данных');
+                const data = await response.json();
+                archetypesDB = data;
+                
+                // Генерация вопросов
+                generateQuestions();
+                
+                // Показать основной интерфейс
+                loadingIndicator.style.display = 'none';
+                mainContent.style.display = 'block';
+                
+                // Начать опрос
+                renderQuestion();
+            } catch (error) {
+                loadingIndicator.innerHTML = `
+                    <div class="error-message">
+                        ❌ Ошибка загрузки: ${error.message}<br>
+                        Убедитесь, что файл neyroarh64.json находится в той же папке
+                    </div>
+                `;
+            }
         }
-        likertDiv.innerHTML = html;
 
-        document.querySelectorAll('input[name="likert"]').forEach(r => {
-            r.addEventListener('change', (e) => {
-                answers[currentIndex] = parseInt(e.target.value);
-                updateNav();
+        // Генерация вопросов для 12 систем
+        function generateQuestions() {
+            const systemQuestions = {
+                'ТЕРРИТОРИЯ': [
+                    "Я остро чувствую необходимость в личном пространстве",
+                    "Меня раздражает, когда кто-то вторгается на мою территорию",
+                    "Я чётко маркирую свои вещи и пространство",
+                    "Мне важно знать, где мои границы",
+                    "Я защищаю своё место от посягательств"
+                ],
+                'ИЕРАРХИЯ': [
+                    "Я всегда замечаю, кто в группе главный",
+                    "Мне важно моё положение в обществе",
+                    "Я стремлюсь к более высокому статусу",
+                    "Я легко подчиняюсь тем, кто выше, и жду подчинения от тех, кто ниже",
+                    "Я чувствую дискомфорт, если иерархия неясна"
+                ],
+                'РИТУАЛ': [
+                    "Я люблю повторяющиеся ритуалы и привычки",
+                    "Мне важно соблюдать определённый порядок действий",
+                    "Отклонение от привычного распорядка меня тревожит",
+                    "У меня есть ежедневные ритуалы, которые я соблюдаю",
+                    "Я чувствую безопасность в повторении знакомых действий"
+                ],
+                'ПОИСК': [
+                    "Меня тянет исследовать новое",
+                    "Я легко загораюсь неизведанным",
+                    "Скука для меня мучительна",
+                    "Я готов рисковать ради нового опыта",
+                    "Мне нравится открывать неизвестные места"
+                ],
+                'СТРАХ': [
+                    "Я часто тревожусь о возможных опасностях",
+                    "Новые ситуации вызывают у меня напряжение",
+                    "Я предпочитаю избегать риска",
+                    "Будущее часто вызывает беспокойство",
+                    "Я тщательно оцениваю угрозы"
+                ],
+                'ГНЕВ': [
+                    "Меня легко разозлить",
+                    "Я быстро реагирую на несправедливость",
+                    "В конфликте я скорее нападаю",
+                    "Мне трудно сдержать гнев, когда меня провоцируют",
+                    "Когда что-то мешает, я раздражаюсь"
+                ],
+                'ВОЖДЕЛЕНИЕ': [
+                    "Сексуальность важна для моего самоощущения",
+                    "Я чувствую сильное физическое влечение",
+                    "Красота другого человека сильно на меня влияет",
+                    "Я активно ищу романтических отношений",
+                    "Для меня важна физическая близость"
+                ],
+                'ПРИВЯЗАННОСТЬ': [
+                    "Мне жизненно необходима эмоциональная связь с близкими",
+                    "Я тяжело переживаю разлуку",
+                    "Одиночество для меня мучительно",
+                    "Я сильно привязываюсь к людям",
+                    "Мне нужно знать, что меня любят"
+                ],
+                'ЗАБОТА': [
+                    "Я люблю заботиться о других",
+                    "Мне важно помогать близким",
+                    "Я готов жертвовать своим временем ради других",
+                    "Меня тянет опекать и оберегать",
+                    "Забота приносит мне радость"
+                ],
+                'ИГРА': [
+                    "Я люблю играть и дурачиться",
+                    "Юмор помогает мне справляться с трудностями",
+                    "Я легко отношусь к жизни",
+                    "Мне важно, чтобы в деле был элемент игры",
+                    "Я обожаю праздники и развлечения"
+                ],
+                'КОНТРОЛЬ': [
+                    "Я всегда планирую свои дела",
+                    "Мне легко сдерживать импульсивные желания",
+                    "Я предпочитаю порядок и структуру",
+                    "Долгосрочные цели важнее сиюминутных",
+                    "Я дисциплинированный человек"
+                ],
+                'СОЦИАЛЬНОСТЬ': [
+                    "Я легко понимаю, что чувствуют другие",
+                    "Меня волнует справедливость",
+                    "Я часто ставлю себя на место другого",
+                    "Мне важно, что обо мне думают окружающие",
+                    "Я чувствую ответственность перед обществом"
+                ],
+                'СМЫСЛ': [
+                    "Для меня важны поиски смысла жизни",
+                    "У меня есть система ценностей, которой я следую",
+                    "Меня волнуют вопросы духовности",
+                    "Я стремлюсь к чему-то большему, чем я сам",
+                    "Мои убеждения направляют мою жизнь"
+                ]
+            };
+
+            // Создаём плоский список вопросов в правильном порядке
+            const systemOrder = [
+                'ТЕРРИТОРИЯ', 'ИЕРАРХИЯ', 'РИТУАЛ',
+                'ПОИСК', 'СТРАХ', 'ГНЕВ', 'ВОЖДЕЛЕНИЕ', 'ПРИВЯЗАННОСТЬ', 'ЗАБОТА', 'ИГРА',
+                'КОНТРОЛЬ', 'СОЦИАЛЬНОСТЬ', 'СМЫСЛ'
+            ];
+
+            questions = [];
+            systemOrder.forEach(system => {
+                if (systemQuestions[system]) {
+                    questions.push(...systemQuestions[system]);
+                }
             });
+        }
+
+        // Функции опроса
+        function renderQuestion() {
+            const scaleIdx = Math.floor(currentIndex / 5);
+            const systemName = Object.keys({
+                'ТЕРРИТОРИЯ':1,'ИЕРАРХИЯ':1,'РИТУАЛ':1,
+                'ПОИСК':1,'СТРАХ':1,'ГНЕВ':1,'ВОЖДЕЛЕНИЕ':1,'ПРИВЯЗАННОСТЬ':1,'ЗАБОТА':1,'ИГРА':1,
+                'КОНТРОЛЬ':1,'СОЦИАЛЬНОСТЬ':1,'СМЫСЛ':1
+            })[scaleIdx];
+            
+            scaleSpan.innerText = systemName;
+            questionDiv.innerText = questions[currentIndex];
+
+            let html = '';
+            for (let i=1; i<=5; i++) {
+                const checked = answers[currentIndex] === i ? 'checked' : '';
+                html += `<div class="likert-option">
+                    <input type="radio" name="likert" id="opt${i}" value="${i}" ${checked}>
+                    <label for="opt${i}">${i}</label>
+                </div>`;
+            }
+            likertDiv.innerHTML = html;
+
+            document.querySelectorAll('input[name="likert"]').forEach(r => {
+                r.addEventListener('change', (e) => {
+                    answers[currentIndex] = parseInt(e.target.value);
+                    updateNav();
+                });
+            });
+
+            counterSpan.innerText = `${currentIndex+1} / 60`;
+            progressFill.style.width = ((currentIndex+1)/60*100)+'%';
+            updateNav();
+        }
+
+        function updateNav() {
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.innerText = currentIndex === 59 ? 'Завершить' : 'Далее →';
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                renderQuestion();
+            }
         });
 
-        counterSpan.innerText = `${currentIndex+1} / 60`;
-        progressFill.style.width = ((currentIndex+1)/60*100)+'%';
-        updateNav();
-    }
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < 59) {
+                currentIndex++;
+                renderQuestion();
+            } else {
+                calculateResults();
+            }
+        });
 
-    function updateNav() {
-        prevBtn.disabled = currentIndex === 0;
-        if (currentIndex === 59) nextBtn.innerText = 'Завершить';
-        else nextBtn.innerText = 'Далее →';
-    }
+        // Расчёт результатов
+        function calculateResults() {
+            // Вычисляем средние по 12 системам
+            const systemScores = new Array(12).fill(0);
+            for (let i=0; i<60; i++) {
+                const systemIdx = Math.floor(i / 5);
+                systemScores[systemIdx] += answers[i];
+            }
+            // Нормализуем к 0-1
+            const normalizedScores = systemScores.map(s => (s - 5) / 20);
 
-    prevBtn.addEventListener('click', ()=>{
-        if (currentIndex > 0) { currentIndex--; renderQuestion(); }
-    });
-
-    nextBtn.addEventListener('click', ()=>{
-        if (currentIndex < 59) {
-            currentIndex++;
-            renderQuestion();
-        } else {
-            computeResult();
-        }
-    });
-
-    // ---------- РАСЧЁТ С УЧЁТОМ ВОЗРАСТА ----------
-    function computeResult() {
-        // сырые суммы по 12 шкалам (каждая от 5 до 25)
-        let sums = new Array(12).fill(0);
-        for (let i=0; i<60; i++) {
-            let scaleIdx = Math.floor(i/5);
-            sums[scaleIdx] += answers[i];
-        }
-        // нормализация 0..1
-        let scores = sums.map(s => (s-5)/20); // 0..1
-
-        // возрастная группа (1-8)
-        const ageGroup = parseInt(ageSelect.value);
-
-        // коэффициенты зрелости для каждой системы (эмпирические, отражают типичное развитие)
-        // чем выше возраст, тем больше вес корковых и мета-систем
-        let maturity = [
-            1.0, 1.0, 1.0,        // рептильные (всегда доступны)
-            1.0, 1.0, 1.0, 1.0, 1.0, 1.0, // лимбические (база)
-            0.0, 0.0, 0.0          // корковые/мета изначально 0
-        ];
-
-        if (ageGroup >= 3) { // с 6 лет появляется контроль
-            maturity[9] = 0.4;  // КОНТРОЛЬ
-        }
-        if (ageGroup >= 4) { // с 12 лет соц. мозг
-            maturity[10] = 0.5; // СОЦИАЛЬНОСТЬ
-            maturity[9] = 0.7;
-        }
-        if (ageGroup >= 5) { // 18-25 – пик контроля
-            maturity[9] = 1.0;
-            maturity[10] = 0.9;
-            maturity[11] = 0.4; // СМЫСЛ появляется
-        }
-        if (ageGroup >= 6) { // 26-40 – мета-системы
-            maturity[10] = 1.0;
-            maturity[11] = 0.8;
-        }
-        if (ageGroup >= 7) { // 41-60 – интеграция
-            maturity[11] = 1.0;
-        }
-        if (ageGroup >= 8) { // 60+ – мудрость
-            // все доступны, но могут снижаться отдельные функции (учтём позже)
+            // Поиск подходящих архетипов
+            const matches = findMatchingArchetypes(normalizedScores);
+            
+            // Отображение результатов
+            showResults(normalizedScores, matches);
         }
 
-        // коррекция с учётом возраста (умножаем сырые score на maturity, но не выше 1)
-        let adjusted = scores.map((val, idx) => Math.min(val, maturity[idx] * 1.2)); // небольшая эластичность
+        function findMatchingArchetypes(scores) {
+            const matches = [];
 
-        // пример определения ведущих систем (top 4)
-        let indexed = adjusted.map((v,i)=>({v,i})).sort((a,b)=>b.v - a.v);
-        let topSystems = indexed.slice(0,4).map(x => scaleNames[x.i]);
+            // Функция схожести (чем меньше разница, тем лучше)
+            function similarity(userScores, archetypeSystems) {
+                // Создаём массив весов для систем архетипа
+                const systemWeights = new Array(12).fill(0);
+                const systemNames = [
+                    'ТЕРРИТОРИЯ', 'ИЕРАРХИЯ', 'РИТУАЛ',
+                    'ПОИСК', 'СТРАХ', 'ГНЕВ', 'ВОЖДЕЛЕНИЕ', 'ПРИВЯЗАННОСТЬ', 'ЗАБОТА', 'ИГРА',
+                    'КОНТРОЛЬ', 'СОЦИАЛЬНОСТЬ', 'СМЫСЛ'
+                ];
 
-        // очень грубая классификация (демо)
-        let category = 'white';
-        if (adjusted[4] > 0.8 && adjusted[5] > 0.7 && adjusted[9] < 0.4) category = 'black'; // высокий страх+гнев при низком контроле
-        else if (adjusted[0] > 0.9 || adjusted[1] > 0.9) category = 'gray'; // гипертрофия рептильных
-        else category = 'white';
+                // Для каждого архетипа у нас есть список систем, которые у него активны
+                // Присваиваем им вес 1.0, остальным 0
+                if (Array.isArray(archetypeSystems)) {
+                    archetypeSystems.forEach(sys => {
+                        // Убираем символы ↑↓ для поиска
+                        const cleanSys = sys.replace('↑', '').replace('↓', '');
+                        const idx = systemNames.indexOf(cleanSys);
+                        if (idx !== -1) systemWeights[idx] = 1.0;
+                    });
+                }
 
-        // заглушка – просто показываем профиль
-        showResult(adjusted, topSystems, category, ageGroup, maturity);
-    }
-
-    function showResult(scores, topSystems, category, ageGroup, maturity) {
-        quizBlock.style.display = 'none';
-        resultBlock.style.display = 'block';
-
-        const ageNames = ["0-2","3-5","6-11","12-17","18-25","26-40","41-60","60+"];
-        let cardClass = category==='white'?'white-card':(category==='gray'?'gray-card':'black-card');
-
-        let html = `
-            <div class="result-card ${cardClass}">
-                <div class="archetype-title">Ваш профиль развития</div>
-                <div class="archetype-badge">возраст: ${ageNames[ageGroup-1]}</div>
-                <p style="margin-bottom:20px;">ведущие системы: ${topSystems.join(' · ')}</p>
-        `;
-
-        // детальный разбор по каждой системе с уровнями
-        for (let i=0; i<12; i++) {
-            let raw = scores[i];
-            // определяем вклад каждого уровня (условно)
-            let rept = 0, limb = 0, cort = 0, meta = 0;
-            if (i < 3) { // рептильные
-                rept = raw * 0.9;
-                limb = raw * 0.1;
-            } else if (i < 9) { // лимбические
-                rept = raw * 0.2 * (1 - maturity[i]);
-                limb = raw * 0.8 * maturity[i];
-                cort = raw * 0.2 * maturity[i];
-            } else { // корковые / мета
-                rept = raw * 0.05;
-                limb = raw * 0.15 * maturity[i];
-                cort = raw * 0.5 * maturity[i];
-                meta = raw * 0.3 * maturity[i];
+                // Вычисляем взвешенную разницу
+                let diff = 0;
+                let weightSum = 0;
+                for (let i=0; i<12; i++) {
+                    if (systemWeights[i] > 0) {
+                        diff += Math.abs(userScores[i] - 0.7); // Ожидаем высокие значения для активных систем
+                        weightSum++;
+                    }
+                }
+                const avgDiff = weightSum > 0 ? diff / weightSum : 1;
+                return Math.max(0, 100 - avgDiff * 100);
             }
 
-            html += `
-                <div class="system-row">
-                    <span class="system-name">${scaleNames[i]}</span>
-                    <div class="level-bar-container">
-                        <div class="level-segment segment-1" style="width:${rept*100}%;"></div>
-                        <div class="level-segment segment-2" style="width:${limb*100}%;"></div>
-                        <div class="level-segment segment-3" style="width:${cort*100}%;"></div>
-                        <div class="level-segment segment-4" style="width:${meta*100}%;"></div>
-                    </div>
-                    <span class="age-note">${Math.round(raw*100)}%</span>
-                </div>
-            `;
+            // Белый список
+            if (archetypesDB?.archetypes?.white) {
+                archetypesDB.archetypes.white.forEach(a => {
+                    matches.push({
+                        ...a,
+                        confidence: similarity(scores, a.systems),
+                        type: 'white'
+                    });
+                });
+            }
+
+            // Серый список
+            if (archetypesDB?.archetypes?.gray) {
+                archetypesDB.archetypes.gray.forEach(a => {
+                    matches.push({
+                        ...a,
+                        confidence: similarity(scores, a.systems),
+                        type: 'gray',
+                        white_equivalent: a.white_equivalent,
+                        broken: a.broken
+                    });
+                });
+            }
+
+            // Чёрный список
+            if (archetypesDB?.archetypes?.black) {
+                archetypesDB.archetypes.black.forEach(a => {
+                    matches.push({
+                        ...a,
+                        confidence: similarity(scores, a.systems),
+                        type: 'black',
+                        white_target: a.white_target,
+                        transformation_path: a.transformation_path
+                    });
+                });
+            }
+
+            return matches.sort((a,b) => b.confidence - a.confidence).slice(0, 6);
         }
 
-        // мистические соответствия (условные)
-        html += `<div class="mystic-tags">
-            <span class="mystic-tag">♈ стихия: ${['земля','вода','огонь','воздух'][Math.floor(Math.random()*4)]}</span>
-            <span class="mystic-tag">🪐 планета: ${['Марс','Венера','Юпитер','Сатурн'][Math.floor(Math.random()*4)]}</span>
-            <span class="mystic-tag">🎴 архетип: ${['ВОИН','МУДРЕЦ','ЭМПАТ','СТРАТЕГ'][Math.floor(Math.random()*4)]}</span>
-        </div>`;
+        function showResults(scores, matches) {
+            quizBlock.style.display = 'none';
+            resultBlock.style.display = 'block';
 
-        // кнопка заново
-        html += `<div style="text-align:center; margin:40px 0 20px;"><button id="restartBtn">⟲ Пройти заново</button></div>`;
-        resultBlock.innerHTML = html;
+            const systemNames = [
+                'ТЕРРИТОРИЯ', 'ИЕРАРХИЯ', 'РИТУАЛ',
+                'ПОИСК', 'СТРАХ', 'ГНЕВ', 'ВОЖДЕЛЕНИЕ', 'ПРИВЯЗАННОСТЬ', 'ЗАБОТА', 'ИГРА',
+                'КОНТРОЛЬ', 'СОЦИАЛЬНОСТЬ', 'СМЫСЛ'
+            ];
 
-        document.getElementById('restartBtn')?.addEventListener('click', ()=>{
+            const avgReptile = (scores[0] + scores[1] + scores[2]) / 3 * 100;
+            const avgLimbic = (scores[3] + scores[4] + scores[5] + scores[6] + scores[7] + scores[8]) / 6 * 100;
+            const avgCortex = (scores[9] + scores[10]) / 2 * 100;
+            const avgMeta = scores[11] * 100;
+
+            let html = `
+                <div class="result-header">
+                    <div class="result-title">📊 Ваш профиль развития</div>
+                </div>
+                <div class="score-summary">
+                    <div class="score-item">
+                        <div class="score-label">рептильный тонус</div>
+                        <div class="score-value">${avgReptile.toFixed(0)}%</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-label">лимбическая активность</div>
+                        <div class="score-value">${avgLimbic.toFixed(0)}%</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-label">корковый контроль</div>
+                        <div class="score-value">${avgCortex.toFixed(0)}%</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-label">мета-интеграция</div>
+                        <div class="score-value">${avgMeta.toFixed(0)}%</div>
+                    </div>
+                </div>
+                <div class="systems-grid">
+            `;
+
+            // Детальные системы
+            for (let i=0; i<12; i++) {
+                let category = i<3 ? 'reptile' : (i<9 ? 'limbic' : (i<11 ? 'cortex' : 'meta'));
+                let val = scores[i];
+                html += `
+                    <div class="system-card">
+                        <div class="system-header">
+                            <span class="system-name">${systemNames[i]}</span>
+                            <span class="system-category ${category}">${category}</span>
+                        </div>
+                        <div class="level-bar">
+                            <div class="level-segment level-2" style="width:${val*100}%;"></div>
+                        </div>
+                        <div class="level-stats">
+                            <span>активация</span>
+                            <span>${(val*100).toFixed(0)}%</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            html += `</div>`;
+
+            // Подходящие архетипы
+            html += `
+                <div class="archetypes-section">
+                    <div class="archetypes-title">🎭 Соответствующие архетипы</div>
+                    <div class="archetypes-grid">
+            `;
+
+            matches.forEach(m => {
+                let borderClass = m.type === 'white' ? 'archetype-white' : (m.type === 'gray' ? 'archetype-gray' : 'archetype-black');
+                html += `
+                    <div class="archetype-result-card ${borderClass}">
+                        <div class="archetype-result-name">${m.name}</div>
+                        <div class="archetype-match">совпадение ${Math.round(m.confidence)}%</div>
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" style="width:${m.confidence}%;"></div>
+                        </div>
+                        <div class="systems-badge">
+                            ${Array.isArray(m.systems) ? m.systems.slice(0,3).map(s => 
+                                `<span class="system-badge">${s}</span>`
+                            ).join('') : ''}
+                        </div>
+                        ${m.cultural ? `<div style="font-size:0.9rem; margin:8px 0;">${Array.isArray(m.cultural) ? m.cultural.slice(0,2).join(', ') : m.cultural}</div>` : ''}
+                        ${m.white_equivalent ? `<div style="font-size:0.85rem; color:#b0c4ff;">→ белый эталон: ${m.white_equivalent}</div>` : ''}
+                        ${m.broken ? `<div style="font-size:0.85rem; color:#b0c4ff;">⚠️ ${m.broken}</div>` : ''}
+                        ${m.transformation_path ? `<div style="font-size:0.85rem; color:#b0c4ff;">🔄 ${m.transformation_path}</div>` : ''}
+                    </div>
+                `;
+            });
+
+            html += `
+                    </div>
+                </div>
+                <button class="restart-btn" onclick="restartQuiz()">⟲ Пройти заново</button>
+            `;
+
+            resultBlock.innerHTML = html;
+        }
+
+        // Перезапуск
+        window.restartQuiz = function() {
             answers.fill(3);
             currentIndex = 0;
             quizBlock.style.display = 'block';
             resultBlock.style.display = 'none';
             renderQuestion();
-        });
-    }
+        };
 
-    renderQuestion();
-})();
-</script>
+        // Запуск
+        loadDatabase();
+    </script>
 </body>
 </html>
