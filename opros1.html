@@ -25,7 +25,7 @@
             padding: 20px;
         }
 
-        /* Хедер в стиле tr-info.ru */
+        /* Хедер */
         .header {
             text-align: center;
             padding: 40px 0;
@@ -53,7 +53,7 @@
             line-height: 1.6;
         }
 
-        /* Возраст в стиле карточек */
+        /* Возраст в стиле карточки */
         .age-card {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 20px;
@@ -211,7 +211,7 @@
             padding: 0 10px;
         }
 
-        /* Навигация */
+        /* Навигационные кнопки в стиле приложенного файла */
         .nav-buttons {
             display: flex;
             justify-content: space-between;
@@ -219,7 +219,7 @@
             margin-top: 30px;
         }
 
-        button {
+        .nav-buttons button {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 50px;
@@ -232,14 +232,14 @@
             backdrop-filter: blur(10px);
         }
 
-        button:hover:not(:disabled) {
+        .nav-buttons button:hover:not(:disabled) {
             background: linear-gradient(90deg, #FFD700, #7baa5c, #8a2be2);
             border-color: transparent;
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-        button:disabled {
+        .nav-buttons button:disabled {
             opacity: 0.3;
             cursor: not-allowed;
         }
@@ -252,7 +252,30 @@
             color: #aaa;
         }
 
-        /* Результаты в стиле карточек */
+        /* Кнопка рестарта в стиле карточек из приложенного файла */
+        .restart-btn {
+            display: block;
+            width: fit-content;
+            margin: 40px auto 0;
+            padding: 15px 40px;
+            background: rgba(138, 43, 226, 0.2);
+            border: 1px solid rgba(138, 43, 226, 0.4);
+            border-radius: 50px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .restart-btn:hover {
+            background: linear-gradient(90deg, #FFD700, #7baa5c, #8a2be2);
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Результаты */
         .result-section {
             margin-top: 30px;
         }
@@ -324,7 +347,7 @@
             color: transparent;
         }
 
-        /* Детальные системы */
+        /* Детальные системы с цветовой маркировкой */
         .systems-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -339,7 +362,13 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s;
+            border-left: 4px solid;
         }
+
+        .system-card.reptile { border-left-color: #3b4a6b; }
+        .system-card.limbic { border-left-color: #5f7edb; }
+        .system-card.cortex { border-left-color: #a886e5; }
+        .system-card.meta { border-left-color: #d4af37; }
 
         .system-card:hover {
             transform: translateY(-5px);
@@ -390,7 +419,7 @@
             font-size: 0.9rem;
         }
 
-        /* Архетипы */
+        /* Архетипы с цветовой маркировкой */
         .archetypes-section {
             margin: 50px 0;
         }
@@ -421,14 +450,14 @@
             transition: all 0.3s;
         }
 
+        .archetype-card.white { border-left-color: #4ade80; }
+        .archetype-card.gray { border-left-color: #94a3b8; }
+        .archetype-card.black { border-left-color: #f87171; }
+
         .archetype-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 30px rgba(0,0,0,0.3);
         }
-
-        .archetype-card.white { border-left-color: #7baa5c; }
-        .archetype-card.gray { border-left-color: #aaa; }
-        .archetype-card.black { border-left-color: #ff6b6b; }
 
         .archetype-name {
             font-size: 1.4rem;
@@ -491,28 +520,14 @@
             border-top: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* Кнопка рестарта */
-        .restart-btn {
-            display: block;
-            width: fit-content;
-            margin: 40px auto 0;
-            padding: 15px 40px;
-            background: rgba(138, 43, 226, 0.2);
-            border: 1px solid rgba(138, 43, 226, 0.4);
-            border-radius: 50px;
-            color: white;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
+        /* Цветовые маркеры для списков (как в приложенном файле) */
+        .white .archetype-title { color: #4ade80; }
+        .gray .archetype-title { color: #94a3b8; }
+        .black .archetype-title { color: #f87171; }
 
-        .restart-btn:hover {
-            background: linear-gradient(90deg, #FFD700, #7baa5c, #8a2be2);
-            border-color: transparent;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
+        .archetype-card.white .archetype-name { background: linear-gradient(90deg, #4ade80, #22c55e); -webkit-background-clip: text; background-clip: text; }
+        .archetype-card.gray .archetype-name { background: linear-gradient(90deg, #94a3b8, #64748b); -webkit-background-clip: text; background-clip: text; }
+        .archetype-card.black .archetype-name { background: linear-gradient(90deg, #f87171, #ef4444); -webkit-background-clip: text; background-clip: text; }
 
         /* Индикатор загрузки */
         .loading {
@@ -963,13 +978,14 @@
             `;
 
             for (let i=0; i<12; i++) {
-                let category = i<3 ? 'репт' : (i<9 ? 'лимб' : (i<11 ? 'корк' : 'мета'));
+                let category = i<3 ? 'reptile' : (i<9 ? 'limbic' : (i<11 ? 'cortex' : 'meta'));
+                let categoryName = i<3 ? 'репт' : (i<9 ? 'лимб' : (i<11 ? 'корк' : 'мета'));
                 let val = scores[i] * 100;
                 html += `
-                    <div class="system-card">
+                    <div class="system-card ${category}">
                         <div class="system-header">
                             <span class="system-name">${systemNames[i]}</span>
-                            <span class="system-category">${category}</span>
+                            <span class="system-category">${categoryName}</span>
                         </div>
                         <div class="level-bar">
                             <div class="level-fill" style="width:${val}%;"></div>
