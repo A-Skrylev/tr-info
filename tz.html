@@ -525,6 +525,71 @@
         .prio-medium { background: #4ade8030; color: #4ade80; border: 1px solid #4ade80; }
         .prio-low { background: #60a5fa30; color: #60a5fa; border: 1px solid #60a5fa; }
 
+        .master-plan {
+            background: #1a2740;
+            border-radius: 2rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid #fbbf24;
+        }
+
+        .master-plan h3 {
+            font-size: 1.8rem;
+            color: #fbbf24;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .master-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .master-table th {
+            background: #2a3650;
+            padding: 1rem;
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        .master-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #2f3f60;
+            vertical-align: top;
+        }
+
+        .master-table tr:hover td {
+            background: #ffffff08;
+        }
+
+        .master-month {
+            font-weight: 600;
+            color: #fbbf24;
+            font-size: 1.1rem;
+        }
+
+        .master-task {
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            border-left: 2px solid;
+        }
+
+        .master-task.critical { border-left-color: #f87171; }
+        .master-task.high { border-left-color: #fbbf24; }
+        .master-task.medium { border-left-color: #4ade80; }
+
+        .master-tag {
+            display: inline-block;
+            padding: 0.1rem 0.6rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            margin-left: 0.5rem;
+        }
+
+        .tag-critical { background: #f8717130; color: #f87171; border: 1px solid #f87171; }
+        .tag-high { background: #fbbf2430; color: #fbbf24; border: 1px solid #fbbf24; }
+        .tag-medium { background: #4ade8030; color: #4ade80; border: 1px solid #4ade80; }
+
         .domain-footer {
             text-align: center;
             margin-top: 3rem;
@@ -567,7 +632,7 @@
         <!-- полная спецификация -->
         <div class="spec-header">
             <h2>📋 ПОЛНАЯ СПЕЦИФИКАЦИЯ ПРОЕКТА</h2>
-            <div class="url">https://tr-info.ru · версия 3.5 (с юридическим блоком)</div>
+            <div class="url">https://tr-info.ru · версия 3.6 (со сквозным планом)</div>
         </div>
 
         <!-- легенда приоритетов -->
@@ -1074,7 +1139,7 @@
             <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
         </div>
 
-        <!-- ========== 7. ЮРИДИЧЕСКИЙ БЛОК (НОВЫЙ) ========= -->
+        <!-- ========== 7. ЮРИДИЧЕСКИЙ БЛОК ========= -->
         <div class="section-title">⚖️ 7. ЮРИДИЧЕСКАЯ ЗАЩИТА И СООТВЕТСТВИЕ ЗАКОНУ</div>
         
         <div class="phase phase-1" style="margin-top:1rem;">
@@ -1175,6 +1240,149 @@
             <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
         </div>
 
+        <!-- ========== СКВОЗНОЙ ПЛАН ДЕЙСТВИЙ ПО МЕСЯЦАМ ========= -->
+        <div class="master-plan">
+            <h3>📅 ИТОГОВЫЙ СКВОЗНОЙ ПЛАН ДЕЙСТВИЙ 2026–2027</h3>
+            <table class="master-table">
+                <thead>
+                    <tr>
+                        <th>Месяц</th>
+                        <th>Технические задачи</th>
+                        <th>Юридические задачи</th>
+                        <th>Маркетинг/Сообщество</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="master-month">Месяц 1 (март 2026)</td>
+                        <td>
+                            <div class="master-task critical">🔴 Настройка GitHub Pages + Supabase</div>
+                            <div class="master-task critical">🔴 Регистрация домена tr-info.ru</div>
+                            <div class="master-task high">🟡 Создание макетов страниц</div>
+                        </td>
+                        <td>
+                            <div class="master-task critical">🔴 Написание пользовательского соглашения</div>
+                            <div class="master-task critical">🔴 Написание политики конфиденциальности</div>
+                        </td>
+                        <td>
+                            <div class="master-task medium">🟢 Создание Telegram-канала</div>
+                            <div class="master-task medium">🟢 Подготовка постов о запуске</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="master-month">Месяц 2 (апрель 2026)</td>
+                        <td>
+                            <div class="master-task critical">🔴 Разработка основного опросника (60 вопросов)</div>
+                            <div class="master-task critical">🔴 Алгоритм подбора архетипов</div>
+                            <div class="master-task high">🟡 Создание страницы результатов</div>
+                        </td>
+                        <td>
+                            <div class="master-task critical">🔴 Разработка формы согласия на ПД</div>
+                            <div class="master-task high">🟡 Cookie-баннер</div>
+                        </td>
+                        <td>
+                            <div class="master-task medium">🟢 Тизерная кампания</div>
+                            <div class="master-task medium">🟢 Сбор предварительных заявок</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="master-month">Месяц 3 (май 2026)</td>
+                        <td>
+                            <div class="master-task critical">🔴 Разработка пост-опросника (20+ вопросов)</div>
+                            <div class="master-task critical">🔴 Telegram-бот (базовый)</div>
+                            <div class="master-task high">🟡 Шеринг результатов</div>
+                        </td>
+                        <td>
+                            <div class="master-task critical">🔴 Дисклеймер на странице результатов</div>
+                            <div class="master-task high">🟡 Проверка всех юридических текстов</div>
+                        </td>
+                        <td>
+                            <div class="master-task high">🟡 ЗАПУСК! Публикация в соцсетях</div>
+                            <div class="master-task high">🟡 Привлечение первых 100 респондентов</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="master-month">Месяц 4 (июнь 2026)</td>
+                        <td>
+                            <div class="master-task high">🟡 Карта развития (прототип)</div>
+                            <div class="master-task medium">🟢 Админ-панель</div>
+                        </td>
+                        <td>
+                            <div class="master-task medium">🟢 Анализ собранных данных</div>
+                            <div class="master-task medium">🟢 Подготовка к монетизации</div>
+                        </td>
+                        <td>
+                            <div class="master-task high">🟡 Сбор обратной связи</div>
+                            <div class="master-task high">🟡 Удержание первых пользователей</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="master-month">Месяц 5 (июль 2026)</td>
+                        <td>
+                            <div class="master-task high">🟡 Первые 5 квестов переходов</div>
+                            <div class="master-task high">🟡 Система достижений</div>
+                        </td>
+                        <td>
+                            <div class="master-task high">🟡 Регистрация самозанятого (если есть доход)</div>
+                            <div class="master-task high">🟡 Проверка реферальных партнёров</div>
+                        </td>
+                        <td>
+                            <div class="master-task medium">🟢 Формирование сообщества</div>
+                            <div class="master-task medium">🟢 Конкурс среди пользователей</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="master-month">Месяц 6 (август 2026)</td>
+                        <td>
+                            <div class="master-task high">🟡 Наставничество (MVP)</div>
+                            <div class="master-task high">🟡 Прогноз развития (бета)</div>
+                        </td>
+                        <td>
+                            <div class="master-task high">🟡 Юридическое закрепление авторских прав</div>
+                            <div class="master-task medium">🟢 Депонирование ключевых текстов</div>
+                        </td>
+                        <td>
+                            <div class="master-task high">🟡 500+ респондентов</div>
+                            <div class="master-task medium">🟢 Партнёрские предложения</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="master-month">Месяц 7-8 (сент-окт 2026)</td>
+                        <td>
+                            <div class="master-task high">🟡 Группы по семействам</div>
+                            <div class="master-task medium">🟢 Википедия архетипов</div>
+                        </td>
+                        <td>
+                            <div class="master-task high">🟡 Запуск платной подписки</div>
+                            <div class="master-task medium">🟢 Договоры с партнёрами</div>
+                        </td>
+                        <td>
+                            <div class="master-task high">🟡 Активное сообщество (1000+ участников)</div>
+                            <div class="master-task medium">🟢 Рекламная кампания</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="master-month">Месяц 9-12 (ноя 2026 - фев 2027)</td>
+                        <td>
+                            <div class="master-task high">🟡 Совместные квесты</div>
+                            <div class="master-task medium">🟢 Мерч и интеграции</div>
+                        </td>
+                        <td>
+                            <div class="master-task high">🟡 Масштабирование юр. защиты</div>
+                            <div class="master-task medium">🟢 Подготовка к международному рынку</div>
+                        </td>
+                        <td>
+                            <div class="master-task high">🟡 5000+ пользователей</div>
+                            <div class="master-task high">🟡 5% конверсия в платные</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="margin-top: 1.5rem; color: #b0c8ff; text-align: center; font-size: 0.9rem;">
+                * 🔴 критически важно · 🟡 высокий приоритет · 🟢 по мере возможности
+            </div>
+        </div>
+
         <!-- ========== 8. ТЕХНИЧЕСКИЙ СТЕК ========= -->
         <div class="section-title">🛠️ 8. ТЕХНИЧЕСКАЯ РЕАЛИЗАЦИЯ</div>
         <div class="spec-grid" style="grid-template-columns:repeat(3,1fr);">
@@ -1225,20 +1433,21 @@
 
         <!-- ========== ЗАКЛЮЧЕНИЕ ========= -->
         <div class="highlight" style="background: #2b2b55; border-left-color: #fbbf24; margin:2rem 0;">
-            <strong>✅ ТОЧКА РАВНОВЕСИЯ (tr-info.ru) – ПОЛНАЯ СПЕЦИФИКАЦИЯ С ЮРИДИЧЕСКИМ БЛОКОМ</strong><br>
+            <strong>✅ ТОЧКА РАВНОВЕСИЯ (tr-info.ru) – ПОЛНАЯ СПЕЦИФИКАЦИЯ С ПОМЕСЯЧНЫМ ПЛАНОМ</strong><br>
             • научная модель из 12 систем + 64 архетипа<br>
             • полная структура БД (включая переходы, квесты, семейства)<br>
             • игровые механики с тремя сценариями<br>
             • модуль связей (трансформации, прогноз, наставничество)<br>
             • исследовательский модуль для публикаций<br>
-            • <strong>ПОЛНЫЙ ЮРИДИЧЕСКИЙ БЛОК: согласие на ПД, 152-ФЗ, дисклеймеры, защита от скам-партнёров, регистрация при монетизации</strong><br>
+            • полный юридический блок (152-ФЗ, согласия, защита)<br>
+            • <strong>СКВОЗНОЙ ПОМЕСЯЧНЫЙ ПЛАН ДЕЙСТВИЙ на 2026–2027</strong><br>
             • домен tr-info.ru зарегистрирован, инфраструктура готова
         </div>
 
         <!-- футер с доменом -->
         <div class="domain-footer">
             <span>🔮 <strong>ТОЧКА РАВНОВЕСИЯ</strong> · нейроархетипы · </span>
-            <span>🌐 <strong>tr-info.ru</strong> · версия 3.5 · полный юридический план · 2026</span>
+            <span>🌐 <strong>tr-info.ru</strong> · версия 3.6 · сквозной план 2026–2027</span>
         </div>
     </div>
 </body>
