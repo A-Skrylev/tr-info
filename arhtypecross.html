@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Семейства архетипов · компактная визуализация</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0b1120;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* заголовок компактнее */
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffdb70, #b58aff, #ff92b0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.2rem;
+        }
+
+        .sub {
+            font-size: 1rem;
+            color: #b0c4ff;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #fbbf24;
+            padding-left: 1rem;
+        }
+
+        /* компактная легенда */
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+            background: #1a2440c0;
+            border-radius: 40px;
+            padding: 0.6rem 1.5rem;
+            width: fit-content;
+            border: 1px solid #ffffff30;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #f0f4ff;
+        }
+
+        .legend-dot {
+            width: 0.9rem;
+            height: 0.9rem;
+            border-radius: 50%;
+            box-shadow: 0 0 8px currentColor;
+        }
+
+        .f1 { background: #fbbf24; }
+        .f2 { background: #60a5fa; }
+        .f3 { background: #f87171; }
+        .f4 { background: #c084fc; }
+        .f5 { background: #4ade80; }
+        .f6 { background: #f472b6; }
+        .f7 { background: #d4af37; }
+
+        /* компактная сетка — 3 колонки */
+        .families-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .family-card {
+            background: #1b2540e0;
+            border-radius: 1.5rem;
+            padding: 1.2rem 1rem;
+            border: 2px solid rgba(255,255,255,0.15);
+            border-left: 6px solid;
+            box-shadow: 0 8px 18px -8px #000000b0;
+        }
+
+        .family1 { border-left-color: #fbbf24; }
+        .family2 { border-left-color: #60a5fa; }
+        .family3 { border-left-color: #f87171; }
+        .family4 { border-left-color: #c084fc; }
+        .family5 { border-left-color: #4ade80; }
+        .family6 { border-left-color: #f472b6; }
+        .family7 { border-left-color: #d4af37; }
+
+        .family-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .family-icon {
+            font-size: 1.6rem;
+        }
+
+        .family-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .family1 .family-name { color: #fbbf24; }
+        .family2 .family-name { color: #60a5fa; }
+        .family3 .family-name { color: #f87171; }
+        .family4 .family-name { color: #c084fc; }
+        .family5 .family-name { color: #4ade80; }
+        .family6 .family-name { color: #f472b6; }
+        .family7 .family-name { color: #d4af37; }
+
+        .family-theme {
+            font-size: 0.8rem;
+            color: #b0c8ff;
+            margin-bottom: 0.8rem;
+            background: #ffffff08;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* компактный список архетипов */
+        .archetype-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            margin: 0.6rem 0;
+        }
+
+        .archetype-item {
+            background: #2a3458;
+            border-radius: 30px;
+            padding: 0.3rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            border: 1px solid #ffffff30;
+            color: white;
+        }
+
+        .archetype-id {
+            background: #1b2340;
+            border-radius: 30px;
+            padding: 0.1rem 0.7rem;
+            font-size: 0.7rem;
+            color: #b0c8ff;
+        }
+
+        /* теги систем компактнее */
+        .common-systems {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            margin-top: 0.6rem;
+        }
+
+        .system-tag {
+            background: #ffffff12;
+            border-radius: 30px;
+            padding: 0.2rem 0.7rem;
+            font-size: 0.7rem;
+            color: #ccd9ff;
+            border: 1px solid #ffffff30;
+        }
+
+        /* заголовок пересечений */
+        .intersection-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #ffe17b, #c79eff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 1.5rem 0 1rem;
+            border-left: 6px solid #c084fc;
+            padding-left: 1rem;
+        }
+
+        /* компактная сетка пересечений */
+        .intersection-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .intersection-card {
+            background: #202a48e0;
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            border: 2px solid #ffffff30;
+        }
+
+        .intersection-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #f0b0ff;
+        }
+
+        .intersection-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .intersection-pill {
+            background: #35427a;
+            border-radius: 30px;
+            padding: 0.3rem 0.9rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: white;
+            border: 1px solid #ffffff60;
+        }
+
+        .intersection-systems {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            margin-top: 0.5rem;
+        }
+
+        .intersection-tag {
+            background: #ffffff20;
+            border-radius: 20px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.7rem;
+            color: #ffd966;
+            border: 1px solid #ffd96660;
+        }
+
+        /* схема связей (очень наглядная) */
+        .relation-map {
+            background: #1a2540;
+            border-radius: 2rem;
+            padding: 1.8rem 1.5rem;
+            margin: 2rem 0;
+            border: 2px solid #a78bfa80;
+        }
+
+        .map-title {
+            color: #ffdb70;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            text-align: center;
+        }
+
+        .map-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin: 0.5rem 0;
+        }
+
+        .map-node {
+            background: #2b3a68;
+            border-radius: 40px;
+            padding: 0.4rem 1.2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: white;
+            border: 2px solid #ffffff60;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .map-arrow {
+            color: #fbbf24;
+            font-size: 1.2rem;
+            font-weight: 400;
+        }
+
+        .map-badge {
+            background: #d4af37;
+            color: #0b1120;
+            border-radius: 40px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-left: 0.3rem;
+        }
+
+        .map-note {
+            color: #b0c8ff;
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        /* центральное ядро компактно */
+        .center-piece {
+            background: linear-gradient(145deg, #2a3560, #1b2548);
+            border-radius: 3rem;
+            padding: 1.8rem;
+            text-align: center;
+            border: 3px solid #d4af37;
+            margin: 1.5rem 0;
+        }
+
+        .center-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffecaa;
+            text-shadow: 0 0 12px #ffd966;
+        }
+
+        .center-archetypes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+
+        .mega-pill {
+            background: #354a88;
+            border-radius: 50px;
+            padding: 0.6rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            border: 2px solid #d4af37;
+        }
+
+        .center-footnote {
+            color: #cfd9ff;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            color: #6f84b0;
+            font-size: 0.8rem;
+            margin-top: 2rem;
+        }
+
+        /* адаптация для планшетов */
+        @media (max-width: 900px) {
+            .families-grid { grid-template-columns: repeat(2, 1fr); }
+            .intersection-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .families-grid { grid-template-columns: 1fr; }
+            .intersection-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌀 СЕМЕЙСТВА БЕЛЫХ АРХЕТИПОВ</h1>
+        <div class="sub">компактная карта · общие системы · наглядные пересечения</div>
+
+        <!-- легенда -->
+        <div class="legend">
+            <div class="legend-item"><span class="legend-dot f1"></span> 🔍 Исслед.</div>
+            <div class="legend-item"><span class="legend-dot f2"></span> ⚔️ Воины</div>
+            <div class="legend-item"><span class="legend-dot f3"></span> 🛡️ Стражи</div>
+            <div class="legend-item"><span class="legend-dot f4"></span> 💜 Эмпаты</div>
+            <div class="legend-item"><span class="legend-dot f5"></span> 🏛️ Правит.</div>
+            <div class="legend-item"><span class="legend-dot f6"></span> 🎨 Творцы</div>
+            <div class="legend-item"><span class="legend-dot f7"></span> 🧠 Мудрецы</div>
+        </div>
+
+        <!-- компактная сетка семейств -->
+        <div class="families-grid">
+            <!-- 1 Исследователи -->
+            <div class="family-card family1">
+                <div class="family-header"><span class="family-icon">🔍</span><span class="family-name">Исследователи</span></div>
+                <div class="family-theme">поиск · новизна</div>
+                <div class="archetype-list">
+                    <div class="archetype-item"><span>ПЕРВООТКРЫВАТЕЛЬ (1)</span><span class="archetype-id">П</span></div>
+                    <div class="archetype-item"><span>ИГРОК (2)</span><span class="archetype-id">П+И</span></div>
+                    <div class="archetype-item"><span>ИССЛЕД.-СИСТЕМАТИК (6)</span><span class="archetype-id">П+К</span></div>
+                    <div class="archetype-item"><span>АРХИТЕКТОР (21)</span><span class="archetype-id">К+П</span></div>
+                </div>
+                <div class="common-systems"><span class="system-tag">ПОИСК</span><span class="system-tag">ИГРА</span><span class="system-tag">КОНТРОЛЬ</span></div>
+            </div>
+            <!-- 2 Воины -->
+            <div class="family-card family2">
+                <div class="family-header"><span class="family-icon">⚔️</span><span class="family-name">Воины</span></div>
+                <div class="family-theme">агрессия · стратегия</div>
+                <div class="archetype-list">
+                    <div class="archetype-item"><span>ОХОТНИК (3)</span><span class="archetype-id">П+Г</span></div>
+                    <div class="archetype-item"><span>ВОИН (7)</span><span class="archetype-id">Г+К</span></div>
+                    <div class="archetype-item"><span>ОБОРОНЯЮЩИЙСЯ (9)</span><span class="archetype-id">Г+С</span></div>
+                    <div class="archetype-item"><span>СТРАТЕГ (11)</span><span class="archetype-id">Г+К+СО</span></div>
+                    <div class="archetype-item"><span>ЗАВОЕВАТЕЛЬ (10)</span><span class="archetype-id">Г+П+В</span></div>
+                </div>
+                <div class="common-systems"><span class="system-tag">ГНЕВ</span><span class="system-tag">КОНТРОЛЬ</span><span class="system-tag">ИЕРАРХИЯ</span></div>
+            </div>
+            <!-- 3 Стражи -->
+            <div class="family-card family3">
+                <div class="family-header"><span class="family-icon">🛡️</span><span class="family-name">Стражи</span></div>
+                <div class="family-theme">границы · защита</div>
+                <div class="archetype-list">
+                    <div class="archetype-item"><span>СТРАЖ (8)</span><span class="archetype-id">С+К</span></div>
+                    <div class="archetype-item"><span>ЗАЩИТНИК СЛАБЫХ (12)</span><span class="archetype-id">С+З</span></div>
+                    <div class="archetype-item"><span>ОБОРОНЯЮЩИЙСЯ (9)</span><span class="archetype-id">Г+С</span></div>
+                </div>
+                <div class="common-systems"><span class="system-tag">СТРАХ</span><span class="system-tag">ТЕРРИТОРИЯ</span><span class="system-tag">КОНТРОЛЬ</span></div>
+            </div>
+            <!-- 4 Эмпаты -->
+            <div class="family-card family4">
+                <div class="family-header"><span class="family-icon">💜</span><span class="family-name">Эмпаты</span></div>
+                <div class="family-theme">чувства · забота</div>
+                <div class="archetype-list">
+                    <div class="archetype-item"><span>ЭМПАТ (14)</span><span class="archetype-id">ПР+СО</span></div>
+                    <div class="archetype-item"><span>ЗАЩИТНИК СЛАБЫХ (12)</span><span class="archetype-id">С+З</span></div>
+                    <div class="archetype-item"><span>ХРАНИТЕЛЬ ОЧАГА (13)</span><span class="archetype-id">З+ПР</span></div>
+                    <div class="archetype-item"><span>ПЕДАГОГ (15)</span><span class="archetype-id">З+И</span></div>
+                    <div class="archetype-item"><span>ВОСПИТАТЕЛЬ (16)</span><span class="archetype-id">З+К</span></div>
+                </div>
+                <div class="common-systems"><span class="system-tag">ЗАБОТА</span><span class="system-tag">ПРИВЯЗАННОСТЬ</span><span class="system-tag">СОЦИАЛЬН.</span></div>
+            </div>
+            <!-- 5 Правители -->
+            <div class="family-card family5">
+                <div class="family-header"><span class="family-icon">🏛️</span><span class="family-name">Правители</span></div>
+                <div class="family-theme">власть · порядок</div>
+                <div class="archetype-list">
+                    <div class="archetype-item"><span>АДМИНИСТРАТОР (19)</span><span class="archetype-id">К+РИ</span></div>
+                    <div class="archetype-item"><span>ИМПЕРАТОР (22)</span><span class="archetype-id">К+Г</span></div>
+                    <div class="archetype-item"><span>ПАТРИАРХ/МАТРОНА (23)</span><span class="archetype-id">К+З</span></div>
+                    <div class="archetype-item"><span>СТРАТЕГ (11)</span><span class="archetype-id">Г+К</span></div>
+                </div>
+                <div class="common-systems"><span class="system-tag">КОНТРОЛЬ</span><span class="system-tag">ИЕРАРХИЯ</span><span class="system-tag">РИТУАЛ</span></div>
+            </div>
+            <!-- 6 Творцы -->
+            <div class="family-card family6">
+                <div class="family-header"><span class="family-icon">🎨</span><span class="family-name">Творцы</span></div>
+                <div class="family-theme">созидание</div>
+                <div class="archetype-list">
+                    <div class="archetype-item"><span>АРХИТЕКТОР (21)</span><span class="archetype-id">К+П</span></div>
+                    <div class="archetype-item"><span>ОРГАНИЗАТОР ИГР (20)</span><span class="archetype-id">К+И</span></div>
+                    <div class="archetype-item"><span>ПЕДАГОГ (15)</span><span class="archetype-id">З+И</span></div>
+                    <div class="archetype-item"><span>ИГРОК (2)</span><span class="archetype-id">П+И</span></div>
+                    <div class="archetype-item"><span>СОБЛАЗНИТЕЛЬ (4)</span><span class="archetype-id">П+В</span></div>
+                </div>
+                <div class="common-systems"><span class="system-tag">ИГРА</span><span class="system-tag">ПОИСК</span><span class="system-tag">КОНТРОЛЬ</span></div>
+            </div>
+            <!-- 7 Мудрецы -->
+            <div class="family-card family7">
+                <div class="family-header"><span class="family-icon">🧠</span><span class="family-name">Мудрецы</span></div>
+                <div class="family-theme">глубина · смысл</div>
+                <div class="archetype-list">
+                    <div class="archetype-item"><span>МУДРЕЦ (24)</span><span class="archetype-id">К+СМ</span></div>
+                    <div class="archetype-item"><span>НАСТАВНИК (5)</span><span class="archetype-id">П+З</span></div>
+                    <div class="archetype-item"><span>НАСТАВНИК-ИССЛЕД (18)</span><span class="archetype-id">З+П</span></div>
+                    <div class="archetype-item"><span>ЭМПАТ (14)</span><span class="archetype-id">ПР+СО</span></div>
+                </div>
+                <div class="common-systems"><span class="system-tag">СМЫСЛ</span><span class="system-tag">СОЦИАЛЬН.</span><span class="system-tag">КОНТРОЛЬ</span></div>
+            </div>
+        </div>
+
+        <!-- ЗАГОЛОВОК ПЕРЕСЕЧЕНИЙ -->
+        <div class="intersection-title">🔄 ТОЧКИ ПЕРЕСЕЧЕНИЯ · ОБЩИЕ ЗОНЫ</div>
+
+        <!-- сетка пересечений компактная -->
+        <div class="intersection-grid">
+            <div class="intersection-card">
+                <div class="intersection-header"><span>⚔️ Воин · Стратег · Завоеватель</span></div>
+                <div class="intersection-group">
+                    <span class="intersection-pill">ВОИН 7</span>
+                    <span class="intersection-pill">СТРАТЕГ 11</span>
+                    <span class="intersection-pill">ЗАВОЕВАТЕЛЬ 10</span>
+                </div>
+                <div class="intersection-systems"><span class="intersection-tag">ГНЕВ</span><span class="intersection-tag">КОНТРОЛЬ</span><span class="intersection-tag">ИЕРАРХИЯ</span></div>
+            </div>
+            <div class="intersection-card">
+                <div class="intersection-header"><span>🛡️ Страж · Защитник · Обороняющийся</span></div>
+                <div class="intersection-group">
+                    <span class="intersection-pill">СТРАЖ 8</span>
+                    <span class="intersection-pill">ЗАЩИТНИК СЛАБЫХ 12</span>
+                    <span class="intersection-pill">ОБОРОНЯЮЩИЙСЯ 9</span>
+                </div>
+                <div class="intersection-systems"><span class="intersection-tag">СТРАХ</span><span class="intersection-tag">ТЕРРИТОРИЯ</span></div>
+            </div>
+            <div class="intersection-card">
+                <div class="intersection-header"><span>💜 Эмпат · Хранитель · Защитник</span></div>
+                <div class="intersection-group">
+                    <span class="intersection-pill">ЭМПАТ 14</span>
+                    <span class="intersection-pill">ХРАНИТЕЛЬ ОЧАГА 13</span>
+                    <span class="intersection-pill">ЗАЩИТНИК СЛАБЫХ 12</span>
+                </div>
+                <div class="intersection-systems"><span class="intersection-tag">ПРИВЯЗАННОСТЬ</span><span class="intersection-tag">ЗАБОТА</span></div>
+            </div>
+            <div class="intersection-card">
+                <div class="intersection-header"><span>🎨 Творец · Исследователь · Игрок</span></div>
+                <div class="intersection-group">
+                    <span class="intersection-pill">АРХИТЕКТОР 21</span>
+                    <span class="intersection-pill">ИССЛЕДОВАТЕЛЬ 6</span>
+                    <span class="intersection-pill">ИГРОК 2</span>
+                </div>
+                <div class="intersection-systems"><span class="intersection-tag">ПОИСК</span><span class="intersection-tag">ИГРА</span></div>
+            </div>
+            <div class="intersection-card">
+                <div class="intersection-header"><span>🏛️ Правитель · Император · Админ</span></div>
+                <div class="intersection-group">
+                    <span class="intersection-pill">ИМПЕРАТОР 22</span>
+                    <span class="intersection-pill">АДМИНИСТРАТОР 19</span>
+                    <span class="intersection-pill">СТРАТЕГ 11</span>
+                </div>
+                <div class="intersection-systems"><span class="intersection-tag">КОНТРОЛЬ</span><span class="intersection-tag">ИЕРАРХИЯ</span></div>
+            </div>
+            <div class="intersection-card">
+                <div class="intersection-header"><span>🧠 Мудрец · Наставник · Эмпат</span></div>
+                <div class="intersection-group">
+                    <span class="intersection-pill">МУДРЕЦ 24</span>
+                    <span class="intersection-pill">НАСТАВНИК 5</span>
+                    <span class="intersection-pill">НАСТАВНИК-ИССЛЕД 18</span>
+                </div>
+                <div class="intersection-systems"><span class="intersection-tag">СМЫСЛ</span><span class="intersection-tag">ЗАБОТА</span><span class="intersection-tag">СОЦИАЛЬН.</span></div>
+            </div>
+        </div>
+
+        <!-- СХЕМА СВЯЗЕЙ (ВИЗУАЛЬНАЯ) -->
+        <div class="relation-map">
+            <div class="map-title">🔗 КАК СЕМЕЙСТВА СВЯЗАНЫ (схема переходов)</div>
+            <div class="map-row">
+                <span class="map-node">🔍 Исслед.</span>
+                <span class="map-arrow">⇄</span>
+                <span class="map-node">🎨 Творцы</span>
+                <span class="map-arrow">⇄</span>
+                <span class="map-node">🧠 Мудрецы</span>
+            </div>
+            <div class="map-row">
+                <span class="map-arrow">⬇️</span>
+                <span class="map-arrow">⬇️</span>
+                <span class="map-arrow">⬇️</span>
+            </div>
+            <div class="map-row">
+                <span class="map-node">⚔️ Воины</span>
+                <span class="map-arrow">⇄</span>
+                <span class="map-node">🛡️ Стражи</span>
+                <span class="map-arrow">⇄</span>
+                <span class="map-node">💜 Эмпаты</span>
+            </div>
+            <div class="map-row">
+                <span class="map-arrow">⬇️</span>
+                <span class="map-arrow">⬇️</span>
+                <span class="map-arrow">⬇️</span>
+            </div>
+            <div class="map-row">
+                <span class="map-node">🏛️ Правители</span>
+                <span class="map-arrow">⇄</span>
+                <span class="map-node">⚔️ Стратег</span>
+                <span class="map-arrow">⇄</span>
+                <span class="map-node">🧠 Мудрец</span>
+            </div>
+            <div class="map-note">↺ все дороги ведут к Мудрецу</div>
+        </div>
+
+        <!-- центральное ядро компактно -->
+        <div class="center-piece">
+            <div class="center-title">🌀 ЯДРО ИНТЕГРАЦИИ</div>
+            <div class="center-archetypes">
+                <span class="mega-pill">МУДРЕЦ 24</span>
+                <span class="mega-pill">СТРАТЕГ 11</span>
+                <span class="mega-pill">ЗАЩИТНИК СЛАБЫХ 12</span>
+                <span class="mega-pill">АРХИТЕКТОР 21</span>
+                <span class="mega-pill">ИМПЕРАТОР 22</span>
+            </div>
+            <div class="center-footnote">связующие мосты между семействами</div>
+        </div>
+
+        <footer>
+            7 семейств · 24 белых архетипа · версия 3.2
+        </footer>
+    </div>
+</body>
+</html>
