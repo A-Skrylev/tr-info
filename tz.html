@@ -134,7 +134,7 @@
         .phase {
             background: #1e2740e0;
             border-radius: 2rem;
-            padding: 1.8rem;
+            padding: 2rem;
             border: 1px solid #ffffff20;
             position: relative;
             border-left: 8px solid;
@@ -150,13 +150,13 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.5rem;
             flex-wrap: wrap;
         }
 
         .phase-title {
-            font-size: 1.8rem;
-            font-weight: 600;
+            font-size: 2rem;
+            font-weight: 700;
             background: linear-gradient(135deg, #ffffff, #e0e0ff);
             -webkit-background-clip: text;
             background-clip: text;
@@ -166,17 +166,18 @@
         .phase-period {
             background: #2f3b60;
             border-radius: 40px;
-            padding: 0.4rem 1.2rem;
-            font-size: 0.9rem;
+            padding: 0.5rem 1.5rem;
+            font-size: 1rem;
             font-weight: 500;
         }
 
         .phase-priority {
             display: inline-block;
             border-radius: 40px;
-            padding: 0.2rem 1rem;
-            font-size: 0.8rem;
+            padding: 0.3rem 1.2rem;
+            font-size: 0.9rem;
             margin-left: auto;
+            font-weight: 600;
         }
 
         .phase-priority.critical { background: #f8717130; color: #f87171; border: 1px solid #f87171; }
@@ -184,11 +185,62 @@
         .phase-priority.medium { background: #4ade8030; color: #4ade80; border: 1px solid #4ade80; }
         .phase-priority.low { background: #60a5fa30; color: #60a5fa; border: 1px solid #60a5fa; }
 
+        .phase-description {
+            color: #b0c8ff;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 0.5rem 1rem;
+            background: #ffffff08;
+            border-radius: 1rem;
+            border-left: 3px solid;
+        }
+
+        .phase-1 .phase-description { border-left-color: #f87171; }
+        .phase-2 .phase-description { border-left-color: #fbbf24; }
+        .phase-3 .phase-description { border-left-color: #4ade80; }
+        .phase-4 .phase-description { border-left-color: #60a5fa; }
+        .phase-5 .phase-description { border-left-color: #c084fc; }
+
+        .milestone-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0 2rem;
+        }
+
+        .milestone-card {
+            background: #2a3458e0;
+            border-radius: 1.2rem;
+            padding: 1.2rem;
+            border: 1px solid #ffffff20;
+        }
+
+        .milestone-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #f0f0ff;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .milestone-date {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .milestone-desc {
+            color: #b0c8ff;
+            font-size: 0.9rem;
+        }
+
         .task-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1rem;
-            margin: 1rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.2rem;
+            margin: 1.5rem 0;
         }
 
         .task-card {
@@ -222,7 +274,7 @@
 
         .task-desc {
             color: #b0c8ff;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             margin-bottom: 0.8rem;
         }
 
@@ -230,7 +282,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
         }
 
         .task-difficulty {
@@ -260,6 +312,31 @@
             height: 100%;
             background: linear-gradient(90deg, #fbbf24, #c084fc);
             border-radius: 30px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .stat-item {
+            background: #1f2a48;
+            border-radius: 1rem;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fbbf24;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #94a3b8;
         }
 
         /* сетка из трёх колонок для обзора */
@@ -490,10 +567,10 @@
         <!-- полная спецификация -->
         <div class="spec-header">
             <h2>📋 ПОЛНАЯ СПЕЦИФИКАЦИЯ ПРОЕКТА</h2>
-            <div class="url">https://tr-info.ru · версия 3.3 (с интеграцией стратегического плана)</div>
+            <div class="url">https://tr-info.ru · версия 3.3 (с детальным стратегическим планом)</div>
         </div>
 
-        <!-- легенда приоритетов из 3.3 -->
+        <!-- легенда приоритетов -->
         <div class="priority-legend">
             <div class="priority-item"><span class="priority-dot dot-critical"></span> 🔴 критический (0-3 мес)</div>
             <div class="priority-item"><span class="priority-dot dot-high"></span> 🟡 высокий (3-6 мес)</div>
@@ -717,224 +794,427 @@
             корреляция с ANPS и ARCH×Φ, статья в ВАК/Scopus через 24 мес.
         </div>
 
-        <!-- ========== 6. СТРАТЕГИЧЕСКИЙ ПЛАН (ИНТЕГРАЦИЯ ИЗ 3.3) ========= -->
-        <div class="section-title">📅 6. СТРАТЕГИЧЕСКИЙ ПЛАН РАЗВИТИЯ 2026–2028</div>
+        <!-- ========== 6. ДЕТАЛЬНЫЙ СТРАТЕГИЧЕСКИЙ ПЛАН РАЗВИТИЯ 2026–2028 ========= -->
+        <div class="section-title">📅 6. ДЕТАЛЬНЫЙ СТРАТЕГИЧЕСКИЙ ПЛАН РАЗВИТИЯ 2026–2028</div>
         
-        <!-- Фаза 1: Критическая -->
+        <!-- Фаза 1: Критическая (0-3 месяца) -->
         <div class="phase phase-1">
             <div class="phase-header">
-                <span class="phase-title">🔴 ФАЗА 1: ЗАПУСК MVP</span>
+                <span class="phase-title">🔴 ФАЗА 1: ЗАПУСК MVP (МИНИМАЛЬНО ЖИЗНЕСПОСОБНЫЙ ПРОДУКТ)</span>
                 <span class="phase-period">0-3 месяца</span>
                 <span class="phase-priority critical">критический</span>
             </div>
+            <div class="phase-description">
+                <strong>Цель:</strong> Запустить базовую версию платформы, собрать первые 500+ респондентов, 
+                начать сбор данных для исследований и сформировать первое сообщество.
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">500+</div>
+                    <div class="stat-label">респондентов</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">80%</div>
+                    <div class="stat-label">завершивших опрос</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">50%</div>
+                    <div class="stat-label">post-survey</div>
+                </div>
+            </div>
+            
+            <div class="milestone-grid">
+                <div class="milestone-card">
+                    <div class="milestone-title">📆 Месяц 1</div>
+                    <div class="milestone-date">недели 1-4</div>
+                    <div class="milestone-desc">Настройка инфраструктуры: GitHub Pages, Supabase, домен tr-info.ru</div>
+                </div>
+                <div class="milestone-card">
+                    <div class="milestone-title">📆 Месяц 1-2</div>
+                    <div class="milestone-date">недели 3-6</div>
+                    <div class="milestone-desc">Разработка основного опросника (60 вопросов) и алгоритма подбора</div>
+                </div>
+                <div class="milestone-card">
+                    <div class="milestone-title">📆 Месяц 2</div>
+                    <div class="milestone-date">недели 5-8</div>
+                    <div class="milestone-desc">Создание пост-опросника (20+ вопросов) и страницы результатов</div>
+                </div>
+                <div class="milestone-card">
+                    <div class="milestone-title">📆 Месяц 2-3</div>
+                    <div class="milestone-date">недели 7-10</div>
+                    <div class="milestone-desc">Интеграция Telegram-бота для напоминаний и подписки</div>
+                </div>
+                <div class="milestone-card">
+                    <div class="milestone-title">📆 Месяц 3</div>
+                    <div class="milestone-date">недели 9-12</div>
+                    <div class="milestone-desc">Запуск, сбор первых 100 ответов, аналитика и корректировка</div>
+                </div>
+            </div>
+
             <div class="task-grid">
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">🗄️</span><span class="task-name">База данных</span></div>
-                    <div class="task-desc">Создание всех таблиц по спецификации</div>
+                    <div class="task-desc">Создание всех таблиц по спецификации (users, responses, archetypes, transitions)</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 3/5</span><span class="task-impact impact-high">🔴 влияние: макс</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">📝</span><span class="task-name">Основной опрос</span></div>
-                    <div class="task-desc">60 вопросов по 12 системам, интерфейс</div>
+                    <div class="task-desc">60 вопросов по 12 системам, интерфейс, валидация, сохранение в БД</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 3/5</span><span class="task-impact impact-high">🔴 влияние: макс</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">🎯</span><span class="task-name">Алгоритм подбора</span></div>
-                    <div class="task-desc">Нормализация, сравнение с эталонами, топ-3</div>
+                    <div class="task-desc">Нормализация ответов, сравнение с эталонами, топ-3 архетипа с % совпадения</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 4/5</span><span class="task-impact impact-high">🔴 влияние: макс</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">📊</span><span class="task-name">Пост-опрос</span></div>
-                    <div class="task-desc">Работа, образ жизни, гормональные маркеры</div>
+                    <div class="task-desc">Работа, образ жизни, гормональные маркеры (опросно), сохранение связей с основным опросом</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 2/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">🖥️</span><span class="task-name">Админ-панель</span></div>
-                    <div class="task-desc">Просмотр статистики, экспорт в CSV</div>
+                    <div class="task-desc">Просмотр статистики, экспорт в CSV, ручная корректировка архетипов</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 3/5</span><span class="task-impact impact-medium">🟡 влияние: среднее</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">📱</span><span class="task-name">Telegram-бот (базовый)</span></div>
-                    <div class="task-desc">Напоминания, краткие результаты, подписка</div>
+                    <div class="task-desc">Напоминания о завершении опроса, краткие результаты, подписка на новости</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 3/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">🔗</span><span class="task-name">Шеринг результатов</span></div>
-                    <div class="task-desc">Кнопки Telegram/VK, копирование ссылки</div>
+                    <div class="task-desc">Кнопки Telegram/VK, копирование ссылки, генерация карточки с архетипом</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 2/5</span><span class="task-impact impact-medium">🟡 влияние: среднее</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
             </div>
+            <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
         </div>
 
-        <!-- Фаза 2: Высокая -->
+        <!-- Фаза 2: Высокая (3-6 месяцев) -->
         <div class="phase phase-2">
             <div class="phase-header">
-                <span class="phase-title">🟡 ФАЗА 2: ИГРОВЫЕ МЕХАНИКИ И СВЯЗИ</span>
+                <span class="phase-title">🟡 ФАЗА 2: ИГРОВЫЕ МЕХАНИКИ И МОДУЛЬ СВЯЗЕЙ</span>
                 <span class="phase-period">3-6 месяцев</span>
                 <span class="phase-priority high">высокий</span>
             </div>
+            <div class="phase-description">
+                <strong>Цель:</strong> Добавить игровые элементы для удержания пользователей, создать карту развития на основе связей,
+                запустить систему наставничества и достижений.
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">30%</div>
+                    <div class="stat-label">возврат через месяц</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">40%</div>
+                    <div class="stat-label">карта развития</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">5+</div>
+                    <div class="stat-label">квестов</div>
+                </div>
+            </div>
+            
+            <div class="milestone-grid">
+                <div class="milestone-card">
+                    <div class="milestone-title">📆 Месяц 4</div>
+                    <div class="milestone-date">недели 13-16</div>
+                    <div class="milestone-desc">Разработка карты развития: интерактивное древо переходов</div>
+                </div>
+                <div class="milestone-card">
+                    <div class="milestone-title">📆 Месяц 4-5</div>
+                    <div class="milestone-date">недели 15-20</div>
+                    <div class="milestone-desc">Создание первых 10 квестов для основных архетипов</div>
+                </div>
+                <div class="milestone-card">
+                    <div class="milestone-title">📆 Месяць 5</div>
+                    <div class="milestone-date">недели 17-22</div>
+                    <div class="milestone-desc">Система достижений и ачивок (15+ уникальных наград)</div>
+                </div>
+                <div class="milestone-card">
+                    <div class="milestone-title">📆 Месяц 5-6</div>
+                    <div class="milestone-date">недели 19-24</div>
+                    <div class="milestone-desc">Алгоритм прогноза развития (на основе статистики переходов)</div>
+                </div>
+                <div class="milestone-card">
+                    <div class="milestone-title">📆 Месяц 6</div>
+                    <div class="milestone-date">недели 21-26</div>
+                    <div class="milestone-desc">Запуск системы наставничества (первые 20 пар)</div>
+                </div>
+            </div>
+            
             <div class="task-grid">
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">🗺️</span><span class="task-name">Карта развития</span></div>
-                    <div class="task-desc">Интерактивное древо переходов</div>
+                    <div class="task-desc">Интерактивное древо переходов с визуализацией путей, вероятностей и возраста</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 4/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">⚔️</span><span class="task-name">Квесты переходов</span></div>
-                    <div class="task-desc">Задания для 10 основных архетипов</div>
+                    <div class="task-desc">Пошаговые задания (от 5 до 30 дней) для 10 основных архетипов, с трекингом прогресса</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 4/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">🏆</span><span class="task-name">Достижения</span></div>
-                    <div class="task-desc">Система ачивок</div>
+                    <div class="task-desc">Система ачивок: «Путь воина», «Мост между мирами», «Исцелитель», «Мудрец» и др.</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 3/5</span><span class="task-impact impact-medium">🟡 влияние: среднее</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">👥</span><span class="task-name">Наставничество</span></div>
-                    <div class="task-desc">Подбор наставника</div>
+                    <div class="task-desc">Подбор наставника на основе пройденного пути, парные квесты, система рейтинга</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 4/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">📈</span><span class="task-name">Прогноз развития</span></div>
-                    <div class="task-desc">Алгоритм предсказания</div>
+                    <div class="task-desc">Алгоритм машинного обучения для предсказания следующего архетипа с точностью >70%</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 5/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
                 <div class="task-card">
-                    <div class="task-header"><span class="task-icon">🧬</span><span class="task-name">Семейства</span></div>
-                    <div class="task-desc">Группировка по 7 семействам</div>
+                    <div class="task-header"><span class="task-icon">🧬</span><span class="task-name">Семейства архетипов</span></div>
+                    <div class="task-desc">Группировка по 7 семействам, интерфейс групп, общие форумы для каждого семейства</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 3/5</span><span class="task-impact impact-medium">🟡 влияние: среднее</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
             </div>
+            <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
         </div>
 
-        <!-- Фаза 3: Средняя -->
+        <!-- Фаза 3: Средняя (6-12 месяцев) -->
         <div class="phase phase-3">
             <div class="phase-header">
                 <span class="phase-title">🟢 ФАЗА 3: СООБЩЕСТВО И МОНЕТИЗАЦИЯ</span>
                 <span class="phase-period">6-12 месяцев</span>
                 <span class="phase-priority medium">средний</span>
             </div>
+            <div class="phase-description">
+                <strong>Цель:</strong> Сформировать активное сообщество, запустить модели монетизации (фримиум, подписки),
+                создать базу знаний и контент для удержания пользователей.
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">5000+</div>
+                    <div class="stat-label">пользователей</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">5%</div>
+                    <div class="stat-label">конверсия</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">200+</div>
+                    <div class="stat-label">статей</div>
+                </div>
+            </div>
+            
+            <div class="milestone-grid">
+                <div class="milestone-card">
+                    <div class="milestone-title">📆 Месяц 6-7</div>
+                    <div class="milestone-date">недели 24-30</div>
+                    <div class="milestone-desc">Запуск форумов и чатов по семействам архетипов</div>
+                </div>
+                <div class="milestone-card">
+                    <div class="milestone-title">📆 Месяц 7-8</div>
+                    <div class="milestone-date">недели 28-34</div>
+                    <div class="milestone-desc">Разработка и запуск платной подписки (тарифы Развитие/Трансформация)</div>
+                </div>
+                <div class="milestone-card">
+                    <div class="milestone-title">📆 Месяц 8-9</div>
+                    <div class="milestone-date">недели 32-38</div>
+                    <div class="milestone-desc">Создание википедии архетипов (первые 100 статей от экспертов и пользователей)</div>
+                </div>
+                <div class="milestone-card">
+                    <div class="milestone-title">📆 Месяц 9-10</div>
+                    <div class="milestone-date">недели 36-42</div>
+                    <div class="milestone-desc">Запуск совместных квестов для команд из разных семейств</div>
+                </div>
+                <div class="milestone-card">
+                    <div class="milestone-title">📆 Месяц 10-12</div>
+                    <div class="milestone-date">недели 40-48</div>
+                    <div class="milestone-desc">Мерч и партнёрские интеграции (скидки на спортзалы, книги, курсы)</div>
+                </div>
+            </div>
+            
             <div class="task-grid">
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">👥</span><span class="task-name">Группы по семействам</span></div>
-                    <div class="task-desc">Форумы, чаты для каждого семейства</div>
+                    <div class="task-desc">Форумы, чаты, лента новостей для каждого семейства (7 групп), модерация</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 3/5</span><span class="task-impact impact-medium">🟡 влияние: среднее</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">🤝</span><span class="task-name">Совместные квесты</span></div>
-                    <div class="task-desc">Групповые задания</div>
+                    <div class="task-desc">Групповые задания для 2-4 участников из разных семейств, общие цели и награды</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 4/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">📚</span><span class="task-name">Википедия архетипов</span></div>
-                    <div class="task-desc">Статьи от пользователей</div>
+                    <div class="task-desc">Статьи от пользователей и экспертов, разборы фильмов, книг, исторических личностей</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 3/5</span><span class="task-impact impact-medium">🟡 влияние: среднее</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">💰</span><span class="task-name">Платная подписка</span></div>
-                    <div class="task-desc">Freemium модель</div>
+                    <div class="task-desc">Freemium модель: базовый (бесплатно), развитие (300₽/мес), трансформация (600₽/мес), исследователь (1000₽/мес)</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 4/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">🛍️</span><span class="task-name">Мерч</span></div>
-                    <div class="task-desc">Футболки, кружки, постеры</div>
+                    <div class="task-desc">Футболки, кружки, постеры с символикой архетипов, интеграция с печатным сервисом</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 2/5</span><span class="task-impact impact-low">🟢 влияние: низкое</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">📊</span><span class="task-name">Исследовательский модуль</span></div>
-                    <div class="task-desc">Сбор статистики для публикаций</div>
+                    <div class="task-desc">Сбор статистики для публикаций, экспорт данных в CSV/JSON, анонимизированные датасеты</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 3/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
             </div>
+            <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
         </div>
 
-        <!-- Фаза 4: Перспективная -->
+        <!-- Фаза 4: Перспективная (1-2 года) -->
         <div class="phase phase-4">
             <div class="phase-header">
                 <span class="phase-title">🔵 ФАЗА 4: МАСШТАБИРОВАНИЕ</span>
                 <span class="phase-period">1-2 года</span>
                 <span class="phase-priority low">перспективный</span>
             </div>
+            <div class="phase-description">
+                <strong>Цель:</strong> Выход на массовую аудиторию, мобильное приложение, интеграция с внешними сервисами,
+                корпоративные решения.
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">50K+</div>
+                    <div class="stat-label">пользователей</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">10%</div>
+                    <div class="stat-label">конверсия</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">50+</div>
+                    <div class="stat-label">B2B клиентов</div>
+                </div>
+            </div>
+            
+            <div class="milestone-grid">
+                <div class="milestone-card">
+                    <div class="milestone-title">📆 1 год</div>
+                    <div class="milestone-date">12-15 месяцев</div>
+                    <div class="milestone-desc">Разработка мобильного приложения (React Native / Flutter)</div>
+                </div>
+                <div class="milestone-card">
+                    <div class="milestone-title">📆 1-1.5 года</div>
+                    <div class="milestone-date">15-18 месяцев</div>
+                    <div class="milestone-desc">Создание API для партнёров и B2B решений</div>
+                </div>
+                <div class="milestone-card">
+                    <div class="milestone-title">📆 1.5-2 года</div>
+                    <div class="milestone-date">18-24 месяца</div>
+                    <div class="milestone-desc">Запуск ИИ-наставника с персонализированными рекомендациями</div>
+                </div>
+                <div class="milestone-card">
+                    <div class="milestone-title">📆 2 года</div>
+                    <div class="milestone-date">22-24 месяца</div>
+                    <div class="milestone-desc">Генетические корреляции (пилотный проект с университетом)</div>
+                </div>
+            </div>
+            
             <div class="task-grid">
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">📱</span><span class="task-name">Мобильное приложение</span></div>
-                    <div class="task-desc">React Native / Flutter</div>
+                    <div class="task-desc">React Native / Flutter, офлайн-режим, push-уведомления, виджеты с ежедневными советами</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 5/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">🤖</span><span class="task-name">ИИ-наставник</span></div>
-                    <div class="task-desc">Персонализированные рекомендации</div>
+                    <div class="task-desc">Персонализированные рекомендации на основе ML, адаптация под прогресс пользователя</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 5/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">🌐</span><span class="task-name">API для партнёров</span></div>
-                    <div class="task-desc">Интеграция с внешними сервисами</div>
+                    <div class="task-desc">REST API для интеграции с внешними сервисами, документация, ключи доступа</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 4/5</span><span class="task-impact impact-medium">🟡 влияние: среднее</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">💼</span><span class="task-name">Корпоративные тарифы</span></div>
-                    <div class="task-desc">Для HR, тимбилдинга</div>
+                    <div class="task-desc">Для HR, тимбилдинга, команд: групповые отчёты, аналитика, админ-панель</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 3/5</span><span class="task-impact impact-medium">🟡 влияние: среднее</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">🧬</span><span class="task-name">Генетические корреляции</span></div>
-                    <div class="task-desc">Связь с SNP (DRD4, MAOA, OXTR)</div>
+                    <div class="task-desc">Связь с SNP (DRD4, MAOA, OXTR) – исследовательский проект с университетами</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 5/5</span><span class="task-impact impact-low">🟢 влияние: низкое</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
             </div>
+            <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
         </div>
 
-        <!-- Фаза 5: Дальняя -->
+        <!-- Фаза 5: Дальняя (2+ года) -->
         <div class="phase phase-5">
             <div class="phase-header">
                 <span class="phase-title">⚪ ФАЗА 5: МЕЖДУНАРОДНОЕ РАСШИРЕНИЕ</span>
                 <span class="phase-period">2+ года</span>
                 <span class="phase-priority low">дальний</span>
             </div>
+            <div class="phase-description">
+                <strong>Цель:</strong> Выход на международный рынок, перевод на английский и другие языки,
+                локализация архетипов под разные культуры.
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">100K+</div>
+                    <div class="stat-label">пользователей</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">5+</div>
+                    <div class="stat-label">языков</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">2+</div>
+                    <div class="stat-label">Scopus</div>
+                </div>
+            </div>
+            
+            <div class="milestone-grid">
+                <div class="milestone-card">
+                    <div class="milestone-title">📆 2-2.5 года</div>
+                    <div class="milestone-date">24-30 месяцев</div>
+                    <div class="milestone-desc">Английская версия сайта, адаптация культурных отсылок</div>
+                </div>
+                <div class="milestone-card">
+                    <div class="milestone-title">📆 2.5-3 года</div>
+                    <div class="milestone-date">30-36 месяцев</div>
+                    <div class="milestone-desc">Локализация под китайскую, индийскую, арабскую культуры</div>
+                </div>
+                <div class="milestone-card">
+                    <div class="milestone-title">📆 3 года</div>
+                    <div class="milestone-date">36 месяцев</div>
+                    <div class="milestone-desc">Публикация в международных журналах (Scopus), конференции</div>
+                </div>
+            </div>
+            
             <div class="task-grid">
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">🇬🇧</span><span class="task-name">Английская версия</span></div>
-                    <div class="task-desc">Перевод сайта, культурная адаптация</div>
+                    <div class="task-desc">Полный перевод сайта, адаптация культурных отсылок, международные платёжные системы</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 4/5</span><span class="task-impact impact-medium">🟡 влияние: среднее</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">🌍</span><span class="task-name">Локализация под другие культуры</span></div>
-                    <div class="task-desc">Китайские, индийские, африканские архетипы</div>
+                    <div class="task-desc">Китайские, индийские, африканские архетипы с местными экспертами</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 5/5</span><span class="task-impact impact-medium">🟡 влияние: среднее</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
                 <div class="task-card">
                     <div class="task-header"><span class="task-icon">🎓</span><span class="task-name">Научные публикации</span></div>
-                    <div class="task-desc">Статьи в ВАК, Scopus, конференции</div>
+                    <div class="task-desc">Статьи в ВАК, Scopus, международные конференции, коллаборации с университетами</div>
                     <div class="task-meta"><span class="task-difficulty">сложность: 4/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
             </div>
+            <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
         </div>
 
         <!-- ========== ТАБЛИЦА ПЕРСПЕКТИВ ========= -->
@@ -1016,37 +1296,39 @@
 
         <!-- ========== КЛЮЧЕВЫЕ МЕТРИКИ ========= -->
         <div style="background: #1e2a44; border-radius: 2rem; padding: 2rem; margin: 2rem 0;">
-            <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">📈 КЛЮЧЕВЫЕ МЕТРИКИ УСПЕХА</h2>
+            <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">📈 КЛЮЧЕВЫЕ МЕТРИКИ УСПЕХА ПО ФАЗАМ</h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
                 <div>
-                    <div style="font-size: 2.5rem; color: #fbbf24;">80%</div>
-                    <div>завершивших опрос</div>
-                    <div class="progress-bar" style="margin-top:0.5rem;"><div class="progress-fill" style="width:0%"></div></div>
+                    <div style="font-size: 2.5rem; color: #f87171;">80%</div>
+                    <div>завершивших опрос (фаза 1)</div>
                 </div>
                 <div>
-                    <div style="font-size: 2.5rem; color: #fbbf24;">50%</div>
-                    <div>заполнивших пост-опрос</div>
-                    <div class="progress-bar" style="margin-top:0.5rem;"><div class="progress-fill" style="width:0%"></div></div>
+                    <div style="font-size: 2.5rem; color: #f87171;">500+</div>
+                    <div>респондентов (фаза 1)</div>
                 </div>
                 <div>
                     <div style="font-size: 2.5rem; color: #fbbf24;">30%</div>
-                    <div>возврат через месяц</div>
-                    <div class="progress-bar" style="margin-top:0.5rem;"><div class="progress-fill" style="width:0%"></div></div>
+                    <div>возврат через месяц (фаза 2)</div>
                 </div>
                 <div>
                     <div style="font-size: 2.5rem; color: #fbbf24;">40%</div>
-                    <div>используют карту развития</div>
-                    <div class="progress-bar" style="margin-top:0.5rem;"><div class="progress-fill" style="width:0%"></div></div>
+                    <div>используют карту развития (фаза 2)</div>
                 </div>
                 <div>
-                    <div style="font-size: 2.5rem; color: #fbbf24;">25%</div>
-                    <div>успешных переходов серый→белый</div>
-                    <div class="progress-bar" style="margin-top:0.5rem;"><div class="progress-fill" style="width:0%"></div></div>
+                    <div style="font-size: 2.5rem; color: #4ade80;">5000+</div>
+                    <div>пользователей (фаза 3)</div>
                 </div>
                 <div>
-                    <div style="font-size: 2.5rem; color: #fbbf24;">5%</div>
-                    <div>конверсия в платные</div>
-                    <div class="progress-bar" style="margin-top:0.5rem;"><div class="progress-fill" style="width:0%"></div></div>
+                    <div style="font-size: 2.5rem; color: #4ade80;">5%</div>
+                    <div>конверсия в платные (фаза 3)</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; color: #60a5fa;">50K+</div>
+                    <div>пользователей (фаза 4)</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; color: #c084fc;">100K+</div>
+                    <div>пользователей (фаза 5)</div>
                 </div>
             </div>
         </div>
@@ -1056,34 +1338,34 @@
         <div class="spec-grid" style="grid-template-columns:repeat(3,1fr);">
             <div class="spec-card">
                 <div class="card-title">🌐 фронтенд</div>
-                <div>GitHub Pages (бесплатно) + домен tr-info.ru</div>
+                <div>GitHub Pages (бесплатно) + домен tr-info.ru, HTML/CSS/JS, адаптивный дизайн</div>
             </div>
             <div class="spec-card">
                 <div class="card-title">⚙️ бэкенд</div>
-                <div>Supabase (PostgreSQL, auth, realtime) – бесплатно до 500МБ</div>
+                <div>Supabase (PostgreSQL, auth, realtime) – бесплатно до 500МБ, масштабирование по мере роста</div>
             </div>
             <div class="spec-card">
                 <div class="card-title">📦 домен</div>
-                <div><strong>tr-info.ru</strong> (зарегистрирован в Reg.ru)</div>
+                <div><strong>tr-info.ru</strong> (зарегистрирован в Reg.ru) + SSL сертификат</div>
             </div>
         </div>
 
         <!-- ========== ЗАКЛЮЧЕНИЕ ========= -->
         <div class="highlight" style="background: #2b2b55; border-left-color: #fbbf24; margin:2rem 0;">
-            <strong>✅ ТОЧКА РАВНОВЕСИЯ (tr-info.ru) – ПОЛНАЯ СПЕЦИФИКАЦИЯ + СТРАТЕГИЧЕСКИЙ ПЛАН</strong><br>
+            <strong>✅ ТОЧКА РАВНОВЕСИЯ (tr-info.ru) – ПОЛНАЯ СПЕЦИФИКАЦИЯ С ДЕТАЛЬНЫМ СТРАТЕГИЧЕСКИМ ПЛАНОМ</strong><br>
             • научная модель из 12 систем + 64 архетипа<br>
             • полная структура БД (включая переходы, квесты, семейства)<br>
             • игровые механики с тремя сценариями<br>
             • модуль связей (трансформации, прогноз, наставничество)<br>
             • исследовательский модуль для публикаций<br>
-            • детальный стратегический план на 2026–2028 с 5 фазами и 30+ задачами<br>
-            • домен tr-info.ru зарегистрирован, инфраструктура готова
+            • <strong>5 фаз развития с 25+ ключевыми задачами и 15+ метриками успеха</strong><br>
+            • домен tr-info.ru зарегистрирован, инфраструктура готова к старту
         </div>
 
         <!-- футер с доменом -->
         <div class="domain-footer">
             <span>🔮 <strong>ТОЧКА РАВНОВЕСИЯ</strong> · нейроархетипы · </span>
-            <span>🌐 <strong>tr-info.ru</strong> · версия 3.3 · стратегический план 2026–2028</span>
+            <span>🌐 <strong>tr-info.ru</strong> · версия 3.4 · детальный стратегический план 2026–2028</span>
         </div>
     </div>
 </body>
