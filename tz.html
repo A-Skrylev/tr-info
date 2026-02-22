@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Точка равновесия · Нейроархетипы</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0b1220;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            color: #e0e7ff;
+            padding: 2rem;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* шапка с доменом */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .title-block h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffdb70, #b58aff, #ff92b0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+
+        .title-block .sub {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            border-left: 4px solid #fbbf24;
+            padding-left: 1rem;
+            margin-top: 0.3rem;
+        }
+
+        .domain-badge {
+            background: #1e2a44;
+            border: 2px solid #fbbf24;
+            border-radius: 60px;
+            padding: 0.7rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fbbf24;
+            box-shadow: 0 0 20px #fbbf2440;
+        }
+
+        .domain-badge .dot {
+            width: 0.8rem;
+            height: 0.8rem;
+            background: #4ade80;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #4ade80;
+        }
+
+        /* титул внутри документа */
+        .spec-header {
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #1e2a44;
+            padding-bottom: 1rem;
+        }
+
+        .spec-header h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #f0f0ff;
+        }
+
+        .spec-header .url {
+            color: #94a3b8;
+            font-size: 1rem;
+            margin-top: 0.3rem;
+        }
+
+        /* сетка из трёх колонок для обзора */
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .spec-card {
+            background: #1e2740e0;
+            backdrop-filter: blur(4px);
+            border: 1px solid #ffffff20;
+            border-radius: 1.8rem;
+            padding: 1.4rem 1.2rem;
+            box-shadow: 0 15px 25px -15px #000000;
+            transition: 0.2s;
+        }
+
+        .spec-card:hover {
+            border-color: #c084fc;
+            transform: translateY(-3px);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 2px solid #334155;
+            padding-bottom: 0.5rem;
+        }
+
+        .card-icon {
+            font-size: 1.6rem;
+        }
+
+        .list {
+            list-style: none;
+            margin: 0.5rem 0;
+        }
+
+        .list li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.2rem;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .list li::before {
+            content: "•";
+            color: #fbbf24;
+            font-weight: bold;
+            position: absolute;
+            left: 0.2rem;
+        }
+
+        .badge {
+            background: #2f3b60;
+            border-radius: 40px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.7rem;
+            color: #cbd5ff;
+            border: 1px solid #ffffff30;
+            margin-left: 0.3rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #a78bfa, #f9a8d4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 2rem 0 1rem;
+            border-left: 8px solid #c084fc;
+            padding-left: 1.2rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #f0f0ff;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 0.3rem;
+        }
+
+        .code-block {
+            background: #0f172a;
+            border: 1px solid #3a4a70;
+            border-radius: 1.2rem;
+            padding: 1.2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            color: #cbd5e1;
+            margin: 1rem 0;
+        }
+
+        .roadmap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .milestone {
+            background: #1e2a48;
+            border-left: 6px solid;
+            border-radius: 1.2rem;
+            padding: 1.2rem;
+            flex: 1 1 200px;
+        }
+
+        .milestone.q2 { border-color: #fbbf24; }
+        .milestone.q3 { border-color: #c084fc; }
+        .milestone.q4 { border-color: #4ade80; }
+        .milestone.q1 { border-color: #f87171; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #1a2340;
+            border-radius: 1.2rem;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        th {
+            background: #2a3650;
+            padding: 0.8rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 0.8rem;
+            border-bottom: 1px solid #2f3f60;
+        }
+
+        .highlight {
+            background: #c084fc20;
+            border-left: 4px solid #c084fc;
+            padding: 1rem;
+            border-radius: 0.8rem;
+            margin: 1rem 0;
+        }
+
+        .domain-footer {
+            text-align: center;
+            margin-top: 3rem;
+            border-top: 2px solid #1e2a44;
+            padding-top: 1.5rem;
+            color: #94a3b8;
+            font-size: 1rem;
+        }
+
+        .domain-footer strong {
+            color: #fbbf24;
+        }
+
+        @media (max-width: 900px) {
+            .spec-grid { grid-template-columns: repeat(2, 1fr); }
+            .header { flex-direction: column; align-items: flex-start; }
+        }
+        @media (max-width: 600px) {
+            .spec-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- шапка с доменом tr-info.ru -->
+        <div class="header">
+            <div class="title-block">
+                <h1>ТОЧКА РАВНОВЕСИЯ</h1>
+                <div class="sub">нейроархетипы · 12 систем · 64 архетипа</div>
+            </div>
+            <div class="domain-badge">
+                <span class="dot"></span>
+                tr-info.ru
+            </div>
+        </div>
+
+        <!-- полная спецификация (как в предыдущей версии, но с обновлённым названием) -->
+        <div class="spec-header">
+            <h2>📋 ПОЛНАЯ СПЕЦИФИКАЦИЯ ПРОЕКТА</h2>
+            <div class="url">https://tr-info.ru · версия 3.2</div>
+        </div>
+
+        <!-- быстрая навигация по разделам (карточки) -->
+        <div class="spec-grid">
+            <div class="spec-card">
+                <div class="card-title"><span class="card-icon">🧠</span> Научная модель</div>
+                <ul class="list">
+                    <li>12 нейробиологических систем</li>
+                    <li>рептильные / лимбические / корковые / мета</li>
+                    <li>64 комбинаторных архетипа</li>
+                    <li>белый / серый / чёрный списки</li>
+                    <li>гормональные профили</li>
+                    <li>возрастные траектории</li>
+                </ul>
+            </div>
+            <div class="spec-card">
+                <div class="card-title"><span class="card-icon">🗄️</span> База данных</div>
+                <ul class="list">
+                    <li>users / main_responses / archetypes</li>
+                    <li>post_survey / recommendations</li>
+                    <li>user_progress / community</li>
+                    <li><strong>transitions</strong> – переходы</li>
+                    <li><strong>transition_quests</strong> – квесты</li>
+                    <li><strong>family_connections</strong> – семейства</li>
+                </ul>
+            </div>
+            <div class="spec-card">
+                <div class="card-title"><span class="card-icon">🎮</span> Игровые механики</div>
+                <ul class="list">
+                    <li>3 сценария: развитие / трансформация / исследование</li>
+                    <li>система уровней 1–6</li>
+                    <li>достижения / ачивки</li>
+                    <li><strong>квесты переходов</strong></li>
+                    <li><strong>карта развития</strong></li>
+                    <li><strong>наставничество</strong></li>
+                </ul>
+            </div>
+            <div class="spec-card">
+                <div class="card-title"><span class="card-icon">🔗</span> Модуль связей</div>
+                <ul class="list">
+                    <li>чёрный → белый (трансформация)</li>
+                    <li>серый → белый (коррекция)</li>
+                    <li>белый → белый (возраст/опыт)</li>
+                    <li>универсальный путь к МУДРЕЦУ</li>
+                    <li>вероятности по возрастам</li>
+                    <li>семейства и точки пересечения</li>
+                </ul>
+            </div>
+            <div class="spec-card">
+                <div class="card-title"><span class="card-icon">📊</span> Исследования</div>
+                <ul class="list">
+                    <li>сбор статистики переходов</li>
+                    <li>корреляция с Big Five</li>
+                    <li>возрастные нормы</li>
+                    <li>эффективность рекомендаций</li>
+                    <li>публикация в ВАК / Scopus</li>
+                </ul>
+            </div>
+            <div class="spec-card">
+                <div class="card-title"><span class="card-icon">💰</span> Монетизация</div>
+                <ul class="list">
+                    <li>фримиум: базовый архетип</li>
+                    <li>премиум: карта развития, прогнозы</li>
+                    <li>VIP: наставник, платные квесты</li>
+                    <li>партнёрские интеграции</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ========== 1. НАУЧНАЯ МОДЕЛЬ ========= -->
+        <div class="section-title">🧠 1. НАУЧНАЯ МОДЕЛЬ</div>
+        <div class="subtitle">12 нейробиологических систем</div>
+        <table>
+            <tr><th>ID</th><th>Система</th><th>Уровень</th><th>Зоны мозга</th><th>Гормоны</th></tr>
+            <tr><td>0</td><td>ТЕРРИТОРИЯ</td><td>рептильный</td><td>базальные ганглии, гипоталамус</td><td>вазопрессин, тестостерон</td></tr>
+            <tr><td>1</td><td>ИЕРАРХИЯ</td><td>рептильный</td><td>периакведуктальный серый</td><td>тестостерон, кортизол</td></tr>
+            <tr><td>2</td><td>РИТУАЛ</td><td>рептильный</td><td>стриатум, базальные ганглии</td><td>серотонин</td></tr>
+            <tr><td>3</td><td>ПОИСК</td><td>лимбический</td><td>вентральный стриатум</td><td>дофамин</td></tr>
+            <tr><td>4</td><td>СТРАХ</td><td>лимбический</td><td>амигдала</td><td>кортизол, адреналин</td></tr>
+            <tr><td>5</td><td>ГНЕВ</td><td>лимбический</td><td>медиальная амигдала</td><td>тестостерон</td></tr>
+            <tr><td>6</td><td>ВОЖДЕЛЕНИЕ</td><td>лимбический</td><td>гипоталамус</td><td>тестостерон, эстроген</td></tr>
+            <tr><td>7</td><td>ПРИВЯЗАННОСТЬ</td><td>лимбический</td><td>гипоталамус, поясная кора</td><td>окситоцин</td></tr>
+            <tr><td>8</td><td>ЗАБОТА</td><td>лимбический</td><td>поясная кора, вентральный паллидум</td><td>пролактин</td></tr>
+            <tr><td>9</td><td>ИГРА</td><td>лимбический</td><td>таламус</td><td>эндорфины</td></tr>
+            <tr><td>10</td><td>КОНТРОЛЬ</td><td>корковый</td><td>префронтальная кора</td><td>серотонин, ГАМК</td></tr>
+            <tr><td>11</td><td>СОЦИАЛЬНОСТЬ</td><td>корковый</td><td>медиальная ПФК</td><td>окситоцин</td></tr>
+            <tr><td>12</td><td>СМЫСЛ</td><td>мета</td><td>медиальная ПФК, задняя поясная</td><td>дофамин, серотонин</td></tr>
+        </table>
+        <div class="highlight">
+            <strong>64 архетипа</strong> – полная комбинаторика систем. Белый список (24), серый (18), чёрный (22). 
+            Каждый содержит гормональный профиль, возрастную траекторию, культурные и мистические соответствия.
+        </div>
+
+        <!-- ========== 2. СТРУКТУРА БАЗЫ ДАННЫХ ========= -->
+        <div class="section-title">🗄️ 2. СТРУКТУРА БАЗЫ ДАННЫХ</div>
+        <div class="subtitle">основные таблицы</div>
+        <table>
+            <tr><th>Таблица</th><th>Назначение</th><th>Ключевые поля</th></tr>
+            <tr><td>users</td><td>пользователи</td><td>age_group, consent, email, telegram</td></tr>
+            <tr><td>main_responses</td><td>ответы на 60 вопросов</td><td>responses (JSON), system_scores</td></tr>
+            <tr><td>archetypes</td><td>база архетипов</td><td>name, list_type, systems, hormone_profile, age_trajectory, strengths, correlations</td></tr>
+            <tr><td>post_survey</td><td>подробный опрос</td><td>job, lifestyle, stress, hormone_markers</td></tr>
+            <tr><td>recommendations</td><td>рекомендации по сферам</td><td>area, title, description, priority, conditions</td></tr>
+            <tr><td>user_progress</td><td>прогресс, уровни, квесты</td><td>current_quest, achievements, development_score</td></tr>
+        </table>
+
+        <div class="subtitle" style="margin-top:1.5rem;">🔗 новые таблицы (модуль связей)</div>
+        <table>
+            <tr><th>Таблица</th><th>Описание</th><th>Пример</th></tr>
+            <tr><td>transitions</td><td>переходы между архетипами</td><td>from:7 (ВОИН), to:11 (СТРАТЕГ), min_age:35, probability:0.5</td></tr>
+            <tr><td>transition_quests</td><td>квесты для конкретных переходов</td><td>step_number, task_description, reward_exp</td></tr>
+            <tr><td>family_connections</td><td>связи между семействами</td><td>family1: "Воины", family2: "Стратеги", common_systems: ["ГНЕВ","КОНТРОЛЬ"]</td></tr>
+            <tr><td>transition_stats</td><td>материализованная статистика</td><td>users_count, avg_age, success_rate</td></tr>
+            <tr><td>transition_predictions</td><td>прогноз для пользователя</td><td>predicted_next, confidence, recommended_quest</td></tr>
+        </table>
+
+        <!-- ========== 3. МОДУЛЬ СВЯЗЕЙ ========= -->
+        <div class="section-title">🔗 3. МОДУЛЬ СВЯЗЕЙ АРХЕТИПОВ</div>
+        <div class="highlight">
+            <strong>типы переходов:</strong> чёрный→белый (трансформация), серый→белый (коррекция), белый→белый (возраст/опыт), универсальный→МУДРЕЦ.
+        </div>
+        <div class="code-block">
+// Пример записи в transitions (JSON)
+{
+  "from": 7, "to": 11, "type": "white_to_white",
+  "min_age": 35, "max_age": 60,
+  "base_probability": 0.5,
+  "probability_by_age": {"35":0.4, "40":0.6, "50":0.7},
+  "required_experience": ["стратегическое мышление", "управление"],
+  "advice": "Начни изучать военную историю, анализируй свои решения",
+  "quest_id": 1001, "achievement_id": 1
+}
+        </div>
+        <div class="subtitle">🎯 применение связей</div>
+        <div class="spec-grid" style="grid-template-columns:repeat(3,1fr); margin-top:0.5rem;">
+            <div class="spec-card">
+                <div class="card-title"><span class="card-icon">🗺️</span> карта развития</div>
+                <div>пользователь видит своё древо: прошлые состояния, возможные будущие, вероятность, возраст</div>
+            </div>
+            <div class="spec-card">
+                <div class="card-title"><span class="card-icon">⚔️</span> квесты переходов</div>
+                <div>пошаговые задания (от 5 до 30 дней) для конкретного перехода</div>
+            </div>
+            <div class="spec-card">
+                <div class="card-title"><span class="card-icon">🏆</span> достижения</div>
+                <div>«Путь воина», «Мост между мирами», «Исцелитель» и др.</div>
+            </div>
+            <div class="spec-card">
+                <div class="card-title"><span class="card-icon">👥</span> наставничество</div>
+                <div>подбор наставника на основе пройденного пути, парные квесты</div>
+            </div>
+            <div class="spec-card">
+                <div class="card-title"><span class="card-icon">📈</span> прогноз</div>
+                <div>алгоритм предсказывает следующий архетип с точностью >70%</div>
+            </div>
+            <div class="spec-card">
+                <div class="card-title"><span class="card-icon">🧬</span> семейства</div>
+                <div>7 групп: исследователи, воины, стражи, эмпаты, правители, творцы, мудрецы</div>
+            </div>
+        </div>
+
+        <!-- ========== 4. ИГРОВЫЕ МЕХАНИКИ ========= -->
+        <div class="section-title">🎮 4. ИГРОВЫЕ МЕХАНИКИ</div>
+        <div class="subtitle">3 сценария</div>
+        <div class="spec-grid" style="grid-template-columns:repeat(3,1fr);">
+            <div class="spec-card">
+                <div class="card-title">🌟 развитие</div>
+                <div>для белого списка – 30-дневные квесты, прокачка навыков</div>
+            </div>
+            <div class="spec-card">
+                <div class="card-title">🔄 трансформация</div>
+                <div>серый/чёрный список – пошаговая терапия, работа с тенью</div>
+            </div>
+            <div class="spec-card">
+                <div class="card-title">🔍 исследование</div>
+                <div>для любопытных – теория, инсайты, эксперименты</div>
+            </div>
+        </div>
+        <div class="subtitle">уровни и опыт</div>
+        <table>
+            <tr><th>уровень</th><th>опыт</th><th>название</th><th>открывается</th></tr>
+            <tr><td>1</td><td>0-100</td><td>Новичок</td><td>базовый архетип</td></tr>
+            <tr><td>2</td><td>101-300</td><td>Ученик</td><td>сравнение с эталоном</td></tr>
+            <tr><td>3</td><td>301-600</td><td>Адепт</td><td>рекомендации</td></tr>
+            <tr><td>4</td><td>601-1000</td><td>Мастер</td><td>линии развития</td></tr>
+            <tr><td>5</td><td>1001-1500</td><td>Эксперт</td><td>наставничество</td></tr>
+            <tr><td>6</td><td>1501-2000</td><td>Мудрец</td><td>доступ к исследованиям</td></tr>
+        </table>
+
+        <!-- ========== 5. ИССЛЕДОВАНИЯ ========= -->
+        <div class="section-title">📊 5. НАУЧНО-ИССЛЕДОВАТЕЛЬСКАЯ ЧАСТЬ</div>
+        <div class="spec-grid" style="grid-template-columns:repeat(2,1fr);">
+            <div class="spec-card">
+                <div class="card-title">📈 сбор статистики</div>
+                <ul class="list">
+                    <li>возраст, пол, регион, профессия</li>
+                    <li>сырые ответы (60 вопросов)</li>
+                    <li>пост-опрос (работа, образ жизни)</li>
+                    <li>гормональные маркеры (опросно)</li>
+                    <li>реальные переходы между архетипами</li>
+                </ul>
+            </div>
+            <div class="spec-card">
+                <div class="card-title">🔬 анализ</div>
+                <ul class="list">
+                    <li>α-Кронбаха по шкалам (>0.7)</li>
+                    <li>факторный анализ 12 факторов</li>
+                    <li>корреляция с Big Five</li>
+                    <li>возрастные нормы и траектории</li>
+                    <li>эффективность рекомендаций</li>
+                </ul>
+            </div>
+        </div>
+        <div class="highlight">
+            целевые метрики: 1000+ респондентов для первой публикации, 5000+ для валидизации, 
+            корреляция с ANPS и ARCH×Φ, статья в ВАК/Scopus через 24 мес.
+        </div>
+
+        <!-- ========== 6. ДОРОЖНАЯ КАРТА ========= -->
+        <div class="section-title">📅 6. ДОРОЖНАЯ КАРТА</div>
+        <div class="roadmap">
+            <div class="milestone q2">
+                <strong>Q2 2026</strong> – MVP<br>
+                база данных, основной опрос, страница результата, пост-опрос, админка
+            </div>
+            <div class="milestone q3">
+                <strong>Q3 2026</strong> – ИГРЫ + СВЯЗИ<br>
+                пользователи, Telegram, квесты (первые 10), <span style="color:#fbbf24;">МОДУЛЬ СВЯЗЕЙ</span>, карта развития, наставничество, достижения
+            </div>
+            <div class="milestone q4">
+                <strong>Q4 2026</strong> – СООБЩЕСТВО<br>
+                группы по семействам, совместные квесты, форум, платная подписка
+            </div>
+            <div class="milestone q1">
+                <strong>Q1 2027</strong> – МАСШТАБИРОВАНИЕ<br>
+                мобильное приложение, API, ИИ-прогноз, партнёрства
+            </div>
+        </div>
+
+        <!-- ========== 7. ТЕХНИЧЕСКИЙ СТЕК ========= -->
+        <div class="section-title">🛠️ 7. ТЕХНИЧЕСКАЯ РЕАЛИЗАЦИЯ</div>
+        <div class="spec-grid" style="grid-template-columns:repeat(3,1fr);">
+            <div class="spec-card">
+                <div class="card-title">🌐 фронтенд</div>
+                <div>GitHub Pages (бесплатно) + домен tr-info.ru</div>
+            </div>
+            <div class="spec-card">
+                <div class="card-title">⚙️ бэкенд</div>
+                <div>Supabase (PostgreSQL, auth, realtime) – бесплатно до 500МБ</div>
+            </div>
+            <div class="spec-card">
+                <div class="card-title">📦 домен</div>
+                <div><strong>tr-info.ru</strong> (зарегистрирован в Reg.ru)</div>
+            </div>
+        </div>
+
+        <!-- ========== 8. МЕТРИКИ УСПЕХА ========= -->
+        <div class="section-title">🎯 8. КЛЮЧЕВЫЕ МЕТРИКИ</div>
+        <table>
+            <tr><th>метрика</th><th>цель</th><th>срок</th></tr>
+            <tr><td>завершивших опрос</td><td>80%</td><td>3 мес</td></tr>
+            <tr><td>заполнивших пост-опрос</td><td>50%</td><td>3 мес</td></tr>
+            <tr><td>вернувшихся через месяц</td><td>30%</td><td>6 мес</td></tr>
+            <tr><td>пользователей, использующих карту развития</td><td>40%</td><td>6 мес</td></tr>
+            <tr><td>доля успешных переходов (серый→белый)</td><td>25%</td><td>12 мес</td></tr>
+            <tr><td>конверсия в платные</td><td>5%</td><td>12 мес</td></tr>
+            <tr><td>публикация в ВАК</td><td>1</td><td>24 мес</td></tr>
+        </table>
+
+        <!-- ========== 9. ЗАКЛЮЧЕНИЕ ========= -->
+        <div class="highlight" style="background: #2b2b55; border-left-color: #fbbf24; margin:2rem 0;">
+            <strong>✅ ТОЧКА РАВНОВЕСИЯ (tr-info.ru) – ПОЛНАЯ СПЕЦИФИКАЦИЯ</strong><br>
+            • научная модель из 12 систем + 64 архетипа<br>
+            • полная структура БД (включая переходы, квесты, семейства)<br>
+            • игровые механики с тремя сценариями<br>
+            • модуль связей (трансформации, прогноз, наставничество)<br>
+            • исследовательский модуль для публикаций<br>
+            • домен tr-info.ru зарегистрирован, инфраструктура готова
+        </div>
+
+        <!-- футер с доменом -->
+        <div class="domain-footer">
+            <span>🔮 <strong>ТОЧКА РАВНОВЕСИЯ</strong> · нейроархетипы · </span>
+            <span>🌐 <strong>tr-info.ru</strong> · версия 3.2 · 22.02.2026</span>
+        </div>
+    </div>
+</body>
+</html>
