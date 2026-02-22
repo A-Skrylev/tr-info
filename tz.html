@@ -20,7 +20,7 @@
         }
 
         .container {
-            max-width: 1300px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -91,6 +91,175 @@
             color: #94a3b8;
             font-size: 1rem;
             margin-top: 0.3rem;
+        }
+
+        /* легенда приоритетов */
+        .priority-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0;
+            background: #1a2440c0;
+            border-radius: 60px;
+            padding: 1rem 2rem;
+            border: 1px solid #ffffff30;
+            justify-content: center;
+        }
+
+        .priority-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .priority-dot {
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+        }
+
+        .dot-critical { background: #f87171; box-shadow: 0 0 12px #f87171; }
+        .dot-high { background: #fbbf24; box-shadow: 0 0 12px #fbbf24; }
+        .dot-medium { background: #4ade80; box-shadow: 0 0 12px #4ade80; }
+        .dot-low { background: #60a5fa; box-shadow: 0 0 12px #60a5fa; }
+
+        /* таймлайн фаз */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .phase {
+            background: #1e2740e0;
+            border-radius: 2rem;
+            padding: 1.8rem;
+            border: 1px solid #ffffff20;
+            position: relative;
+            border-left: 8px solid;
+        }
+
+        .phase.phase-1 { border-left-color: #f87171; }
+        .phase.phase-2 { border-left-color: #fbbf24; }
+        .phase.phase-3 { border-left-color: #4ade80; }
+        .phase.phase-4 { border-left-color: #60a5fa; }
+        .phase.phase-5 { border-left-color: #c084fc; }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .phase-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #ffffff, #e0e0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .phase-period {
+            background: #2f3b60;
+            border-radius: 40px;
+            padding: 0.4rem 1.2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .phase-priority {
+            display: inline-block;
+            border-radius: 40px;
+            padding: 0.2rem 1rem;
+            font-size: 0.8rem;
+            margin-left: auto;
+        }
+
+        .phase-priority.critical { background: #f8717130; color: #f87171; border: 1px solid #f87171; }
+        .phase-priority.high { background: #fbbf2430; color: #fbbf24; border: 1px solid #fbbf24; }
+        .phase-priority.medium { background: #4ade8030; color: #4ade80; border: 1px solid #4ade80; }
+        .phase-priority.low { background: #60a5fa30; color: #60a5fa; border: 1px solid #60a5fa; }
+
+        .task-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .task-card {
+            background: #2a3458e0;
+            border-radius: 1.2rem;
+            padding: 1.2rem;
+            border: 1px solid #ffffff20;
+            transition: 0.2s;
+        }
+
+        .task-card:hover {
+            transform: translateY(-3px);
+            border-color: #c084fc;
+        }
+
+        .task-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .task-icon {
+            font-size: 1.5rem;
+        }
+
+        .task-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .task-desc {
+            color: #b0c8ff;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .task-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+
+        .task-difficulty {
+            background: #1f2a48;
+            border-radius: 30px;
+            padding: 0.2rem 0.8rem;
+        }
+
+        .task-impact {
+            color: #4ade80;
+        }
+
+        .impact-high { color: #f87171; }
+        .impact-medium { color: #fbbf24; }
+        .impact-low { color: #4ade80; }
+
+        .progress-bar {
+            width: 100%;
+            height: 0.6rem;
+            background: #1f2a48;
+            border-radius: 30px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #fbbf24, #c084fc);
+            border-radius: 30px;
         }
 
         /* сетка из трёх колонок для обзора */
@@ -242,6 +411,43 @@
             margin: 1rem 0;
         }
 
+        .perspective-table {
+            background: #1a2340;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .perspective-row {
+            display: grid;
+            grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr;
+            padding: 1rem;
+            border-bottom: 1px solid #2f3f60;
+            align-items: center;
+        }
+
+        .perspective-row.header {
+            background: #2a3650;
+            font-weight: 600;
+            color: #cbd5ff;
+        }
+
+        .perspective-row:last-child {
+            border-bottom: none;
+        }
+
+        .perspective-priority {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+        }
+
+        .prio-critical { background: #f8717130; color: #f87171; border: 1px solid #f87171; }
+        .prio-high { background: #fbbf2430; color: #fbbf24; border: 1px solid #fbbf24; }
+        .prio-medium { background: #4ade8030; color: #4ade80; border: 1px solid #4ade80; }
+        .prio-low { background: #60a5fa30; color: #60a5fa; border: 1px solid #60a5fa; }
+
         .domain-footer {
             text-align: center;
             margin-top: 3rem;
@@ -257,7 +463,9 @@
 
         @media (max-width: 900px) {
             .spec-grid { grid-template-columns: repeat(2, 1fr); }
+            .perspective-row { grid-template-columns: 1fr; gap: 0.5rem; }
             .header { flex-direction: column; align-items: flex-start; }
+            .phase-header { flex-direction: column; align-items: flex-start; }
         }
         @media (max-width: 600px) {
             .spec-grid { grid-template-columns: 1fr; }
@@ -279,10 +487,18 @@
             </div>
         </div>
 
-        <!-- полная спецификация (как в предыдущей версии, но с обновлённым названием) -->
+        <!-- полная спецификация -->
         <div class="spec-header">
             <h2>📋 ПОЛНАЯ СПЕЦИФИКАЦИЯ ПРОЕКТА</h2>
-            <div class="url">https://tr-info.ru · версия 3.2</div>
+            <div class="url">https://tr-info.ru · версия 3.3 (с интеграцией стратегического плана)</div>
+        </div>
+
+        <!-- легенда приоритетов из 3.3 -->
+        <div class="priority-legend">
+            <div class="priority-item"><span class="priority-dot dot-critical"></span> 🔴 критический (0-3 мес)</div>
+            <div class="priority-item"><span class="priority-dot dot-high"></span> 🟡 высокий (3-6 мес)</div>
+            <div class="priority-item"><span class="priority-dot dot-medium"></span> 🟢 средний (6-12 мес)</div>
+            <div class="priority-item"><span class="priority-dot dot-low"></span> 🔵 перспективный (1-2 года)</div>
         </div>
 
         <!-- быстрая навигация по разделам (карточки) -->
@@ -501,28 +717,341 @@
             корреляция с ANPS и ARCH×Φ, статья в ВАК/Scopus через 24 мес.
         </div>
 
-        <!-- ========== 6. ДОРОЖНАЯ КАРТА ========= -->
-        <div class="section-title">📅 6. ДОРОЖНАЯ КАРТА</div>
-        <div class="roadmap">
-            <div class="milestone q2">
-                <strong>Q2 2026</strong> – MVP<br>
-                база данных, основной опрос, страница результата, пост-опрос, админка
+        <!-- ========== 6. СТРАТЕГИЧЕСКИЙ ПЛАН (ИНТЕГРАЦИЯ ИЗ 3.3) ========= -->
+        <div class="section-title">📅 6. СТРАТЕГИЧЕСКИЙ ПЛАН РАЗВИТИЯ 2026–2028</div>
+        
+        <!-- Фаза 1: Критическая -->
+        <div class="phase phase-1">
+            <div class="phase-header">
+                <span class="phase-title">🔴 ФАЗА 1: ЗАПУСК MVP</span>
+                <span class="phase-period">0-3 месяца</span>
+                <span class="phase-priority critical">критический</span>
             </div>
-            <div class="milestone q3">
-                <strong>Q3 2026</strong> – ИГРЫ + СВЯЗИ<br>
-                пользователи, Telegram, квесты (первые 10), <span style="color:#fbbf24;">МОДУЛЬ СВЯЗЕЙ</span>, карта развития, наставничество, достижения
-            </div>
-            <div class="milestone q4">
-                <strong>Q4 2026</strong> – СООБЩЕСТВО<br>
-                группы по семействам, совместные квесты, форум, платная подписка
-            </div>
-            <div class="milestone q1">
-                <strong>Q1 2027</strong> – МАСШТАБИРОВАНИЕ<br>
-                мобильное приложение, API, ИИ-прогноз, партнёрства
+            <div class="task-grid">
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">🗄️</span><span class="task-name">База данных</span></div>
+                    <div class="task-desc">Создание всех таблиц по спецификации</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 3/5</span><span class="task-impact impact-high">🔴 влияние: макс</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">📝</span><span class="task-name">Основной опрос</span></div>
+                    <div class="task-desc">60 вопросов по 12 системам, интерфейс</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 3/5</span><span class="task-impact impact-high">🔴 влияние: макс</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">🎯</span><span class="task-name">Алгоритм подбора</span></div>
+                    <div class="task-desc">Нормализация, сравнение с эталонами, топ-3</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 4/5</span><span class="task-impact impact-high">🔴 влияние: макс</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">📊</span><span class="task-name">Пост-опрос</span></div>
+                    <div class="task-desc">Работа, образ жизни, гормональные маркеры</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 2/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">🖥️</span><span class="task-name">Админ-панель</span></div>
+                    <div class="task-desc">Просмотр статистики, экспорт в CSV</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 3/5</span><span class="task-impact impact-medium">🟡 влияние: среднее</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">📱</span><span class="task-name">Telegram-бот (базовый)</span></div>
+                    <div class="task-desc">Напоминания, краткие результаты, подписка</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 3/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">🔗</span><span class="task-name">Шеринг результатов</span></div>
+                    <div class="task-desc">Кнопки Telegram/VK, копирование ссылки</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 2/5</span><span class="task-impact impact-medium">🟡 влияние: среднее</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
             </div>
         </div>
 
-        <!-- ========== 7. ТЕХНИЧЕСКИЙ СТЕК ========= -->
+        <!-- Фаза 2: Высокая -->
+        <div class="phase phase-2">
+            <div class="phase-header">
+                <span class="phase-title">🟡 ФАЗА 2: ИГРОВЫЕ МЕХАНИКИ И СВЯЗИ</span>
+                <span class="phase-period">3-6 месяцев</span>
+                <span class="phase-priority high">высокий</span>
+            </div>
+            <div class="task-grid">
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">🗺️</span><span class="task-name">Карта развития</span></div>
+                    <div class="task-desc">Интерактивное древо переходов</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 4/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">⚔️</span><span class="task-name">Квесты переходов</span></div>
+                    <div class="task-desc">Задания для 10 основных архетипов</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 4/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">🏆</span><span class="task-name">Достижения</span></div>
+                    <div class="task-desc">Система ачивок</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 3/5</span><span class="task-impact impact-medium">🟡 влияние: среднее</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">👥</span><span class="task-name">Наставничество</span></div>
+                    <div class="task-desc">Подбор наставника</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 4/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">📈</span><span class="task-name">Прогноз развития</span></div>
+                    <div class="task-desc">Алгоритм предсказания</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 5/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">🧬</span><span class="task-name">Семейства</span></div>
+                    <div class="task-desc">Группировка по 7 семействам</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 3/5</span><span class="task-impact impact-medium">🟡 влияние: среднее</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Фаза 3: Средняя -->
+        <div class="phase phase-3">
+            <div class="phase-header">
+                <span class="phase-title">🟢 ФАЗА 3: СООБЩЕСТВО И МОНЕТИЗАЦИЯ</span>
+                <span class="phase-period">6-12 месяцев</span>
+                <span class="phase-priority medium">средний</span>
+            </div>
+            <div class="task-grid">
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">👥</span><span class="task-name">Группы по семействам</span></div>
+                    <div class="task-desc">Форумы, чаты для каждого семейства</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 3/5</span><span class="task-impact impact-medium">🟡 влияние: среднее</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">🤝</span><span class="task-name">Совместные квесты</span></div>
+                    <div class="task-desc">Групповые задания</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 4/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">📚</span><span class="task-name">Википедия архетипов</span></div>
+                    <div class="task-desc">Статьи от пользователей</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 3/5</span><span class="task-impact impact-medium">🟡 влияние: среднее</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">💰</span><span class="task-name">Платная подписка</span></div>
+                    <div class="task-desc">Freemium модель</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 4/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">🛍️</span><span class="task-name">Мерч</span></div>
+                    <div class="task-desc">Футболки, кружки, постеры</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 2/5</span><span class="task-impact impact-low">🟢 влияние: низкое</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">📊</span><span class="task-name">Исследовательский модуль</span></div>
+                    <div class="task-desc">Сбор статистики для публикаций</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 3/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Фаза 4: Перспективная -->
+        <div class="phase phase-4">
+            <div class="phase-header">
+                <span class="phase-title">🔵 ФАЗА 4: МАСШТАБИРОВАНИЕ</span>
+                <span class="phase-period">1-2 года</span>
+                <span class="phase-priority low">перспективный</span>
+            </div>
+            <div class="task-grid">
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">📱</span><span class="task-name">Мобильное приложение</span></div>
+                    <div class="task-desc">React Native / Flutter</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 5/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">🤖</span><span class="task-name">ИИ-наставник</span></div>
+                    <div class="task-desc">Персонализированные рекомендации</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 5/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">🌐</span><span class="task-name">API для партнёров</span></div>
+                    <div class="task-desc">Интеграция с внешними сервисами</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 4/5</span><span class="task-impact impact-medium">🟡 влияние: среднее</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">💼</span><span class="task-name">Корпоративные тарифы</span></div>
+                    <div class="task-desc">Для HR, тимбилдинга</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 3/5</span><span class="task-impact impact-medium">🟡 влияние: среднее</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">🧬</span><span class="task-name">Генетические корреляции</span></div>
+                    <div class="task-desc">Связь с SNP (DRD4, MAOA, OXTR)</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 5/5</span><span class="task-impact impact-low">🟢 влияние: низкое</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Фаза 5: Дальняя -->
+        <div class="phase phase-5">
+            <div class="phase-header">
+                <span class="phase-title">⚪ ФАЗА 5: МЕЖДУНАРОДНОЕ РАСШИРЕНИЕ</span>
+                <span class="phase-period">2+ года</span>
+                <span class="phase-priority low">дальний</span>
+            </div>
+            <div class="task-grid">
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">🇬🇧</span><span class="task-name">Английская версия</span></div>
+                    <div class="task-desc">Перевод сайта, культурная адаптация</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 4/5</span><span class="task-impact impact-medium">🟡 влияние: среднее</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">🌍</span><span class="task-name">Локализация под другие культуры</span></div>
+                    <div class="task-desc">Китайские, индийские, африканские архетипы</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 5/5</span><span class="task-impact impact-medium">🟡 влияние: среднее</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div class="task-card">
+                    <div class="task-header"><span class="task-icon">🎓</span><span class="task-name">Научные публикации</span></div>
+                    <div class="task-desc">Статьи в ВАК, Scopus, конференции</div>
+                    <div class="task-meta"><span class="task-difficulty">сложность: 4/5</span><span class="task-impact impact-high">🔴 влияние: высокое</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== ТАБЛИЦА ПЕРСПЕКТИВ ========= -->
+        <div style="margin: 3rem 0;">
+            <h2 style="font-size: 2rem; margin-bottom: 1.5rem;">📊 ПОЛНАЯ ТАБЛИЦА ПЕРСПЕКТИВ</h2>
+            <div class="perspective-table">
+                <div class="perspective-row header">
+                    <div>Функция</div>
+                    <div>Описание</div>
+                    <div>Приоритет</div>
+                    <div>Сложность</div>
+                    <div>Влияние</div>
+                </div>
+                <div class="perspective-row">
+                    <div><strong>Telegram-бот</strong></div>
+                    <div>Напоминания, подписка, краткие результаты</div>
+                    <div><span class="perspective-priority prio-critical">критический</span></div>
+                    <div>🟡 средняя</div>
+                    <div class="impact-high">высокое</div>
+                </div>
+                <div class="perspective-row">
+                    <div><strong>Карта развития</strong></div>
+                    <div>Интерактивное древо переходов</div>
+                    <div><span class="perspective-priority prio-high">высокий</span></div>
+                    <div>🔴 высокая</div>
+                    <div class="impact-high">высокое</div>
+                </div>
+                <div class="perspective-row">
+                    <div><strong>Квесты переходов</strong></div>
+                    <div>Пошаговые задания для развития</div>
+                    <div><span class="perspective-priority prio-high">высокий</span></div>
+                    <div>🔴 высокая</div>
+                    <div class="impact-high">высокое</div>
+                </div>
+                <div class="perspective-row">
+                    <div><strong>Группы по семействам</strong></div>
+                    <div>Форумы и чаты для 7 групп</div>
+                    <div><span class="perspective-priority prio-medium">средний</span></div>
+                    <div>🟡 средняя</div>
+                    <div class="impact-medium">среднее</div>
+                </div>
+                <div class="perspective-row">
+                    <div><strong>Платная подписка</strong></div>
+                    <div>Freemium модель монетизации</div>
+                    <div><span class="perspective-priority prio-medium">средний</span></div>
+                    <div>🟡 средняя</div>
+                    <div class="impact-high">высокое</div>
+                </div>
+                <div class="perspective-row">
+                    <div><strong>Мобильное приложение</strong></div>
+                    <div>React Native / Flutter</div>
+                    <div><span class="perspective-priority prio-low">перспективный</span></div>
+                    <div>🔴 высокая</div>
+                    <div class="impact-high">высокое</div>
+                </div>
+                <div class="perspective-row">
+                    <div><strong>ИИ-наставник</strong></div>
+                    <div>Персонализированные рекомендации</div>
+                    <div><span class="perspective-priority prio-low">перспективный</span></div>
+                    <div>🔴 высокая</div>
+                    <div class="impact-high">высокое</div>
+                </div>
+                <div class="perspective-row">
+                    <div><strong>Генетические корреляции</strong></div>
+                    <div>Связь с SNP (DRD4, MAOA, OXTR)</div>
+                    <div><span class="perspective-priority prio-low">дальний</span></div>
+                    <div>🔴 высокая</div>
+                    <div class="impact-low">низкое</div>
+                </div>
+                <div class="perspective-row">
+                    <div><strong>Английская версия</strong></div>
+                    <div>Перевод и международный запуск</div>
+                    <div><span class="perspective-priority prio-low">дальний</span></div>
+                    <div>🟡 средняя</div>
+                    <div class="impact-medium">среднее</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== КЛЮЧЕВЫЕ МЕТРИКИ ========= -->
+        <div style="background: #1e2a44; border-radius: 2rem; padding: 2rem; margin: 2rem 0;">
+            <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">📈 КЛЮЧЕВЫЕ МЕТРИКИ УСПЕХА</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                <div>
+                    <div style="font-size: 2.5rem; color: #fbbf24;">80%</div>
+                    <div>завершивших опрос</div>
+                    <div class="progress-bar" style="margin-top:0.5rem;"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; color: #fbbf24;">50%</div>
+                    <div>заполнивших пост-опрос</div>
+                    <div class="progress-bar" style="margin-top:0.5rem;"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; color: #fbbf24;">30%</div>
+                    <div>возврат через месяц</div>
+                    <div class="progress-bar" style="margin-top:0.5rem;"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; color: #fbbf24;">40%</div>
+                    <div>используют карту развития</div>
+                    <div class="progress-bar" style="margin-top:0.5rem;"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; color: #fbbf24;">25%</div>
+                    <div>успешных переходов серый→белый</div>
+                    <div class="progress-bar" style="margin-top:0.5rem;"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; color: #fbbf24;">5%</div>
+                    <div>конверсия в платные</div>
+                    <div class="progress-bar" style="margin-top:0.5rem;"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== ТЕХНИЧЕСКИЙ СТЕК ========= -->
         <div class="section-title">🛠️ 7. ТЕХНИЧЕСКАЯ РЕАЛИЗАЦИЯ</div>
         <div class="spec-grid" style="grid-template-columns:repeat(3,1fr);">
             <div class="spec-card">
@@ -539,34 +1068,22 @@
             </div>
         </div>
 
-        <!-- ========== 8. МЕТРИКИ УСПЕХА ========= -->
-        <div class="section-title">🎯 8. КЛЮЧЕВЫЕ МЕТРИКИ</div>
-        <table>
-            <tr><th>метрика</th><th>цель</th><th>срок</th></tr>
-            <tr><td>завершивших опрос</td><td>80%</td><td>3 мес</td></tr>
-            <tr><td>заполнивших пост-опрос</td><td>50%</td><td>3 мес</td></tr>
-            <tr><td>вернувшихся через месяц</td><td>30%</td><td>6 мес</td></tr>
-            <tr><td>пользователей, использующих карту развития</td><td>40%</td><td>6 мес</td></tr>
-            <tr><td>доля успешных переходов (серый→белый)</td><td>25%</td><td>12 мес</td></tr>
-            <tr><td>конверсия в платные</td><td>5%</td><td>12 мес</td></tr>
-            <tr><td>публикация в ВАК</td><td>1</td><td>24 мес</td></tr>
-        </table>
-
-        <!-- ========== 9. ЗАКЛЮЧЕНИЕ ========= -->
+        <!-- ========== ЗАКЛЮЧЕНИЕ ========= -->
         <div class="highlight" style="background: #2b2b55; border-left-color: #fbbf24; margin:2rem 0;">
-            <strong>✅ ТОЧКА РАВНОВЕСИЯ (tr-info.ru) – ПОЛНАЯ СПЕЦИФИКАЦИЯ</strong><br>
+            <strong>✅ ТОЧКА РАВНОВЕСИЯ (tr-info.ru) – ПОЛНАЯ СПЕЦИФИКАЦИЯ + СТРАТЕГИЧЕСКИЙ ПЛАН</strong><br>
             • научная модель из 12 систем + 64 архетипа<br>
             • полная структура БД (включая переходы, квесты, семейства)<br>
             • игровые механики с тремя сценариями<br>
             • модуль связей (трансформации, прогноз, наставничество)<br>
             • исследовательский модуль для публикаций<br>
+            • детальный стратегический план на 2026–2028 с 5 фазами и 30+ задачами<br>
             • домен tr-info.ru зарегистрирован, инфраструктура готова
         </div>
 
         <!-- футер с доменом -->
         <div class="domain-footer">
             <span>🔮 <strong>ТОЧКА РАВНОВЕСИЯ</strong> · нейроархетипы · </span>
-            <span>🌐 <strong>tr-info.ru</strong> · версия 3.2 · 22.02.2026</span>
+            <span>🌐 <strong>tr-info.ru</strong> · версия 3.3 · стратегический план 2026–2028</span>
         </div>
     </div>
 </body>
