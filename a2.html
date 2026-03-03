@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Нейроархетипы 2.0 · Полная методология с серебряной группой</title>
+    <title>NEUROSENS 6.0 · ПОЛНАЯ СПЕЦИФИКАЦИЯ + КАРТА ПЕРЕХОДОВ</title>
     <style>
         * {
             margin: 0;
@@ -11,58 +11,44 @@
             box-sizing: border-box;
         }
         body {
-            font-family: 'Inter', -apple-system, 'Segoe UI', Roboto, sans-serif;
-            background: #f0f4f9;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f4f7fc;
             color: #13294b;
             line-height: 1.5;
-            padding: 2rem 1.5rem;
+            padding: 2rem 1rem;
         }
-        .methodology-container {
+        .master-container {
             max-width: 1400px;
             margin: 0 auto;
             background: white;
             border-radius: 2.5rem;
-            box-shadow: 0 30px 60px rgba(0,20,40,0.2);
+            box-shadow: 0 30px 60px rgba(0,20,50,0.2);
             overflow: hidden;
         }
         .header {
-            background: linear-gradient(145deg, #13294b, #1f3a6b);
+            background: linear-gradient(145deg, #0b1f33, #1b3a5e);
             color: white;
-            padding: 2.5rem 3rem;
+            padding: 2rem 3rem;
         }
         .header h1 {
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-weight: 600;
-            letter-spacing: -0.02em;
             margin-bottom: 0.5rem;
         }
         .header .sub {
             font-size: 1.3rem;
             opacity: 0.85;
-            font-weight: 300;
-        }
-        .header .badge {
-            display: inline-block;
-            background: #2f4f8a;
-            padding: 0.4rem 1.2rem;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            margin-top: 1.2rem;
-            font-weight: 500;
         }
         .content {
-            padding: 2.5rem 3rem;
+            padding: 2rem 3rem;
         }
         h2 {
             font-size: 2.2rem;
             font-weight: 600;
-            color: #0d2b4a;
+            color: #0c2849;
             margin: 2.5rem 0 1.5rem;
             border-bottom: 4px solid #cfddee;
             padding-bottom: 0.5rem;
-        }
-        h2:first-of-type {
-            margin-top: 0;
         }
         h3 {
             font-size: 1.5rem;
@@ -78,559 +64,422 @@
             border-left: 5px solid #4a7bb5;
             padding-left: 1rem;
         }
-        .family-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.8rem;
-            margin: 2rem 0;
+        
+        /* Цветовая легенда */
+        .color-legend {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
-        .family-card {
-            background: #f9fcff;
-            border-radius: 1.8rem;
-            padding: 1.5rem;
-            border: 1px solid #c9d9ec;
-            box-shadow: 0 8px 16px -8px rgba(0,32,64,0.08);
-            transition: 0.2s;
-        }
-        .family-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 24px -8px #1f3a6b20;
-        }
-        .family-header {
+        .legend-item {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
-            margin-bottom: 1rem;
+            gap: 0.5rem;
         }
-        .family-icon {
-            font-size: 2rem;
+        .dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
         }
-        .family-name {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #0d2b4a;
-        }
-        .family-desc {
-            font-size: 0.95rem;
-            color: #2d4b6e;
-            margin-bottom: 1.2rem;
-        }
-        .system-badge {
-            display: inline-block;
-            background: #e1eaf3;
-            border-radius: 30px;
-            padding: 0.2rem 1rem;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #1f3a6b;
-            margin-right: 0.5rem;
-        }
-        .archetype-list {
-            margin-top: 1rem;
-        }
-        .archetype-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.4rem 0;
-            border-bottom: 1px dashed #b3c7e0;
-        }
-        .archetype-name {
-            font-weight: 500;
-        }
-        .archetype-type {
-            font-size: 0.8rem;
-            padding: 0.2rem 0.8rem;
-            border-radius: 30px;
-            font-weight: 600;
-        }
-        .type-white { background: #d9f0e1; color: #0b5432; }
-        .type-gray { background: #fff0d9; color: #8a5800; }
-        .type-black { background: #f0d9d9; color: #a13d3d; }
-        .type-silver { background: #e6e9f0; color: #2f4057; }
-        .type-vertex { background: #e5d0f0; color: #4f2d7a; }
-
-        .vertex-section {
-            background: linear-gradient(145deg, #f3f0fa, #ffffff);
-            border-radius: 2rem;
-            padding: 1.8rem;
-            margin: 2rem 0;
-            border: 1px solid #b8c9e5;
-        }
-        .vertex-grid {
+        .dot-green { background: #2ecc71; }
+        .dot-gray { background: #95a5a6; }
+        .dot-red { background: #e74c3c; }
+        
+        /* Архетипы */
+        .archetype-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 1.5rem;
-            margin-top: 1.5rem;
+            margin: 2rem 0;
         }
-        .vertex-card {
-            background: white;
+        .archetype-card {
+            background: #f9fcff;
             border-radius: 1.5rem;
             padding: 1.5rem;
-            box-shadow: 0 4px 12px rgba(60,80,120,0.1);
-            border-left: 6px solid #6b4f9f;
+            border: 1px solid #c9d9ec;
+            box-shadow: 0 6px 14px rgba(0,30,60,0.05);
         }
-        .vertex-name {
-            font-size: 1.4rem;
+        .archetype-card .title {
+            font-size: 1.5rem;
             font-weight: 700;
-            color: #2b1b4f;
-            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
         }
-        .vertex-family {
-            font-size: 0.9rem;
-            background: #e6daf2;
+        .systems {
+            font-size: 1rem;
+            color: #2d4b6e;
+            margin: 0.5rem 0 1rem;
+            background: #e1eaf3;
             display: inline-block;
             padding: 0.2rem 1rem;
             border-radius: 30px;
-            margin-bottom: 1rem;
         }
-
-        .silver-section {
-            background: linear-gradient(145deg, #f0f3f8, #ffffff);
-            border-radius: 2rem;
-            padding: 1.8rem;
-            margin: 2rem 0;
-            border: 1px solid #b0bfd0;
-        }
-        .silver-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-        .silver-card {
-            background: #edf2f9;
+        
+        /* Сенсотипы */
+        .sensotype-card {
+            background: #f9fcff;
             border-radius: 1.5rem;
             padding: 1.5rem;
-            border-left: 6px solid #6b7f9f;
+            margin-bottom: 2rem;
+            border: 1px solid #c9d9ec;
+            box-shadow: 0 6px 14px rgba(0,30,60,0.05);
         }
-        .silver-name {
-            font-size: 1.3rem;
+        .sensotype-title {
+            font-size: 1.8rem;
             font-weight: 700;
-            color: #2f4057;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
-        .silver-from {
-            font-size: 0.9rem;
-            color: #4a5f7a;
-            margin: 0.5rem 0;
-        }
-
-        .age-version {
-            background: #edf3fa;
-            border-radius: 1.5rem;
-            padding: 1.5rem;
+        .three-levels {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
             margin: 1.5rem 0;
         }
-        .version-row {
-            display: grid;
-            grid-template-columns: 100px 1fr 2fr;
-            gap: 1rem;
-            padding: 0.8rem;
-            border-bottom: 1px solid #c2d4e8;
+        .level-box {
+            padding: 1rem;
+            border-radius: 1rem;
+            border: 2px solid;
         }
-        .version-row:last-child {
-            border-bottom: none;
-        }
-        .version-age {
-            font-weight: 700;
-            color: #1f3a6b;
-        }
-
-        table {
+        .level-green { border-color: #2ecc71; background: #f0fff4; }
+        .level-gray { border-color: #95a5a6; background: #f8f9fa; }
+        .level-red { border-color: #e74c3c; background: #fee9e7; }
+        
+        /* Таблицы */
+        .transition-table {
             width: 100%;
             border-collapse: collapse;
             background: #f9fcff;
-            border-radius: 1.2rem;
+            border-radius: 1rem;
             overflow: hidden;
+            margin: 1.5rem 0;
         }
-        th {
+        .transition-table th {
             background: #dbe6f2;
             padding: 1rem;
             text-align: left;
-            font-weight: 600;
         }
-        td {
+        .transition-table td {
             padding: 0.8rem 1rem;
             border-bottom: 1px solid #d4e0ec;
         }
-        .note {
-            background: #f2f7ff;
-            border-radius: 1.2rem;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            border-left: 6px solid #2f6e9f;
-        }
-        .code-block {
-            background: #13294b;
-            color: #e3ecf9;
-            padding: 1.2rem;
-            border-radius: 1rem;
+        .probability {
             font-family: 'Fira Code', monospace;
-            font-size: 0.85rem;
-            overflow-x: auto;
-        }
-        .life-cycle {
-            display: flex;
-            justify-content: space-between;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-        .phase {
-            flex: 1;
-            min-width: 150px;
-            text-align: center;
-            padding: 1rem;
-            border-radius: 1rem;
             font-weight: 600;
+            color: #2c3e50;
         }
-        .phase-formation { background: #d9e6f2; }
-        .phase-active { background: #d9f0e1; }
-        .phase-integration { background: #e5d0f0; }
-        .phase-involution { background: #e6e9f0; }
+        
+        /* Формулы */
+        .formula-block {
+            background: #f0f5fa;
+            padding: 1.2rem;
+            border-radius: 1.2rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 1rem;
+            margin: 1rem 0;
+        }
+        
+        /* Возрастные траектории */
+        .age-path {
+            background: #eef3f9;
+            border-radius: 2rem;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        .path-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem;
+            border-bottom: 1px dashed #a0b8d0;
+        }
+        
+        /* Спецификация сбора данных */
+        .data-spec {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .data-card {
+            background: #eef3f9;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+        }
+        
+        .footer-space {
+            margin-top: 3rem;
+            text-align: right;
+            color: #2d4b6e;
+        }
     </style>
 </head>
 <body>
-<div class="methodology-container">
+<div class="master-container">
     <div class="header">
-        <h1>🔮 НЕЙРОАРХЕТИПЫ 2.0</h1>
-        <div class="sub">Полная методологическая система · 12 семейств · 72 базовых архетипа · 8 вершин · 8 серебряных · возрастные модификации</div>
-        <div class="badge">Версия 6.2 · март 2026 · полный жизненный цикл</div>
+        <h1>🧬 NEUROSENS 6.0</h1>
+        <div class="sub">Полная спецификация · архетипы · сенсотипы · ментотипы · математика · карта переходов · сбор данных</div>
     </div>
 
     <div class="content">
-        <!-- Введение с жизненным циклом -->
-        <h2>🔄 1. Полный жизненный цикл личности</h2>
-        <div class="life-cycle">
-            <div class="phase phase-formation">Формирование (0-20)</div>
-            <div class="phase phase-active">Активное развитие (20-50)</div>
-            <div class="phase phase-integration">Интеграция / Вершины (50-75)</div>
-            <div class="phase phase-involution">Инволюция / Серебро (75+)</div>
-        </div>
-        <p style="font-size:1.1rem; margin-bottom:2rem;">Модель охватывает три последние фазы: <strong>активное развитие</strong> (белые/серые/черные архетипы), <strong>вершины</strong> (интеграция), <strong>серебряная группа</strong> (естественная возрастная деградация).</p>
-
-        <!-- ПОЛНЫЕ 12 СЕМЕЙСТВ -->
-        <h2>📚 2. Двенадцать семейств (генетический код) — ПОЛНЫЙ СПИСОК</h2>
-        <div class="family-grid">
-            <!-- F0 Территориальные -->
-            <div class="family-card">
-                <div class="family-header">
-                    <span class="family-icon">🛡️</span>
-                    <span class="family-name">Территориальные</span>
-                </div>
-                <div class="family-desc"><strong>Ядро:</strong> система 0 (ТЕРРИТОРИЯ). Защита границ, личное пространство, собственность.</div>
-                <div><span class="system-badge">0 ТЕРРИТОРИЯ</span><span class="system-badge">4 СТРАХ</span><span class="system-badge">5 ГНЕВ</span></div>
-                <div class="archetype-list">
-                    <div class="archetype-item"><span class="archetype-name">СТРАЖ</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ОБОРОНЯЮЩИЙСЯ</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ТРЕВОЖНЫЙ СТРАЖ</span> <span class="archetype-type type-gray">серый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ПАРАНОИК</span> <span class="archetype-type type-black">чёрный</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ИЗГОЙ</span> <span class="archetype-type type-black">чёрный</span></div>
-                </div>
-            </div>
-            <!-- F1 Иерархические -->
-            <div class="family-card">
-                <div class="family-header">
-                    <span class="family-icon">👑</span>
-                    <span class="family-name">Иерархические</span>
-                </div>
-                <div class="family-desc"><strong>Ядро:</strong> система 1 (ИЕРАРХИЯ). Статус, власть, подчинение, вертикаль.</div>
-                <div><span class="system-badge">1 ИЕРАРХИЯ</span><span class="system-badge">10 КОНТРОЛЬ</span><span class="system-badge">5 ГНЕВ</span></div>
-                <div class="archetype-list">
-                    <div class="archetype-item"><span class="archetype-name">ИМПЕРАТОР</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">АДМИНИСТРАТОР</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ВЛАСТНЫЙ</span> <span class="archetype-type type-gray">серый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ТИРАН</span> <span class="archetype-type type-black">чёрный</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ПОДЧИНЁННЫЙ</span> <span class="archetype-type type-black">чёрный</span></div>
-                </div>
-            </div>
-            <!-- F2 Ритуальные -->
-            <div class="family-card">
-                <div class="family-header">
-                    <span class="family-icon">🔄</span>
-                    <span class="family-name">Ритуальные</span>
-                </div>
-                <div class="family-desc"><strong>Ядро:</strong> система 2 (РИТУАЛ). Привычки, порядок, традиции, повторение.</div>
-                <div><span class="system-badge">2 РИТУАЛ</span><span class="system-badge">8 ЗАБОТА</span><span class="system-badge">10 КОНТРОЛЬ</span></div>
-                <div class="archetype-list">
-                    <div class="archetype-item"><span class="archetype-name">ХРАНИТЕЛЬ ОЧАГА</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ПАТРИАРХ/МАТРОНА</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ПЕДАНТ</span> <span class="archetype-type type-gray">серый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">КОМПУЛЬСИВНЫЙ</span> <span class="archetype-type type-black">чёрный</span></div>
-                </div>
-            </div>
-            <!-- F3 Поисковые -->
-            <div class="family-card">
-                <div class="family-header">
-                    <span class="family-icon">🧭</span>
-                    <span class="family-name">Поисковые</span>
-                </div>
-                <div class="family-desc"><strong>Ядро:</strong> система 3 (ПОИСК). Любопытство, новизна, исследования.</div>
-                <div><span class="system-badge">3 ПОИСК</span><span class="system-badge">9 ИГРА</span><span class="system-badge">12 СМЫСЛ</span></div>
-                <div class="archetype-list">
-                    <div class="archetype-item"><span class="archetype-name">ПЕРВООТКРЫВАТЕЛЬ</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ИССЛЕДОВАТЕЛЬ</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">НЕПОСЕДА</span> <span class="archetype-type type-gray">серый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ВЕЧНЫЙ СТРАННИК</span> <span class="archetype-type type-black">чёрный</span></div>
-                </div>
-            </div>
-            <!-- F4 Тревожные -->
-            <div class="family-card">
-                <div class="family-header">
-                    <span class="family-icon">😨</span>
-                    <span class="family-name">Тревожные</span>
-                </div>
-                <div class="family-desc"><strong>Ядро:</strong> система 4 (СТРАХ). Бдительность, избегание угроз, предвидение опасности.</div>
-                <div><span class="system-badge">4 СТРАХ</span><span class="system-badge">10 КОНТРОЛЬ</span><span class="system-badge">7 ПРИВЯЗАННОСТЬ</span></div>
-                <div class="archetype-list">
-                    <div class="archetype-item"><span class="archetype-name">ЗАЩИТНИК СЛАБЫХ</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">БДИТЕЛЬНЫЙ</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ТРЕВОЖНЫЙ</span> <span class="archetype-type type-gray">серый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ПАНИЧЕСКИЙ</span> <span class="archetype-type type-black">чёрный</span></div>
-                </div>
-            </div>
-            <!-- F5 Гневные -->
-            <div class="family-card">
-                <div class="family-header">
-                    <span class="family-icon">⚡</span>
-                    <span class="family-name">Гневные</span>
-                </div>
-                <div class="family-desc"><strong>Ядро:</strong> система 5 (ГНЕВ). Агрессия, защита, преодоление, напор.</div>
-                <div><span class="system-badge">5 ГНЕВ</span><span class="system-badge">1 ИЕРАРХИЯ</span><span class="system-badge">10 КОНТРОЛЬ</span></div>
-                <div class="archetype-list">
-                    <div class="archetype-item"><span class="archetype-name">ВОИН</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ЗАВОЕВАТЕЛЬ</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ЗАЩИТНИК СПРАВЕДЛИВОСТИ</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">АГРЕССОР</span> <span class="archetype-type type-gray">серый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">САДИСТ</span> <span class="archetype-type type-black">чёрный</span></div>
-                </div>
-            </div>
-            <!-- F6 Соблазняющие -->
-            <div class="family-card">
-                <div class="family-header">
-                    <span class="family-icon">💫</span>
-                    <span class="family-name">Соблазняющие</span>
-                </div>
-                <div class="family-desc"><strong>Ядро:</strong> система 6 (ВОЖДЕЛЕНИЕ). Эрос, привлекательность, флирт.</div>
-                <div><span class="system-badge">6 ВОЖДЕЛЕНИЕ</span><span class="system-badge">3 ПОИСК</span><span class="system-badge">9 ИГРА</span></div>
-                <div class="archetype-list">
-                    <div class="archetype-item"><span class="archetype-name">СОБЛАЗНИТЕЛЬ</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ДОН ЖУАН</span> <span class="archetype-type type-gray">серый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ХИЩНИК</span> <span class="archetype-type type-black">чёрный</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ФРИГИДНЫЙ</span> <span class="archetype-type type-black">чёрный</span></div>
-                </div>
-            </div>
-            <!-- F7 Привязывающиеся -->
-            <div class="family-card">
-                <div class="family-header">
-                    <span class="family-icon">🤝</span>
-                    <span class="family-name">Привязывающиеся</span>
-                </div>
-                <div class="family-desc"><strong>Ядро:</strong> система 7 (ПРИВЯЗАННОСТЬ). Близость, эмпатия, связь.</div>
-                <div><span class="system-badge">7 ПРИВЯЗАННОСТЬ</span><span class="system-badge">11 СОЦИАЛЬНОСТЬ</span><span class="system-badge">8 ЗАБОТА</span></div>
-                <div class="archetype-list">
-                    <div class="archetype-item"><span class="archetype-name">ЭМПАТ</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ДРУГ</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">СВЕРХЧУВСТВИТЕЛЬНЫЙ</span> <span class="archetype-type type-gray">серый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">СОЗАВИСИМЫЙ</span> <span class="archetype-type type-black">чёрный</span></div>
-                </div>
-            </div>
-            <!-- F8 Заботливые -->
-            <div class="family-card">
-                <div class="family-header">
-                    <span class="family-icon">🌿</span>
-                    <span class="family-name">Заботливые</span>
-                </div>
-                <div class="family-desc"><strong>Ядро:</strong> система 8 (ЗАБОТА). Опека, nurturing, поддержка.</div>
-                <div><span class="system-badge">8 ЗАБОТА</span><span class="system-badge">7 ПРИВЯЗАННОСТЬ</span><span class="system-badge">11 СОЦИАЛЬНОСТЬ</span></div>
-                <div class="archetype-list">
-                    <div class="archetype-item"><span class="archetype-name">НАСТАВНИК</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ВОСПИТАТЕЛЬ</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ПЕДАГОГ</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ОПЕКАЮЩИЙ</span> <span class="archetype-type type-gray">серый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ДУШАЩИЙ</span> <span class="archetype-type type-black">чёрный</span></div>
-                </div>
-            </div>
-            <!-- F9 Игровые -->
-            <div class="family-card">
-                <div class="family-header">
-                    <span class="family-icon">🎲</span>
-                    <span class="family-name">Игровые</span>
-                </div>
-                <div class="family-desc"><strong>Ядро:</strong> система 9 (ИГРА). Спонтанность, юмор, лёгкость.</div>
-                <div><span class="system-badge">9 ИГРА</span><span class="system-badge">3 ПОИСК</span><span class="system-badge">11 СОЦИАЛЬНОСТЬ</span></div>
-                <div class="archetype-list">
-                    <div class="archetype-item"><span class="archetype-name">ИГРОК</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ОРГАНИЗАТОР ИГР</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ИНФАНТИЛ</span> <span class="archetype-type type-gray">серый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">МАНИПУЛЯТОР</span> <span class="archetype-type type-black">чёрный</span></div>
-                </div>
-            </div>
-            <!-- F10 Контролирующие -->
-            <div class="family-card">
-                <div class="family-header">
-                    <span class="family-icon">⚙️</span>
-                    <span class="family-name">Контролирующие</span>
-                </div>
-                <div class="family-desc"><strong>Ядро:</strong> система 10 (КОНТРОЛЬ). Порядок, планирование, регуляция.</div>
-                <div><span class="system-badge">10 КОНТРОЛЬ</span><span class="system-badge">2 РИТУАЛ</span><span class="system-badge">1 ИЕРАРХИЯ</span></div>
-                <div class="archetype-list">
-                    <div class="archetype-item"><span class="archetype-name">СТРАТЕГ</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">АРХИТЕКТОР</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ХИТРЕЦ</span> <span class="archetype-type type-gray">серый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">КОНТРОЛ-ФРИК</span> <span class="archetype-type type-black">чёрный</span></div>
-                </div>
-            </div>
-            <!-- F11 Социальные (добавляем, ранее была 11 система) -->
-            <div class="family-card">
-                <div class="family-header">
-                    <span class="family-icon">👥</span>
-                    <span class="family-name">Социальные</span>
-                </div>
-                <div class="family-desc"><strong>Ядро:</strong> система 11 (СОЦИАЛЬНОСТЬ). Взаимодействие, кооперация, эмпатия.</div>
-                <div><span class="system-badge">11 СОЦИАЛЬНОСТЬ</span><span class="system-badge">7 ПРИВЯЗАННОСТЬ</span><span class="system-badge">8 ЗАБОТА</span></div>
-                <div class="archetype-list">
-                    <div class="archetype-item"><span class="archetype-name">ДИПЛОМАТ</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">МИРОТВОРЕЦ</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">КОНФОРМИСТ</span> <span class="archetype-type type-gray">серый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">МАНИПУЛЯТОР</span> <span class="archetype-type type-black">чёрный</span></div>
-                </div>
-            </div>
-            <!-- F12 Смысловые -->
-            <div class="family-card">
-                <div class="family-header">
-                    <span class="family-icon">🕯️</span>
-                    <span class="family-name">Смысловые</span>
-                </div>
-                <div class="family-desc"><strong>Ядро:</strong> система 12 (СМЫСЛ). Ценности, рефлексия, экзистенция.</div>
-                <div><span class="system-badge">12 СМЫСЛ</span><span class="system-badge">11 СОЦИАЛЬНОСТЬ</span><span class="system-badge">10 КОНТРОЛЬ</span></div>
-                <div class="archetype-list">
-                    <div class="archetype-item"><span class="archetype-name">МУДРЕЦ</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ФИЛОСОФ</span> <span class="archetype-type type-white">белый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ОТСТРАНЁННЫЙ</span> <span class="archetype-type type-gray">серый</span></div>
-                    <div class="archetype-item"><span class="archetype-name">ДЕПРЕССИВНЫЙ</span> <span class="archetype-type type-black">чёрный</span></div>
-                </div>
-            </div>
+        <!-- Цветовая легенда -->
+        <div class="color-legend">
+            <div class="legend-item"><span class="dot dot-green"></span> Зеленый — здоровый</div>
+            <div class="legend-item"><span class="dot dot-gray"></span> Серый — акцентуация, зона риска</div>
+            <div class="legend-item"><span class="dot dot-red"></span> Красный — патология</div>
         </div>
 
-        <!-- Вершины развития -->
-        <h2>🏔️ 3. Восемь вершин развития (50-75 лет)</h2>
-        <div class="vertex-section">
-            <div class="vertex-grid">
-                <div class="vertex-card">
-                    <div class="vertex-name">ПРОВИДЕЦ</div>
-                    <div class="vertex-family">Поисковые</div>
-                    <div><strong>Условия:</strong> ПОИСК >8, СМЫСЛ >8, возраст >50</div>
-                    <div><em>Видит будущее, чувствует тренды</em></div>
-                </div>
-                <div class="vertex-card">
-                    <div class="vertex-name">ПОЛКОВОДЕЦ</div>
-                    <div class="vertex-family">Гневные</div>
-                    <div><strong>Условия:</strong> ГНЕВ 6-8, КОНТРОЛЬ >8, возраст 40-60</div>
-                    <div><em>Ведёт за собой армии, отвечает за людей</em></div>
-                </div>
-                <div class="vertex-card">
-                    <div class="vertex-name">ЦЕЛИТЕЛЬ</div>
-                    <div class="vertex-family">Привязывающиеся</div>
-                    <div><strong>Условия:</strong> ПРИВЯЗ >8, ЗАБОТА >8, опыт страдания</div>
-                    <div><em>Исцеляет через присутствие и понимание</em></div>
-                </div>
-                <div class="vertex-card">
-                    <div class="vertex-name">ЦАРЬ-БАТЮШКА</div>
-                    <div class="vertex-family">Иерархические</div>
-                    <div><strong>Условия:</strong> ИЕРАРХ >8, ЗАБОТА >7, КОНТРОЛЬ >7, 45-65 лет</div>
-                    <div><em>Власть, основанная на заботе</em></div>
-                </div>
-                <div class="vertex-card">
-                    <div class="vertex-name">ДЕМИУРГ</div>
-                    <div class="vertex-family">Контролирующие</div>
-                    <div><strong>Условия:</strong> КОНТРОЛЬ >9, ПОИСК >7, РИТУАЛ >6, 40-60 лет</div>
-                    <div><em>Создаёт миры, системы, школы</em></div>
-                </div>
-                <div class="vertex-card">
-                    <div class="vertex-name">СТРАЖ ПОРОГА</div>
-                    <div class="vertex-family">Территориальные</div>
-                    <div><strong>Условия:</strong> ТЕРРИТ >8, СТРАХ 5-7, КОНТРОЛЬ >7, 55+</div>
-                    <div><em>Интуитивно знает границы</em></div>
-                </div>
-                <div class="vertex-card">
-                    <div class="vertex-name">МУДРЕЦ</div>
-                    <div class="vertex-family">Смысловые</div>
-                    <div><strong>Условия:</strong> СМЫСЛ >9, возраст >60, опыт потерь</div>
-                    <div><em>Интеграция всего опыта</em></div>
-                </div>
-                <div class="vertex-card">
-                    <div class="vertex-name">ПРОСВЕТЛЕННЫЙ</div>
-                    <div class="vertex-family">Интегральный</div>
-                    <div><strong>Условия:</strong> все системы >7, возраст >50</div>
-                    <div><em>Свобода от жёсткого архетипа</em></div>
-                </div>
+        <!-- ========== РАЗДЕЛ 1: АРХЕТИПЫ ========== -->
+        <h2>🏛️ 1. Архетипы (рептильный уровень) — неизменная база</h2>
+        <div class="archetype-grid">
+            <div class="archetype-card"><div class="title">🏛️ ПРАВИТЕЛЬ <span>A1</span></div><div class="systems">Т↑ И↑ Р↑</div><div>Создает и охраняет порядок</div></div>
+            <div class="archetype-card"><div class="title">⚔️ ЗАВОЕВАТЕЛЬ <span>A2</span></div><div class="systems">Т↑ И↑ Р↓</div><div>Расширяет границы</div></div>
+            <div class="archetype-card"><div class="title">🏠 ХРАНИТЕЛЬ <span>A3</span></div><div class="systems">Т↑ И↓ Р↑</div><div>Бережет очаг</div></div>
+            <div class="archetype-card"><div class="title">🏔️ ОДИНОЧКА <span>A4</span></div><div class="systems">Т↑ И↓ Р↓</div><div>Живет сам по себе</div></div>
+            <div class="archetype-card"><div class="title">⚖️ ЖРЕЦ <span>A5</span></div><div class="systems">Т↓ И↑ Р↑</div><div>Власть через ритуалы</div></div>
+            <div class="archetype-card"><div class="title">🧭 АВАНТЮРИСТ <span>A6</span></div><div class="systems">Т↓ И↑ Р↓</div><div>Ищет статус</div></div>
+            <div class="archetype-card"><div class="title">📿 МОНАХ <span>A7</span></div><div class="systems">Т↓ И↓ Р↑</div><div>Живет созерцанием</div></div>
+            <div class="archetype-card"><div class="title">🌄 ИЩУЩИЙ <span>A8</span></div><div class="systems">Т↓ И↓ Р↓</div><div>В поиске себя</div></div>
+        </div>
+        <div style="background:#eef3f9; padding:1rem; border-radius:1rem; margin-bottom:2rem;"><strong>Ключевой принцип:</strong> Архетипы не оцениваются (нет цветов). Это базовая конституция.</div>
+
+        <!-- ========== РАЗДЕЛ 2: СЕНСОТИПЫ (ПОЛНАЯ КАРТА) ========== -->
+        <h2>🎭 2. Полная карта сенсотипов (8 линий, 24 состояния)</h2>
+
+        <!-- ГНЕВ -->
+        <div class="sensotype-card">
+            <div class="sensotype-title">⚔️ Линия ГНЕВА (5)</div>
+            <div class="three-levels">
+                <div class="level-box level-green"><strong>🟢 ВОИН</strong><br>Здоровая агрессия, защита</div>
+                <div class="level-box level-gray"><strong>⚪ АГРЕССОР</strong><br>Гнев без контроля</div>
+                <div class="level-box level-red"><strong>🔴 ПАЛАЧ</strong><br>Удовольствие от боли</div>
             </div>
+            <table class="transition-table"><tr><th>Из</th><th>В</th><th>Вероятность</th><th>Условия</th></tr>
+                <tr><td>ВОИН</td><td>АГРЕССОР</td><td>0.3</td><td>Хронический стресс</td></tr>
+                <tr><td>АГРЕССОР</td><td>ВОИН</td><td>0.4</td><td>Терапия, спорт</td></tr>
+                <tr><td>АГРЕССОР</td><td>ПАЛАЧ</td><td>0.2</td><td>Деградация</td></tr>
+                <tr><td>ПАЛАЧ</td><td>АГРЕССОР</td><td>0.1</td><td>Интенсивная терапия</td></tr>
+            </table>
         </div>
 
-        <!-- Серебряная группа -->
-        <h2>👴👵 4. Серебряная группа (75+ лет) — естественная инволюция</h2>
-        <div class="silver-section">
-            <div class="silver-grid">
-                <div class="silver-card">
-                    <div class="silver-name">ВОРЧУН</div>
-                    <div class="silver-from">← из МУДРЕЦА, СТРАЖА</div>
-                    <p>КОНТРОЛЬ ↓, СТРАХ ↑, РИТУАЛ ↑. Недовольство миром, застревание в прошлом.</p>
-                </div>
-                <div class="silver-card">
-                    <div class="silver-name">ТРЕВОЖНЫЙ СТАРЕЦ</div>
-                    <div class="silver-from">← из СТРАЖА, ЭМПАТА</div>
-                    <p>СТРАХ ↑↑, ПРИВЯЗАННОСТЬ ↑, ПОИСК ↓. Хроническое беспокойство.</p>
-                </div>
-                <div class="silver-card">
-                    <div class="silver-name">ОДЕРЖИМЫЙ</div>
-                    <div class="silver-from">← из АДМИНИСТРАТОРА, ВОСПИТАТЕЛЯ</div>
-                    <p>КОНТРОЛЬ ↑ (компенсаторный), РИТУАЛ ↑↑. Навязчивый порядок.</p>
-                </div>
-                <div class="silver-card">
-                    <div class="silver-name">ОТСТРАНЁННЫЙ</div>
-                    <div class="silver-from">← из МУДРЕЦА, ФИЛОСОФА</div>
-                    <p>СМЫСЛ ↓, СОЦИАЛЬНОСТЬ ↓. Уход от мира, апатия.</p>
-                </div>
-                <div class="silver-card">
-                    <div class="silver-name">РАСТОРМОЖЕННЫЙ</div>
-                    <div class="silver-from">← из любого с высоким контролем</div>
-                    <p>КОНТРОЛЬ ↓↓↓. Снижение тормозов.</p>
-                </div>
-                <div class="silver-card">
-                    <div class="silver-name">ПОТЕРЯННЫЙ</div>
-                    <div class="silver-from">← дезинтеграция</div>
-                    <p>Дезинтеграция всех систем. Потеря личности.</p>
-                </div>
-                <div class="silver-card">
-                    <div class="silver-name">ЗАБЫВЧИВЫЙ</div>
-                    <div class="silver-from">← из АРХИТЕКТОРА, СТРАТЕГА</div>
-                    <p>КОНТРОЛЬ ↓, ПАМЯТЬ ↓. Когнитивное снижение.</p>
-                </div>
-                <div class="silver-card">
-                    <div class="silver-name">ЦЕПЛЯЮЩИЙСЯ</div>
-                    <div class="silver-from">← из ПРИВЯЗЫВАЮЩИХСЯ</div>
-                    <p>ПРИВЯЗАННОСТЬ ↑↑, СТРАХ ↑. Страх одиночества.</p>
-                </div>
+        <!-- СТРАХ -->
+        <div class="sensotype-card">
+            <div class="sensotype-title">🛡️ Линия СТРАХА (4)</div>
+            <div class="three-levels">
+                <div class="level-box level-green"><strong>🟢 СТРАЖ</strong><br>Бдительность</div>
+                <div class="level-box level-gray"><strong>⚪ ПАНИКЁР</strong><br>Хроническая тревога</div>
+                <div class="level-box level-red"><strong>🔴 ПАРАНОИК</strong><br>Бред преследования</div>
             </div>
+            <table class="transition-table"><tr><th>Из</th><th>В</th><th>Вероятность</th><th>Условия</th></tr>
+                <tr><td>СТРАЖ</td><td>ПАНИКЁР</td><td>0.4</td><td>Хронический стресс</td></tr>
+                <tr><td>ПАНИКЁР</td><td>СТРАЖ</td><td>0.3</td><td>Безопасная среда</td></tr>
+                <tr><td>ПАНИКЁР</td><td>ПАРАНОИК</td><td>0.2</td><td>Изоляция</td></tr>
+                <tr><td>ПАРАНОИК</td><td>ПАНИКЁР</td><td>0.1</td><td>Терапия</td></tr>
+            </table>
         </div>
 
-        <!-- Итоговая статистика -->
-        <h2>📊 5. Итоговая статистика системы</h2>
-        <table>
-            <tr><th>Компонент</th><th>Количество</th></tr>
-            <tr><td>Семейства</td><td>12</td></tr>
-            <tr><td>Белые архетипы</td><td>~28</td></tr>
-            <tr><td>Серые архетипы</td><td>~20</td></tr>
-            <tr><td>Чёрные архетипы</td><td>~24</td></tr>
-            <tr><td><strong>Всего базовых</strong></td><td><strong>~72</strong></td></tr>
-            <tr><td>Вершинные архетипы</td><td>8</td></tr>
-            <tr><td>Серебряные архетипы</td><td>8</td></tr>
-            <tr><td><strong>ПОЛНОЕ МНОЖЕСТВО</strong></td><td><strong>88</strong></td></tr>
+        <!-- ПОИСК -->
+        <div class="sensotype-card">
+            <div class="sensotype-title">🔍 Линия ПОИСКА (3)</div>
+            <div class="three-levels">
+                <div class="level-box level-green"><strong>🟢 ИССЛЕДОВАТЕЛЬ</strong><br>Любопытство</div>
+                <div class="level-box level-gray"><strong>⚪ НЕПОСЕДА</strong><br>Поверхностность</div>
+                <div class="level-box level-red"><strong>🔴 БЕГЛЕЦ</strong><br>Бегство от себя</div>
+            </div>
+            <table class="transition-table"><tr><th>Из</th><th>В</th><th>Вероятность</th><th>Условия</th></tr>
+                <tr><td>ИССЛЕДОВАТЕЛЬ</td><td>НЕПОСЕДА</td><td>0.3</td><td>Отсутствие фокуса</td></tr>
+                <tr><td>НЕПОСЕДА</td><td>ИССЛЕДОВАТЕЛЬ</td><td>0.3</td><td>Практики глубины</td></tr>
+                <tr><td>НЕПОСЕДА</td><td>БЕГЛЕЦ</td><td>0.2</td><td>Травма привязанности</td></tr>
+                <tr><td>БЕГЛЕЦ</td><td>НЕПОСЕДА</td><td>0.1</td><td>Терапия</td></tr>
+            </table>
+        </div>
+
+        <!-- ЗАБОТА -->
+        <div class="sensotype-card">
+            <div class="sensotype-title">🌿 Линия ЗАБОТЫ (8)</div>
+            <div class="three-levels">
+                <div class="level-box level-green"><strong>🟢 РОДИТЕЛЬ</strong><br>Здоровая забота</div>
+                <div class="level-box level-gray"><strong>⚪ ГИПЕРОПЕКУН</strong><br>Гиперопека</div>
+                <div class="level-box level-red"><strong>🔴 КОНТРОЛЁР</strong><br>Тотальный контроль</div>
+            </div>
+            <table class="transition-table"><tr><th>Из</th><th>В</th><th>Вероятность</th><th>Условия</th></tr>
+                <tr><td>РОДИТЕЛЬ</td><td>ГИПЕРОПЕКУН</td><td>0.3</td><td>Тревога за близких</td></tr>
+                <tr><td>ГИПЕРОПЕКУН</td><td>РОДИТЕЛЬ</td><td>0.3</td><td>Отпускание</td></tr>
+                <tr><td>ГИПЕРОПЕКУН</td><td>КОНТРОЛЁР</td><td>0.2</td><td>Страх потери</td></tr>
+                <tr><td>КОНТРОЛЁР</td><td>ГИПЕРОПЕКУН</td><td>0.1</td><td>Терапия</td></tr>
+            </table>
+        </div>
+
+        <!-- ПРИВЯЗАННОСТЬ -->
+        <div class="sensotype-card">
+            <div class="sensotype-title">🤝 Линия ПРИВЯЗАННОСТИ (7)</div>
+            <div class="three-levels">
+                <div class="level-box level-green"><strong>🟢 ДРУГ</strong><br>Эмпатия, верность</div>
+                <div class="level-box level-gray"><strong>⚪ ЗАВИСИМЫЙ</strong><br>Созависимость</div>
+                <div class="level-box level-red"><strong>🔴 ПОЛЬЗОВАТЕЛЬ</strong><br>Использование людей</div>
+            </div>
+            <table class="transition-table"><tr><th>Из</th><th>В</th><th>Вероятность</th><th>Условия</th></tr>
+                <tr><td>ДРУГ</td><td>ЗАВИСИМЫЙ</td><td>0.3</td><td>Травма привязанности</td></tr>
+                <tr><td>ЗАВИСИМЫЙ</td><td>ДРУГ</td><td>0.3</td><td>Сепарация</td></tr>
+                <tr><td>ЗАВИСИМЫЙ</td><td>ПОЛЬЗОВАТЕЛЬ</td><td>0.2</td><td>Озлобление</td></tr>
+                <tr><td>ПОЛЬЗОВАТЕЛЬ</td><td>ЗАВИСИМЫЙ</td><td>0.1</td><td>Терапия эмпатии</td></tr>
+            </table>
+        </div>
+
+        <!-- ВОЖДЕЛЕНИЕ -->
+        <div class="sensotype-card">
+            <div class="sensotype-title">💕 Линия ВОЖДЕЛЕНИЯ (6)</div>
+            <div class="three-levels">
+                <div class="level-box level-green"><strong>🟢 ЛЮБЯЩИЙ</strong><br>Страсть, нежность</div>
+                <div class="level-box level-gray"><strong>⚪ ИСКУСИТЕЛЬ</strong><br>Компульсивность</div>
+                <div class="level-box level-red"><strong>🔴 НАСИЛЬНИК</strong><br>Садизм</div>
+            </div>
+            <table class="transition-table"><tr><th>Из</th><th>В</th><th>Вероятность</th><th>Условия</th></tr>
+                <tr><td>ЛЮБЯЩИЙ</td><td>ИСКУСИТЕЛЬ</td><td>0.3</td><td>Травма близости</td></tr>
+                <tr><td>ИСКУСИТЕЛЬ</td><td>ЛЮБЯЩИЙ</td><td>0.2</td><td>Исцеление</td></tr>
+                <tr><td>ИСКУСИТЕЛЬ</td><td>НАСИЛЬНИК</td><td>0.1</td><td>Деградация</td></tr>
+                <tr><td>НАСИЛЬНИК</td><td>ИСКУСИТЕЛЬ</td><td>0.05</td><td>Интенсивная терапия</td></tr>
+            </table>
+        </div>
+
+        <!-- ИГРА -->
+        <div class="sensotype-card">
+            <div class="sensotype-title">🎲 Линия ИГРЫ (9)</div>
+            <div class="three-levels">
+                <div class="level-box level-green"><strong>🟢 ИГРОК</strong><br>Легкость, радость</div>
+                <div class="level-box level-gray"><strong>⚪ ИНФАНТИЛ</strong><br>Безответственность</div>
+                <div class="level-box level-red"><strong>🔴 МАНИПУЛЯТОР</strong><br>Игры с людьми</div>
+            </div>
+            <table class="transition-table"><tr><th>Из</th><th>В</th><th>Вероятность</th><th>Условия</th></tr>
+                <tr><td>ИГРОК</td><td>ИНФАНТИЛ</td><td>0.3</td><td>Отказ от взросления</td></tr>
+                <tr><td>ИНФАНТИЛ</td><td>ИГРОК</td><td>0.3</td><td>Ответственность</td></tr>
+                <tr><td>ИНФАНТИЛ</td><td>МАНИПУЛЯТОР</td><td>0.2</td><td>Цинизм</td></tr>
+                <tr><td>МАНИПУЛЯТОР</td><td>ИНФАНТИЛ</td><td>0.1</td><td>Терапия</td></tr>
+            </table>
+        </div>
+
+        <!-- ГАРМОНИЧНЫЙ -->
+        <div class="sensotype-card">
+            <div class="sensotype-title">☯️ Линия ГАРМОНИЧНОГО (смешанный)</div>
+            <div class="three-levels">
+                <div class="level-box level-green"><strong>🟢 ГАРМОНИЧНЫЙ</strong><br>Баланс</div>
+                <div class="level-box level-gray"><strong>⚪ ОПУСТОШЕННЫЙ</strong><br>Апатия</div>
+                <div class="level-box level-red"><strong>🔴 ОКАМЕНЕВШИЙ</strong><br>Блокада</div>
+            </div>
+            <table class="transition-table"><tr><th>Из</th><th>В</th><th>Вероятность</th><th>Условия</th></tr>
+                <tr><td>ГАРМОНИЧНЫЙ</td><td>ОПУСТОШЕННЫЙ</td><td>0.2</td><td>Выгорание</td></tr>
+                <tr><td>ОПУСТОШЕННЫЙ</td><td>ГАРМОНИЧНЫЙ</td><td>0.3</td><td>Отдых</td></tr>
+                <tr><td>ОПУСТОШЕННЫЙ</td><td>ОКАМЕНЕВШИЙ</td><td>0.2</td><td>Депрессия</td></tr>
+                <tr><td>ОКАМЕНЕВШИЙ</td><td>ОПУСТОШЕННЫЙ</td><td>0.1</td><td>Терапия</td></tr>
+            </table>
+        </div>
+
+        <!-- ========== РАЗДЕЛ 3: ГОРИЗОНТАЛЬНЫЕ ПЕРЕХОДЫ ========== -->
+        <h2>🔄 3. Горизонтальные переходы между линиями (зеленые состояния)</h2>
+        <table class="transition-table">
+            <tr><th>Из</th><th>В</th><th>Вероятность</th><th>Условие</th></tr>
+            <tr><td>ВОИН</td><td>СТРАЖ</td><td>0.4</td><td>Возраст, опыт</td></tr>
+            <tr><td>ВОИН</td><td>РОДИТЕЛЬ</td><td>0.3</td><td>Рождение детей</td></tr>
+            <tr><td>СТРАЖ</td><td>РОДИТЕЛЬ</td><td>0.4</td><td>Забота о других</td></tr>
+            <tr><td>ИССЛЕДОВАТЕЛЬ</td><td>ИГРОК</td><td>0.4</td><td>Радость открытий</td></tr>
+            <tr><td>ИССЛЕДОВАТЕЛЬ</td><td>ГАРМОНИЧНЫЙ</td><td>0.3</td><td>Интеграция</td></tr>
+            <tr><td>РОДИТЕЛЬ</td><td>ДРУГ</td><td>0.5</td><td>Дети выросли</td></tr>
+            <tr><td>ДРУГ</td><td>РОДИТЕЛЬ</td><td>0.5</td><td>Появление семьи</td></tr>
+            <tr><td>ДРУГ</td><td>ЛЮБЯЩИЙ</td><td>0.4</td><td>Романтика</td></tr>
+            <tr><td>ИГРОК</td><td>ИССЛЕДОВАТЕЛЬ</td><td>0.5</td><td>Игра становится делом</td></tr>
+            <tr><td>ЛЮБЯЩИЙ</td><td>ДРУГ</td><td>0.5</td><td>После страсти</td></tr>
         </table>
 
-        <div style="background:#eff6ff; padding:2rem; border-radius:2rem; margin:3rem 0; text-align:center;">
-            <p style="font-size:1.4rem; font-weight:600;">✅ Модель охватывает полный жизненный цикл</p>
-            <p style="font-size:1.1rem;">от активного развития через вершины к естественной инволюции</p>
-            <p style="margin-top:1rem;">12 семейств · 72 базовых архетипа · 8 вершин · 8 серебряных · возрастные и гендерные модификации</p>
+        <!-- ========== РАЗДЕЛ 4: ВОЗРАСТНЫЕ ТРАЕКТОРИИ ========== -->
+        <h2>📈 4. Возрастные траектории сенсотипов</h2>
+        <div class="age-path">
+            <div class="path-row"><span style="min-width:100px;">0-7 лет:</span> ИГРОК → ИССЛЕДОВАТЕЛЬ</div>
+            <div class="path-row"><span>7-14 лет:</span> ИССЛЕДОВАТЕЛЬ → ДРУГ</div>
+            <div class="path-row"><span>14-25 лет:</span> ВОИН / ЛЮБЯЩИЙ / ИСКУСИТЕЛЬ</div>
+            <div class="path-row"><span>25-40 лет:</span> ВОИН → РОДИТЕЛЬ / ДРУГ</div>
+            <div class="path-row"><span>40-55 лет:</span> СТРАЖ / РОДИТЕЛЬ / ГАРМОНИЧНЫЙ</div>
+            <div class="path-row"><span>55-70 лет:</span> ГАРМОНИЧНЫЙ / СТРАЖ / ДРУГ</div>
+            <div class="path-row"><span>70+ лет:</span> ГАРМОНИЧНЫЙ / ОПУСТОШЕННЫЙ</div>
+        </div>
+
+        <!-- ========== РАЗДЕЛ 5: МЕНТОТИПЫ ========== -->
+        <h2>🧠 5. Предварительная классификация ментотипов</h2>
+        <table class="transition-table">
+            <tr><th>Код</th><th>Название</th><th>Контроль</th><th>Социальность</th><th>Смысл</th></tr>
+            <tr><td>M1</td><td>ХАОТИК</td><td>Низ</td><td>Низ</td><td>Низ</td></tr>
+            <tr><td>M2</td><td>КОНТРОЛЁР</td><td>Сред</td><td>Низ</td><td>Низ</td></tr>
+            <tr><td>M3</td><td>КОНТАКТЁР</td><td>Низ</td><td>Сред</td><td>Низ</td></tr>
+            <tr><td>M4</td><td>ИСКАТЕЛЬ</td><td>Низ</td><td>Низ</td><td>Сред</td></tr>
+            <tr><td>M5</td><td>АДАПТИВНЫЙ</td><td>Сред</td><td>Сред</td><td>Сред</td></tr>
+            <tr><td>M6</td><td>ЛИДЕР</td><td>Выс</td><td>Выс</td><td>Сред</td></tr>
+            <tr><td>M7</td><td>МУДРЕЦ</td><td>Сред</td><td>Выс</td><td>Выс</td></tr>
+            <tr><td>M8</td><td>МАСТЕР</td><td>Выс</td><td>Сред</td><td>Выс</td></tr>
+            <tr><td>M9</td><td>ПРОСВЕТЛЁННЫЙ</td><td>Выс</td><td>Выс</td><td>Выс</td></tr>
+        </table>
+
+        <!-- ========== РАЗДЕЛ 6: МАТЕМАТИЧЕСКАЯ МОДЕЛЬ ========== -->
+        <h2>📐 6. Математическая модель</h2>
+        <div class="formula-block"><strong>Нейротип = Архетип (A1-A8) + Сенсотип (цвет + имя) + Ментотип (M1-M9)</strong></div>
+        <div class="formula-block">S(i) = S0(i) + A(i) + L(i) + E(i) + G(i) + F(i)</div>
+        <div class="formula-block"><strong>WBI</strong> = Σ S(i)·W(i) (i=0..12)<br><strong>DI</strong> = S(13)·0.5 + (10‑S(12))·0.3 + S(4)·0.2</div>
+
+        <h3>6.1 Веса систем (полный список)</h3>
+        <table style="width:100%;">
+            <tr><th>Система</th><th>Вес</th><th>Система</th><th>Вес</th></tr>
+            <tr><td>ТЕРРИТОРИЯ (0)</td><td>0.135</td><td>ВОЖДЕЛЕНИЕ (6)</td><td>0.065</td></tr>
+            <tr><td>ИЕРАРХИЯ (1)</td><td>0.139</td><td>ПРИВЯЗАННОСТЬ (7)</td><td>0.121</td></tr>
+            <tr><td>РИТУАЛ (2)</td><td>0.108</td><td>ЗАБОТА (8)</td><td>0.111</td></tr>
+            <tr><td>ПОИСК (3)</td><td>0.099</td><td>ИГРА (9)</td><td>0.078</td></tr>
+            <tr><td>СТРАХ (4)</td><td>0.103</td><td>КОНТРОЛЬ (10)</td><td>0.112</td></tr>
+            <tr><td>ГНЕВ (5)</td><td>0.079</td><td>СОЦИАЛЬНОСТЬ (11)</td><td>0.093</td></tr>
+            <tr><td>СМЫСЛ (12)</td><td>0.131</td><td>ГОРЕ (13)</td><td>0.050</td></tr>
+        </table>
+
+        <!-- ========== РАЗДЕЛ 7: АРХИТЕКТУРА СБОРА ========== -->
+        <h2>📊 7. Архитектура сбора данных</h2>
+        <div class="data-spec">
+            <div class="data-card"><strong>Уровень 1: Регистрация</strong><br>Демография + архетип (15 вопросов) — однократно</div>
+            <div class="data-card"><strong>Уровень 2: Стартовый замер</strong><br>Сенсотип (25) + ментотип (20) + образ жизни</div>
+            <div class="data-card"><strong>Уровень 3: Мониторинг</strong><br>Ежедневно 1-2 вопроса, еженедельно 5-7, триггеры</div>
+            <div class="data-card"><strong>Уровень 4: Периодический</strong><br>1 месяц (сенсотип), 3 месяца (полный)</div>
+        </div>
+
+        <h3>7.1 Двойной учет (явное/неявное)</h3>
+        <div class="formula-block">
+        profile = {<br>
+        &nbsp;&nbsp;"self": { самооценка },<br>
+        &nbsp;&nbsp;"hidden": { поведение },<br>
+        &nbsp;&nbsp;"integrated": еженедельный синтез<br>
+        }
+        </div>
+
+        <!-- ========== РАЗДЕЛ 8: ЭТИЧЕСКИЙ КОДЕКС ========== -->
+        <h2>⚖️ 8. Этические принципы</h2>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem;">
+            <div style="background:#fee9e7; padding:1.5rem; border-radius:1rem;">
+                <h4>❌ Не делаем</h4>
+                <ul><li>Не ставим диагнозы</li><li>Не пугаем</li><li>Не навешиваем ярлыки</li></ul>
+            </div>
+            <div style="background:#e8f4e8; padding:1.5rem; border-radius:1rem;">
+                <h4>✅ Делаем</h4>
+                <ul><li>"Мы заметили" вместо "у вас"</li><li>Даем выбор</li><li>Предлагаем помощь</li></ul>
+            </div>
+        </div>
+        <div style="background:#eef3f9; padding:1rem; border-radius:1rem; margin:1.5rem 0;">
+            <strong>Коммуникация по цветам:</strong> 🟢 поддерживаем, ⚪ мягкая коррекция, 🔴 направление к специалисту.
+        </div>
+
+        <!-- МИССИЯ -->
+        <div style="background:linear-gradient(145deg, #e5f0fa, white); border-radius:2rem; padding:2rem; text-align:center; margin:2rem 0; font-size:1.2rem; border:1px solid #aac3d9;">
+            🧠 <strong>NEUROSENS</strong> — система, которая помогает человеку увидеть все грани себя: от древних инстинктов до высших смыслов. С уважением, без осуждения, с опорой на науку.
+        </div>
+
+        <div class="footer-space">
+            Версия 6.0 · Полная спецификация + карта переходов · март 2026<br>
+            <span style="background:#13294b; color:white; padding:0.2rem 1rem; border-radius:30px; display:inline-block; margin-top:1rem;">Осталось места в диалоге: ~72%</span>
         </div>
     </div>
 </div>
