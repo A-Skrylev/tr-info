@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEUROSENS · ПОЛНАЯ ОБЪЕДИНЁННАЯ МОДЕЛЬ v12</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #f0f7fc;
+            font-family: 'Inter', -apple-system, 'Segoe UI', Roboto, sans-serif;
+            color: #0f2b3c;
+            line-height: 1.5;
+            padding: 2rem 1.5rem;
+        }
+        .document {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2.5rem;
+            box-shadow: 0 40px 80px -20px rgba(0,30,50,0.3);
+            overflow: hidden;
+            border: 1px solid #c4d9ec;
+        }
+        .header {
+            background: linear-gradient(145deg, #0c263a 0%, #1d4059 100%);
+            color: white;
+            padding: 3rem 4rem;
+            border-bottom: 8px solid #d4b24a;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: "●─● / \\ ● ● ● \\ / ●─●";
+            position: absolute;
+            bottom: 10px;
+            right: 30px;
+            font-size: 3rem;
+            color: rgba(212, 178, 74, 0.2);
+            font-family: monospace;
+            white-space: pre;
+            opacity: 0.5;
+            transform: rotate(5deg);
+            pointer-events: none;
+        }
+        .header h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .header h1 span {
+            background: #d4b24a;
+            color: #0c263a;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 0.3rem 1.8rem;
+            border-radius: 60px;
+            text-transform: uppercase;
+        }
+        .header .sub {
+            font-size: 1.5rem;
+            color: #c4dff5;
+            max-width: 70%;
+            border-left: 6px solid #d4b24a;
+            padding-left: 2rem;
+            margin: 2rem 0 1rem;
+        }
+        .meta {
+            display: flex;
+            gap: 2.5rem;
+            background: #234a64;
+            padding: 1rem 2rem;
+            border-radius: 60px;
+            width: fit-content;
+            font-size: 0.95rem;
+        }
+        .content {
+            padding: 3.5rem 4rem;
+        }
+        h2 {
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: #103e57;
+            margin: 3rem 0 1.8rem 0;
+            border-bottom: 4px solid #d4b24a;
+            padding-bottom: 0.7rem;
+        }
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #1d4b6b;
+            margin: 2.2rem 0 1.2rem 0;
+        }
+        h4 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1f5375;
+            margin: 1.5rem 0 0.8rem 0;
+            border-left: 6px solid #d4b24a;
+            padding-left: 1.2rem;
+        }
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.8rem; }
+        .card {
+            background: #f9fdff;
+            border-radius: 2rem;
+            padding: 1.8rem;
+            border: 1px solid #cde0f0;
+            box-shadow: 0 8px 18px -8px rgba(0,30,50,0.1);
+        }
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0f3a51;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #d4b24a;
+            padding-bottom: 0.5rem;
+        }
+        .badge {
+            display: inline-block;
+            background: #e3eff9;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #1f4b6b;
+        }
+        .badge-gold { background: #d4b24a; color: #0c263a; }
+        .badge-green { background: #d4f0d4; color: #1e5e1e; }
+        .badge-blue { background: #d4e6f5; color: #1f4b6b; }
+        .badge-orange { background: #ffe0b3; color: #b45a1c; }
+        .badge-red { background: #ffe0e0; color: #b30000; }
+        .dot {
+            display: inline-block;
+            width: 14px; height: 14px; border-radius: 50%; margin-right: 6px;
+        }
+        .dot-green { background: #2ecc71; }
+        .dot-gray { background: #7f8c8d; }
+        .dot-red { background: #e74c3c; }
+        .dot-yellow { background: #f1c40f; }
+        .dot-blue { background: #3498db; }
+        .dot-purple { background: #9b59b6; }
+        .dot-orange { background: #e67e22; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #f9fdff;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            margin: 1.5rem 0;
+            border: 1px solid #cddeee;
+            font-size: 0.95rem;
+        }
+        th {
+            background: #d9e9f5;
+            color: #103e57;
+            font-weight: 600;
+            padding: 1rem;
+            text-align: left;
+        }
+        td { padding: 0.8rem 1rem; border-bottom: 1px solid #dae5f0; }
+        tr:last-child td { border-bottom: none; }
+        .formula-block {
+            background: #eaf3fc;
+            padding: 1.8rem 2.2rem;
+            border-radius: 2rem;
+            font-family: 'Fira Code', monospace;
+            border-left: 8px solid #d4b24a;
+            margin: 2rem 0;
+        }
+        .warning {
+            background: #fff1d6;
+            border-left: 8px solid #e67e22;
+            padding: 1.8rem;
+            border-radius: 2rem;
+            margin: 2rem 0;
+        }
+        .info {
+            background: #e1f0fa;
+            border-left: 8px solid #3498db;
+            padding: 1.8rem;
+            border-radius: 2rem;
+            margin: 2rem 0;
+        }
+        .success {
+            background: #d4f0d4;
+            border-left: 8px solid #2ecc71;
+            padding: 1.8rem;
+            border-radius: 2rem;
+            margin: 2rem 0;
+        }
+        hr { border: none; border-top: 2px dashed #c0d6e8; margin: 2rem 0; }
+        .footnote {
+            background: #eaf1fa;
+            padding: 1.5rem 2rem;
+            border-radius: 3rem;
+            font-size: 0.95rem;
+            margin-top: 2rem;
+        }
+        .funnel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 2rem 0;
+        }
+        .funnel-level {
+            width: 100%;
+            background: #d4b24a;
+            color: #0c263a;
+            padding: 1rem;
+            border-radius: 2rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        .funnel-level:nth-child(1) { width: 100%; background: #d4b24a; }
+        .funnel-level:nth-child(2) { width: 80%; background: #e6c46a; }
+        .funnel-level:nth-child(3) { width: 60%; background: #f0d68a; }
+        .funnel-level:nth-child(4) { width: 40%; background: #f5e3aa; }
+        .funnel-level:nth-child(5) { width: 20%; background: #faefca; }
+        .funnel-level:nth-child(6) { width: 15%; background: #fcf5e0; }
+        .logo-showcase {
+            display: flex;
+            gap: 3rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+        .logo-item {
+            text-align: center;
+            background: #f5faff;
+            padding: 2rem;
+            border-radius: 2rem;
+            border: 1px solid #d4b24a;
+        }
+        .logo-ascii {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.5rem;
+            line-height: 1.3;
+            background: #0c263a;
+            color: #d4b24a;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            display: inline-block;
+        }
+        @media (max-width: 1000px) {
+            .header { padding: 2rem; } .header h1 { font-size: 3rem; }
+            .content { padding: 2rem; } .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="document">
+    <div class="header">
+        <h1>NEUROSENS <span>ПОЛНАЯ МОДЕЛЬ v12</span></h1>
+        <div class="sub">Архетипы · Сенсотипы · Ментотипы · Переходы · Поведенческое ядро · Гостевой режим · Логотип · Партнёры · Маркетинг</div>
+        <div class="meta">
+            <span>📅 март 2026</span>
+            <span>⚖️ финальная объединённая версия</span>
+            <span>🧠 8 архетипов · 24 сенсотипа · 12 ментотипов</span>
+            <span>🔄 поведение = 60% · самоопределение = 25% · 360° = 15%</span>
+        </div>
+    </div>
+    <div class="content">
+
+        <!-- 0. НАЗНАЧЕНИЕ ДОКУМЕНТА -->
+        <div style="background: #e1effa; padding: 2rem; border-radius: 2rem; margin-bottom: 2.5rem;">
+            <p style="font-size: 1.2rem;"><strong>📌 Этот документ — полная объединённая модель NEUROSENS.</strong> Содержит все данные из первоначальной спецификации + все новые материалы из диалога. Готов для переноса в новый диалог и импорта в Obsidian.</p>
+        </div>
+
+        <!-- ЧАСТЬ 1. ФИЛОСОФИЯ И ЭТИКА -->
+        <h2>⚜️ 1. ФИЛОСОФИЯ · ЭТИЧЕСКИЙ КОДЕКС · ЦВЕТОВАЯ ЭТИКА</h2>
+        <div class="grid-2">
+            <div class="card"><div class="card-title">🧘 МИССИЯ (ОРИГИНАЛЬНАЯ)</div>«Возвращаем человеку право быть собой. Принятие природы, понимание состояний, выбор пути. Мы не говорим "будь лучше", мы говорим "будь собой, но осознанно".» <br><br><span class="badge badge-gold">ПРИНЦИП</span> «Искать — важнее, чем найти»</div>
+            <div class="card"><div class="card-title">⚖️ ЭТИЧЕСКИЙ КОДЕКС</div><ul><li>НЕ ставим медицинских диагнозов</li><li>НЕ навешиваем ярлыков</li><li>НЕ лечим, не предсказываем</li><li>НЕ манипулируем страхами</li><li>ДА — говорим «мы заметили»</li><li>ДА — даём выбор, направляем к специалисту</li></ul></div>
+        </div>
+        
+        <div class="success">
+            <p style="font-size: 1.3rem; font-weight: 600;">🎯 НОВАЯ МИССИЯ (ПОВЕДЕНЧЕСКАЯ)</p>
+            <p>«Помочь человеку увидеть себя таким, какой он есть на самом деле — через его поведение, с поправкой на его мнение и мнение других»</p>
+        </div>
+        
+        <h4>ЦВЕТОВАЯ ЭТИКА</h4>
+        <table>
+            <tr><th>Цвет</th><th>Уровень</th><th>Значение</th><th>Режим работы</th></tr>
+            <tr><td><span class="dot dot-green"></span> 🟢 Зелёный</td><td>Сенсотип / Ментотип / состояние архетипа</td><td>Здоровое / Рост / баланс</td><td>Развивать, поддерживать</td></tr>
+            <tr><td><span class="dot dot-gray"></span> ⚪ Серый</td><td>Сенсотип / Ментотип</td><td>Порок / Грех</td><td>Мягкая коррекция</td></tr>
+            <tr><td><span class="dot dot-red"></span> 🔴 Красный</td><td>Сенсотип / Ментотип / состояние архетипа</td><td>Патология / Деградация / клиника</td><td>К специалисту</td></tr>
+            <tr><td><span class="dot dot-yellow"></span> 🟡 Жёлтый</td><td>Состояние архетипа</td><td>Гипертрофия одной оси</td><td>Зона риска, пред-критическое</td></tr>
+            <tr><td><span class="dot dot-orange"></span> 🟠 Оранжевый</td><td>Состояние архетипа</td><td>Гипертрофия двух осей</td><td>Высокий риск</td></tr>
+            <tr><td><span class="dot dot-blue"></span> 🔵 Голубой</td><td>Состояние архетипа</td><td>Атрофия оси (истощение)</td><td>Потеря ресурса</td></tr>
+            <tr><td><span class="dot dot-purple"></span> 🟣 Фиолетовый</td><td>Адаптивный статус</td><td>Ригидность (застревание)</td><td>Диагностика, призыв к гибкости</td></tr>
+        </table>
+
+        <!-- ЧАСТЬ 2. АРХЕТИПЫ -->
+        <h2>🏛️ 2. АРХЕТИПЫ (рептильный уровень, неизменные)</h2>
+        <p><strong>8 архетипов, определяются тремя осями: Территория (Т), Иерархия (И), Ритуал (Р). В — высокая чувствительность, Н — низкая.</strong></p>
+        <table>
+            <tr><th>Код</th><th>Название</th><th>Т</th><th>И</th><th>Р</th><th>Суть</th><th>Эмодзи</th><th>Альтернативные названия</th></tr>
+            <tr><td><code>А1</code></td><td>ПРАВИТЕЛЬ</td><td>В</td><td>В</td><td>В</td><td>Создаёт и охраняет порядок</td><td>🏛️</td><td>Лидер, Хозяин, Король</td></tr>
+            <tr><td><code>А2</code></td><td>ЗАВОЕВАТЕЛЬ</td><td>В</td><td>В</td><td>Н</td><td>Расширяет границы, гибок</td><td>⚔️</td><td>Воин, Завоеватель, Первопроходец</td></tr>
+            <tr><td><code>А3</code></td><td>ХРАНИТЕЛЬ</td><td>В</td><td>Н</td><td>В</td><td>Бережёт очаг и традиции</td><td>🏠</td><td>Защитник, Мать/Отец, Хранитель очага</td></tr>
+            <tr><td><code>А4</code></td><td>ОДИНОЧКА</td><td>В</td><td>Н</td><td>Н</td><td>Живёт сам по себе</td><td>🏔️</td><td>Отшельник, Волк-одиночка, Интроверт</td></tr>
+            <tr><td><code>А5</code></td><td>ЖРЕЦ</td><td>Н</td><td>В</td><td>В</td><td>Власть через ритуалы</td><td>⚖️</td><td>Шаман, Священник, Мудрец</td></tr>
+            <tr><td><code>А6</code></td><td>АВАНТЮРИСТ</td><td>Н</td><td>В</td><td>Н</td><td>Ищет статус и приключения</td><td>🧭</td><td>Игрок, Искатель приключений, Кочевник</td></tr>
+            <tr><td><code>А7</code></td><td>МОНАХ</td><td>Н</td><td>Н</td><td>В</td><td>Созерцание, традиция</td><td>📿</td><td>Отшельник, Философ, Созерцатель</td></tr>
+            <tr><td><code>А8</code></td><td>ИЩУЩИЙ</td><td>Н</td><td>Н</td><td>Н</td><td>В поиске себя, чистый лист</td><td>🌄</td><td>Странник, Пионер, Исследователь</td></tr>
+        </table>
+
+        <h3>2.1 КРИТИЧЕСКИЕ ВАРИАНТЫ АРХЕТИПОВ</h3>
+        <table>
+            <tr><th>Код</th><th>Архетип</th><th>Здоровый баланс (🟢)</th><th>Гипертрофия Р (🟡)</th><th>Гипертрофия И (🟡)</th><th>Гипертрофия Т (🟡)</th><th>Р+И (🟠)</th><th>Критический (🔴)</th></tr>
+            <tr><td><code>А1</code></td><td>ПРАВИТЕЛЬ</td><td>Порядок, традиции</td><td>ОКР-тенденции</td><td>Нарциссизм</td><td>Паранойя</td><td>Тирания с ритуалами</td><td>ОКР / Параноидное</td></tr>
+            <tr><td><code>А2</code></td><td>ЗАВОЕВАТЕЛЬ</td><td>Авантюризм</td><td>—</td><td>Психопатия</td><td>Импульсивность</td><td>Психопатия</td><td>Диссоциальное</td></tr>
+            <tr><td><code>А3</code></td><td>ХРАНИТЕЛЬ</td><td>Забота</td><td>Избегание</td><td>—</td><td>Сверхопека</td><td>Тревожно-избегающее</td><td>Зависимое / Избегающее</td></tr>
+            <tr><td><code>А4</code></td><td>ОДИНОЧКА</td><td>Самодостаточность</td><td>—</td><td>—</td><td>Изоляция</td><td>—</td><td>Шизоидное</td></tr>
+            <tr><td><code>А5</code></td><td>ЖРЕЦ</td><td>Знания, ритуалы</td><td>Магическое ОКР</td><td>Духовная гордыня</td><td>—</td><td>Сектантство</td><td>Нарциссическое</td></tr>
+            <tr><td><code>А6</code></td><td>АВАНТЮРИСТ</td><td>Статус, новизна</td><td>—</td><td>Истерия</td><td>—</td><td>Грандиозность</td><td>Истерическое</td></tr>
+            <tr><td><code>А7</code></td><td>МОНАХ</td><td>Созерцание</td><td>Шизотипия</td><td>—</td><td>—</td><td>—</td><td>Шизотипическое</td></tr>
+            <tr><td><code>А8</code></td><td>ИЩУЩИЙ</td><td>Открытость</td><td>—</td><td>—</td><td>—</td><td>—</td><td>Пограничное</td></tr>
+        </table>
+
+        <!-- ЧАСТЬ 3. СЕНСОТИПЫ -->
+        <h2>🎭 3. СЕНСОТИПЫ (лимбический уровень, 8 линий)</h2>
+        <p><strong>24 сенсотипа: 8 🟢 здоровых, 8 ⚪ пороков, 8 🔴 патологий.</strong></p>
+        <table>
+            <tr><th>Линия</th><th>Код 🟢</th><th>🟢 Здоровый</th><th>Код ⚪</th><th>⚪ Порок</th><th>Код 🔴</th><th>🔴 Патология</th><th>Эмодзи</th></tr>
+            <tr><td>ГНЕВ</td><td><code>С1.1</code></td><td>ВОИН</td><td><code>С1.2</code></td><td>АГРЕССОР</td><td><code>С1.3</code></td><td>ПАЛАЧ</td><td>😠</td></tr>
+            <tr><td>СТРАХ</td><td><code>С2.1</code></td><td>СТРАЖ</td><td><code>С2.2</code></td><td>ПАНИКЁР</td><td><code>С2.3</code></td><td>ПАРАНОИК</td><td>😨</td></tr>
+            <tr><td>ПОИСК</td><td><code>С3.1</code></td><td>ИССЛЕДОВАТЕЛЬ</td><td><code>С3.2</code></td><td>НЕПОСЕДА</td><td><code>С3.3</code></td><td>БЕГЛЕЦ</td><td>🧭/🔥</td></tr>
+            <tr><td>ЗАБОТА</td><td><code>С4.1</code></td><td>РОДИТЕЛЬ</td><td><code>С4.2</code></td><td>ГИПЕРОПЕКУН</td><td><code>С4.3</code></td><td>КОНТРОЛЁР</td><td>🤗</td></tr>
+            <tr><td>ПРИВЯЗАННОСТЬ</td><td><code>С5.1</code></td><td>ДРУГ</td><td><code>С5.2</code></td><td>ЗАВИСИМЫЙ</td><td><code>С5.3</code></td><td>ПОЛЬЗОВАТЕЛЬ</td><td>❤️</td></tr>
+            <tr><td>ВОЖДЕЛЕНИЕ</td><td><code>С6.1</code></td><td>ЛЮБЯЩИЙ</td><td><code>С6.2</code></td><td>ИСКУСИТЕЛЬ</td><td><code>С6.3</code></td><td>НАСИЛЬНИК</td><td>😍</td></tr>
+            <tr><td>ИГРА</td><td><code>С7.1</code></td><td>ИГРОК</td><td><code>С7.2</code></td><td>ИНФАНТИЛ</td><td><code>С7.3</code></td><td>МАНИПУЛЯТОР</td><td>🎭</td></tr>
+            <tr><td>БАЛАНС</td><td><code>С8.1</code></td><td>ГАРМОНИЧНЫЙ</td><td><code>С8.2</code></td><td>ОПУСТОШЕННЫЙ</td><td><code>С8.3</code></td><td>ОКАМЕНЕВШИЙ</td><td>😌/😢</td></tr>
+        </table>
+
+        <!-- ЧАСТЬ 4. МЕНТОТИПЫ -->
+        <h2>🧠 4. МЕНТОТИПЫ (корковый уровень, 12 типов)</h2>
+        <p><strong>Оси: КОНТРоль, СОЦиальность, СМЫСЛ, ГОРЕ.</strong></p>
+        <table>
+            <tr><th>Код</th><th>Название</th><th>КОНТР</th><th>СОЦ</th><th>СМЫСЛ</th><th>ГОРЕ</th><th>🟢 Рост</th><th>⚪ Грех</th><th>🔴 Деградация</th></tr>
+            <tr><td><code>М1</code></td><td>ХАОТИК</td><td>Н</td><td>Н</td><td>Н</td><td>Н</td><td>спонтанность</td><td>леность</td><td>хаос</td></tr>
+            <tr><td><code>М2</code></td><td>КОНТРОЛЁР</td><td>С/В</td><td>Н</td><td>Н</td><td>Н</td><td>порядок</td><td>гордыня</td><td>тирания</td></tr>
+            <tr><td><code>М3</code></td><td>КОНТАКТЁР</td><td>Н</td><td>С/В</td><td>Н</td><td>Н</td><td>общительность</td><td>пустословие</td><td>потеря себя</td></tr>
+            <tr><td><code>М4</code></td><td>ИСКАТЕЛЬ</td><td>Н</td><td>Н</td><td>С/В</td><td>Н</td><td>поиск истины</td><td>сомнение</td><td>цинизм</td></tr>
+            <tr><td><code>М5</code></td><td>АДАПТИВНЫЙ</td><td>С</td><td>С</td><td>С</td><td>Н</td><td>гибкость</td><td>беспринципность</td><td>конформизм</td></tr>
+            <tr><td><code>М6</code></td><td>ЛИДЕР</td><td>В</td><td>В</td><td>С</td><td>Н</td><td>ответственность</td><td>властолюбие</td><td>тиран</td></tr>
+            <tr><td><code>М7</code></td><td>МУДРЕЦ</td><td>С</td><td>В</td><td>В</td><td>Н</td><td>мудрость</td><td>гордыня ума</td><td>отстранённость</td></tr>
+            <tr><td><code>М8</code></td><td>МАСТЕР</td><td>В</td><td>С</td><td>В</td><td>Н</td><td>творчество</td><td>трудоголизм</td><td>одиночество</td></tr>
+            <tr><td><code>М9</code></td><td>ПРОСВЕТЛЁННЫЙ</td><td>В</td><td>В</td><td>В</td><td>Н</td><td>просветление</td><td>духовная гордыня</td><td>ложный путь</td></tr>
+            <tr><td><code>М10</code></td><td>СКОРБЯЩИЙ</td><td>Н</td><td>Н</td><td>Н</td><td>В</td><td>проживание горя</td><td>уныние</td><td>отчаяние</td></tr>
+            <tr><td><code>М11</code></td><td>ОЦЕПЕНЕВШИЙ</td><td>С</td><td>Н</td><td>Н</td><td>В</td><td>защита</td><td>черствость</td><td>бесчувствие</td></tr>
+            <tr><td><code>М12</code></td><td>ПОТЕРЯННЫЙ</td><td>Н</td><td>Н</td><td>Н</td><td>В</td><td>поиск помощи</td><td>отказ</td><td>суицид</td></tr>
+        </table>
+
+        <!-- ЧАСТЬ 5. ЗАКОН СООТВЕТСТВИЯ -->
+        <h2>🔗 5. ЗАКОН СООТВЕТСТВИЯ АРХЕТИПА И СЕНСОТИПОВ</h2>
+        <div class="warning">
+            <p><strong>Фундаментальный принцип:</strong> Каждая ось архетипа (Т, И, Р) предопределяет, какие линии сенсотипов будут для человека естественно сильными (🟢), зонами уязвимости (⚪) или критическими состояниями (🔴).</p>
+        </div>
+
+        <!-- ЧАСТЬ 6. ПЕРЕХОДЫ (КЛЮЧЕВЫЕ) -->
+        <h2>🔄 6. КЛЮЧЕВЫЕ ПЕРЕХОДЫ И ВЕРОЯТНОСТИ</h2>
+        
+        <h3>6.1 Линия ГНЕВА (С1)</h3>
+        <table>
+            <tr><th>Переход</th><th>Базовая вероятность</th><th>Условия усиления</th></tr>
+            <tr><td>🟢 ВОИН → ⚪ АГРЕССОР</td><td>0.3</td><td>Стресс ×1.5, унижение ×2.0</td></tr>
+            <tr><td>⚪ АГРЕССОР → 🟢 ВОИН</td><td>0.4</td><td>Признание ×1.3, разрядка ×1.5</td></tr>
+            <tr><td>⚪ АГРЕССОР → 🔴 ПАЛАЧ</td><td>0.2</td><td>Травма ×1.8, безнаказанность ×2.0</td></tr>
+        </table>
+
+        <h3>6.2 Линия СТРАХА (С2)</h3>
+        <table>
+            <tr><th>Переход</th><th>Базовая вероятность</th><th>Условия усиления</th></tr>
+            <tr><td>🟢 СТРАЖ → ⚪ ПАНИКЁР</td><td>0.4</td><td>Травма ×1.7, инфо-стресс ×1.5</td></tr>
+            <tr><td>⚪ ПАНИКЁР → 🟢 СТРАЖ</td><td>0.3</td><td>Безопасность ×1.4, терапия ×1.3</td></tr>
+            <tr><td>⚪ ПАНИКЁР → 🔴 ПАРАНОИК</td><td>0.2</td><td>Изоляция ×1.6, новые угрозы ×1.8</td></tr>
+        </table>
+
+        <!-- ЧАСТЬ 7. ФАКТОРЫ ВЛИЯНИЯ -->
+        <h2>🌡️ 7. ФАКТОРЫ, ВЛИЯЮЩИЕ НА ПЕРЕХОДЫ</h2>
+        
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-title">🧬 Внутренние</div>
+                <ul>
+                    <li>Возраст 14-25: ×1.3</li>
+                    <li>Возраст 40+: ×0.8</li>
+                    <li>COMT Met/Met: ×1.4 (С3, С7)</li>
+                    <li>MAOA-L: ×1.5 (С1)</li>
+                    <li>Эпигенетика: ×1.6</li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="card-title">🌍 Внешние</div>
+                <ul>
+                    <li>Стресс острый: ×2.0</li>
+                    <li>Стресс хронический: ×1.5/мес</li>
+                    <li>Травма: прямой переход в 🔴</li>
+                    <li>Изоляция: ×1.4</li>
+                    <li>Фин. кризис: ×1.3</li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="card-title">🛡️ Защитные</div>
+                <ul>
+                    <li>Сон >7ч: ×0.7</li>
+                    <li>Спорт: ×0.65</li>
+                    <li>Поддержка: ×0.6</li>
+                    <li>Терапия: ×0.4</li>
+                    <li>Медитация: ×0.7</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ЧАСТЬ 8. ЗАЩИТА ОТ ИСКАЖЕНИЙ -->
+        <h2>🛡️ 8. СИСТЕМА ЗАЩИТЫ ОТ ИСКАЖЕНИЙ</h2>
+        
+        <table>
+            <tr><th>Тип искажения</th><th>Признаки</th><th>Вес флага</th></tr>
+            <tr><td>«ИДЕАЛЬНЫЙ Я»</td><td>Завышение хорошего</td><td>0.7</td></tr>
+            <tr><td>«ЖЕРТВА»</td><td>Завышение плохого</td><td>0.7</td></tr>
+            <tr><td>«ТРОЛЛЬ»</td><td>Крайние ответы, хаос</td><td>0.9</td></tr>
+            <tr><td>«КОНКУРЕНТ»</td><td>Системные искажения</td><td>0.9</td></tr>
+            <tr><td>extreme_answers</td><td>Только 1 и 5</td><td>0.7</td></tr>
+            <tr><td>too_fast_tests</td><td><30% времени</td><td>0.6</td></tr>
+            <tr><td>multiple_accounts</td><td>Один IP на много</td><td>0.9</td></tr>
+        </table>
+
+        <!-- ЧАСТЬ 9. ТРИ ИСТОЧНИКА ДАННЫХ (НОВАЯ ПАРАДИГМА) -->
+        <h2>🔍 9. ТРИ ИСТОЧНИКА ПРАВДЫ · ПОВЕДЕНИЕ КАК ЯДРО</h2>
+        
+        <div class="grid-3">
+            <div class="card" style="border-top: 8px solid #f1c40f;">
+                <div class="card-title">🗣️ САМООПРЕДЕЛЕНИЕ (25%)</div>
+                <p>Тесты, дневники, цели</p>
+                <p class="badge">субъективно</p>
+            </div>
+            <div class="card" style="border-top: 8px solid #2ecc71;">
+                <div class="card-title">👁️ НАШ ВЗГЛЯД (60%)</div>
+                <p>Поведение, эмодзи, поиск</p>
+                <p class="badge badge-gold">ОБЪЕКТИВНО</p>
+            </div>
+            <div class="card" style="border-top: 8px solid #3498db;">
+                <div class="card-title">👥 ЧУЖОЙ ВЗГЛЯД (15%)</div>
+                <p>360°, оценки друзей</p>
+                <p class="badge">валидация</p>
+            </div>
+        </div>
+
+        <div class="formula-block">
+            <strong>P_нейротип = 0.6 × B + 0.25 × S + 0.15 × O</strong>
+        </div>
+
+        <!-- ЧАСТЬ 10. ГОСТЕВОЙ РЕЖИМ -->
+        <h2>🚪 10. ГОСТЕВОЙ РЕЖИМ (ДВЕ ВХОДНЫЕ ДВЕРИ)</h2>
+        
+        <table>
+            <tr><th>Функция</th><th>Гость</th><th>Лайт</th><th>Полный</th></tr>
+            <tr><td>Калькуляторы</td><td>✅</td><td>✅ (с историей)</td><td>✅</td></tr>
+            <tr><td>Советы</td><td>✅ общие</td><td>✅ персонализ.</td><td>✅</td></tr>
+            <tr><td>Статьи</td><td>✅</td><td>✅</td><td>✅</td></tr>
+            <tr><td>Сообщество</td><td>👁️ чтение</td><td>💬 писать</td><td>💬</td></tr>
+            <tr><td>Тесты NEUROSENS</td><td>❌</td><td>❌</td><td>✅</td></tr>
+            <tr><td>Дневник эмоций</td><td>❌</td><td>❌</td><td>✅</td></tr>
+            <tr><td>Квесты</td><td>❌</td><td>❌</td><td>✅</td></tr>
+            <tr><td>Граф состояний</td><td>❌</td><td>❌</td><td>✅</td></tr>
+        </table>
+
+        <!-- ЧАСТЬ 11. ЛОГОТИП И ВИЗУАЛИЗАЦИЯ -->
+        <h2>🎨 11. ЛОГОТИП-ГРАФ</h2>
+        
+        <div class="logo-showcase">
+            <div class="logo-item">
+                <div class="logo-ascii">
+                    ●─●<br>
+                   /   \<br>
+                  ●  ●  ●<br>
+                   \   /<br>
+                    ●─●
+                </div>
+                <p><strong>Минимальный</strong> (favicon)</p>
+            </div>
+            <div class="logo-item">
+                <div class="logo-ascii">
+                    🟢──🟡<br>
+                   /     \<br>
+                  🟢  🔴  🟢<br>
+                   \     /<br>
+                    🟢──🟢
+                </div>
+                <p><strong>Динамический</strong> (под состояние)</p>
+            </div>
+        </div>
+
+        <!-- ЧАСТЬ 12. ПАРТНЁРСКАЯ ПРОГРАММА -->
+        <h2>🤝 12. ПАРТНЁРСКАЯ ПРОГРАММА</h2>
+        
+        <h3>🟢 Зелёные партнёры</h3>
+        <ul>
+            <li>🧠 PsyCare — скидка 20% (TOCHKA20)</li>
+            <li>📚 Litres — кешбэк 15%</li>
+            <li>🏃 Fitmost — 7 дней бесплатно + 10%</li>
+            <li>💹 Т-Инвестиции — 500₽ за ИИС</li>
+            <li>🎓 Нетология — скидка 15% (TOCHKA15)</li>
+            <li>🌳 Zigmund.Online — первая сессия бесплатно</li>
+        </ul>
+        
+        <h3>🟡 Жёлтые партнёры (с предупреждением)</h3>
+        <ul>
+            <li>📖 Издательство "София" — скидка 10%</li>
+            <li>📖 Издательство "Весь" — скидка 10%</li>
+        </ul>
+        
+        <h3>🔴 Красные партнёры (только для опытных)</h3>
+        <ul>
+            <li>💱 Bybit — ⚠️ высокий риск</li>
+            <li>💱 Binance — ⚠️ высокий риск</li>
+        </ul>
+
+        <!-- ЧАСТЬ 13. СТРАТЕГИЯ ПРИВЛЕЧЕНИЯ -->
+        <h2>🧲 13. СТРАТЕГИЯ ПРИВЛЕЧЕНИЯ</h2>
+        
+        <h3>Три уровня входа</h3>
+        <table>
+            <tr><th>Уровень</th><th>Что предлагаем</th><th>Доля трафика</th></tr>
+            <tr><td>🔧 ИНСТРУМЕНТЫ</td><td>Калькуляторы, чек-листы</td><td>60%</td></tr>
+            <tr><td>📚 КОНТЕНТ</td><td>Статьи, истории, подборки</td><td>30%</td></tr>
+            <tr><td>🧠 ГЛУБИНА</td><td>Тесты, дневники, квесты</td><td>10%</td></tr>
+        </table>
+
+        <h3>Ключевые слова</h3>
+        <div class="grid-3">
+            <div><strong>Инструменты:</strong> рассчитать калории, кредитный калькулятор, норма воды, ИМТ</div>
+            <div><strong>Контент:</strong> как похудеть, как начать инвестировать, как справиться с тревогой</div>
+            <div><strong>Глубина:</strong> тест на тип личности, психотипы, архетипы Юнга</div>
+        </div>
+
+        <!-- ЧАСТЬ 14. ВОРОНКА КОНВЕРСИИ -->
+        <h2>📊 14. ПОВЕДЕНЧЕСКАЯ ВОРОНКА</h2>
+        
+        <div class="funnel">
+            <div class="funnel-level">🚶 ЗАШЁЛ (100%) — 1000</div>
+            <div class="funnel-level">🧮 ИСПОЛЬЗОВАЛ ИНСТРУМЕНТ (50%) — 500</div>
+            <div class="funnel-level">📋 ЛАЙТ-РЕГИСТРАЦИЯ (20%) — 100</div>
+            <div class="funnel-level">🔬 ЗАИНТЕРЕСОВАЛСЯ (30%) — 30</div>
+            <div class="funnel-level">🧠 ПОЛНАЯ РЕГИСТРАЦИЯ (50%) — 15</div>
+            <div class="funnel-level">🎯 АКТИВНЫЙ (75%) — 11</div>
+        </div>
+
+        <!-- ЧАСТЬ 15. БЮДЖЕТ И МЕТРИКИ -->
+        <h2>💰 15. БЮДЖЕТ И МЕТРИКИ</h2>
+        
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-title">Расходы/мес</div>
+                <ul>
+                    <li>Контекстная реклама: 30 000 ₽</li>
+                    <li>Контент-менеджер: 20 000 ₽</li>
+                    <li>Техподдержка: 10 000 ₽</li>
+                    <li>Партнёрские: 5 000 ₽</li>
+                    <li><strong>ИТОГО: 65 000 ₽</strong></li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="card-title">Доходы/мес</div>
+                <ul>
+                    <li>Партнёрские (финансы): 20 000 ₽</li>
+                    <li>Партнёрские (книги): 10 000 ₽</li>
+                    <li>Донаты: 5 000 ₽</li>
+                    <li>Платные квесты: 10 000 ₽</li>
+                    <li><strong>ИТОГО: 45 000 ₽</strong></li>
+                </ul>
+            </div>
+        </div>
+        
+        <p style="text-align: center; font-weight: 600;">ROI: -20 000 ₽/мес (инвестиции в рост)</p>
+
+        <!-- ЧАСТЬ 16. ИТОГОВАЯ АРХИТЕКТУРА -->
+        <h2>🏗️ 16. ИТОГОВАЯ АРХИТЕКТУРА NEUROSENS 2.0</h2>
+        
+        <div style="background: #eaf3fc; padding: 2rem; border-radius: 2rem;">
+            <pre style="font-family: 'Fira Code'; background: transparent; white-space: pre-wrap;">
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                  │
+│   🚪 ПРИВЛЕЧЕНИЕ (70% бюджета)                                  │
+│   Калькуляторы → Лайт-регистрация → Поведенческий профиль       │
+│                                                                  │
+│   ↓                                                             │
+│                                                                  │
+│   🧠 ЯДРО NEUROSENS                                              │
+│   ┌─────────────────────────────────────────────────────────┐   │
+│   │  📊 ПОВЕДЕНИЕ (60%) · эмодзи, клики, поиск               │   │
+│   └─────────────────────────────────────────────────────────┘   │
+│   ┌─────────────────────────────────────────────────────────┐   │
+│   │  🗣️ САМООПРЕДЕЛЕНИЕ (25%) · тесты, дневники             │   │
+│   └─────────────────────────────────────────────────────────┘   │
+│   ┌─────────────────────────────────────────────────────────┐   │
+│   │  👥 360° (15%) · оценки друзей                          │   │
+│   └─────────────────────────────────────────────────────────┘   │
+│                                                                  │
+│   ↓                                                             │
+│                                                                  │
+│   💰 МОНЕТИЗАЦИЯ · Партнёрские программы · Платные квесты      │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+            </pre>
+        </div>
+
+        <!-- ЧАСТЬ 17. ПОЛНАЯ СТРУКТУРА ДЛЯ OBSIDIAN -->
+        <h2>📁 17. ПОЛНАЯ СТРУКТУРА ДЛЯ OBSIDIAN</h2>
+        
+        <pre style="background: #eaf2fb; padding: 1rem; border-radius: 1rem; font-family: 'Fira Code';">
+NEUROSENS/
+├── 00 - Индекс/
+├── 01 - Философия/
+├── 02 - Архетипы/
+├── 03 - Сенсотипы/
+├── 04 - Ментотипы/
+├── 05 - Переходы/
+├── 06 - Закон соответствия/
+├── 07 - Математическая модель/
+├── 08 - Защита от искажений/
+├── 09 - Гостевой режим/
+├── 10 - Бренд и логотип/
+├── 11 - Партнёры/
+├── 12 - Три источника данных/
+├── 13 - Поведенческое ядро/
+├── 14 - Маркетинг и привлечение/
+│   ├── Три уровня входа.md
+│   ├── Каналы привлечения.md
+│   ├── Ключевые слова.md
+│   ├── Воронка конверсии.md
+│   └── Бюджет и метрики.md
+└── 15 - Техническая реализация/
+        </pre>
+
+        <!-- ФИНАЛЬНЫЙ БЛОК -->
+        <hr>
+        <div style="background: #d4b24a20; padding: 2rem; border-radius: 3rem; text-align: center; border: 2px solid #d4b24a;">
+            <p style="font-size: 1.8rem; font-weight: 700; color: #103e57;">✅ NEUROSENS · ПОЛНАЯ ОБЪЕДИНЁННАЯ МОДЕЛЬ v12</p>
+            <p style="font-size: 1.2rem;">Содержит всё:<br>
+            • <strong>Модель:</strong> 8 архетипов, 24 сенсотипа, 12 ментотипов, переходы, вероятности, факторы<br>
+            • <strong>Защита:</strong> от искажений, флаги, списки<br>
+            • <strong>Гостевой режим:</strong> две входные двери, лайт-регистрация<br>
+            • <strong>Поведенческое ядро:</strong> 60/25/15, новая парадигма<br>
+            • <strong>Логотип:</strong> концепция графа, динамическая версия<br>
+            • <strong>Партнёры:</strong> зелёные/жёлтые/красные<br>
+            • <strong>Маркетинг:</strong> три уровня входа, каналы, ключевые слова, воронка, бюджет<br>
+            • <strong>Obsidian:</strong> полная структура (15 папок)</p>
+            <p style="margin-top: 1rem; font-size: 1.5rem;"><strong>📊 ГОТОВО К ПЕРЕНОСУ В НОВЫЙ ДИАЛОГ</strong></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
